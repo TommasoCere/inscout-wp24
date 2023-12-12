@@ -1,4 +1,5 @@
-# ScoutSocial Network
+# INSCOUT
+## Un Social Network Scoutistico
 
 Benvenuto in ScoutSocial, il social network dedicato agli appassionati di scouting!
 
