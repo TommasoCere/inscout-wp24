@@ -1,0 +1,23 @@
+.bg-custom-dark {
+    background-color: #121212;
+}
+
+.bg-custom-dark-2 {
+    background-color: #323949;
+}
+
+.text-custom-white {
+    color: #f2f3f4;
+}
+
+.btn-custom-orange {
+    background-color: #ff6700;
+    color: #f2f3f4;
+    border-radius: 10px;
+}
+.btn-custom-orange:hover {
+    border-color: #ff6700;
+    border-radius: 10px;
+    background-color: #ff990085;
+    color: #f2f3f4;
+}
