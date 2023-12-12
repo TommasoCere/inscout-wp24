@@ -15,8 +15,11 @@ repository_path="/home/tom/Progetto/inscout-wp24"
 # Cambia la directory alla repository locale
 cd "$repository_path"
 
+$username = cat /home/tom/Documenti/env/GitUser.env
+$pwd = cat /home/tom/Documenti/env/GitPwd.env
+
 # Esegui il pull dalla repository remota
-git pull origin master
+git pull https://$username:$pwd@github.com/TommasoCere/inscout-wp24
 
 # Se è richiesto il merge, eseguilo
 if [ -f "$repository_path/.git/MERGE_HEAD" ]; then
