@@ -29,10 +29,6 @@ fi
 # Sposoto i file nella directory www
 cd /var/www/inscout.me
 rm -r *
-cp -r /home/tom/Progetto/inscout-wp24/www/* /var/www/inscout.me
-
-cd /var/www/app.inscout.me
-rm -r *
-cp -r /home/tom/Progetto/inscout-wp24/app/* /var/www/app.inscout.me
+cp -r /home/tom/Progetto/inscout-wp24/app/* /var/www/inscout.me
 
 echo "Pull completato per la repository $repository."
