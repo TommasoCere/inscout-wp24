@@ -1,12 +1,11 @@
 <?php
     $username = $_POST['username'];
     $password = $_POST['password'];
-
+    
     // Includi il file di configurazione
     include_once('../../../php/connection.php');
-    echo "<script>console.log('Connessione al database riuscita');</script>";
     // Query
-    $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+    $sql = "SELECT * FROM UTENTI WHERE username = '$username' AND password = '$password'";
     $result = mysqli_query($conn, $sql);
 
     // Controlla se l'utente esiste
@@ -20,6 +19,6 @@
         header("Location: ../../dashboard.php");
     } else {
         // Redirect al login
-        header("Location: ../../index.php");
+        echo "Utente non trovato";
     }
 ?>
