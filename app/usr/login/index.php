@@ -19,6 +19,8 @@
             <button type="button" onclick="login()">Login</button>
             <p id="error-message"></p>
         </form>
+        <p>Non hai un account? <a href="../register/index.php">Registrati</a></p>
+        <p>Torna alla <a href="../../index.php">Home</a></p>
     </div>
 
     <script src="script.js"></script>
