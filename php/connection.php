@@ -8,5 +8,7 @@ $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 // Verifica della connessione
 if (!$conn) {
     die("Connessione fallita: " . mysqli_connect_error());
+} else {
+    echo "<script>console.log('Connessione al database riuscita');</script>";
 }
 ?>
