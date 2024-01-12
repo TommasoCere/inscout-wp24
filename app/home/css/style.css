@@ -33,6 +33,29 @@
     height: 100vh;
 }
 
+.custom-scrollbar {
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+.img-story {
+    height: 30%;
+    width: 30%;
+}
+
+.story-row {
+    height: 86px;
+}
+
 body {
     overflow: hidden;
 }
