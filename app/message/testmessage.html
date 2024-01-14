@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messaggeria</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        #chat-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            max-height: 300px;
+            overflow-y: scroll;
+        }
+
+        #message-input {
+            width: 80%;
+            padding: 8px;
+            margin-right: 5px;
+        }
+
+        #send-button {
+            padding: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="chat-box"></div>
+
+    <div>
+        <input type="text" id="message-input" placeholder="Inserisci il tuo messaggio">
+        <button id="send-button" onclick="sendMessage()">Invia</button>
+    </div>
+
+    <script>
+        function sendMessage() {
+            var messageInput = document.getElementById('message-input');
+            var chatBox = document.getElementById('chat-box');
+
+            var message = messageInput.value;
+            if (message.trim() === '') {
+                alert('Inserisci un messaggio prima di inviare.');
+                return;
+            }
+
+            var timestamp = new Date().toLocaleTimeString();
+            var formattedMessage = '[' + timestamp + '] Utente: ' + message;
+
+            chatBox.innerHTML += '<p>' + formattedMessage + '</p>';
+            messageInput.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    </script>
+
+</body>
+</html>
