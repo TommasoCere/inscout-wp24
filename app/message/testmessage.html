@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messaggeria</title>
+    <title>Messaggeria con Bootstrap</title>
+    <!-- Collegamento a Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,27 +18,29 @@
             max-height: 300px;
             overflow-y: scroll;
         }
-
-        #message-input {
-            width: 80%;
-            padding: 8px;
-            margin-right: 5px;
-        }
-
-        #send-button {
-            padding: 8px;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
 
-    <div id="chat-box"></div>
+    <div class="container mt-3">
+        <div class="jumbotron">
+            <h1 class="display-4">Messaggeria con Bootstrap</h1>
+        </div>
 
-    <div>
-        <input type="text" id="message-input" placeholder="Inserisci il tuo messaggio">
-        <button id="send-button" onclick="sendMessage()">Invia</button>
+        <div id="chat-box" class="mb-3"></div>
+
+        <div class="input-group mb-3">
+            <input type="text" id="message-input" class="form-control" placeholder="Inserisci il tuo messaggio">
+            <div class="input-group-append">
+                <button id="send-button" class="btn btn-primary" onclick="sendMessage()">Invia</button>
+            </div>
+        </div>
     </div>
+
+    <!-- Collegamento a Bootstrap JavaScript e jQuery (necessari per alcune funzionalità di Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script>
         function sendMessage() {

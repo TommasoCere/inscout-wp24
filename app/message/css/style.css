@@ -1,3 +1,15 @@
+#chat-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: scroll;
+    color: white;
+}
+
+#titolo {
+    color: white;
+}
+
 .bg-custom-dark {
     background-color: #121212;
 }
