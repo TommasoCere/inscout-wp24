@@ -3,14 +3,11 @@ function login() {
     var password = document.getElementById('password').value;
     
     const xmlhttp = new XMLHttpRequest();
-    const url = 'login.php?username=' + username + '&password=' + password;
-    console.log(url);
+    const url = 'login.php';
+    const params = 'username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password);
     xmlhttp.onreadystatechange = function() {
-        // stampo la risposta del server
-        console.log(this.responseText);
         if (this.readyState == 4 && this.status == 200) {
             var response = JSON.parse(this.responseText);
-            console.log(response);
             if (response.success) {
                 window.location.href = '../../home/index.html';
             } else {
@@ -18,6 +15,7 @@ function login() {
             }
         }
     };
-    xmlhttp.open('GET', url, true);
-    xmlhttp.send();
+    xmlhttp.open('POST', url, true);
+    xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xmlhttp.send(params);
 }

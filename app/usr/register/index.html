@@ -21,17 +21,25 @@
           <input type="text" id="nome" placeholder="Nome" required />
           <input type="text" id="cognome" placeholder="Cognome" required />
           <input type="text" id="email" placeholder="Email" required />
-          <select id="branca" name="branca" required>
-            <option value="" disabled selected hidden>Seleziona</option>
-            <option value="Lupetti">Lupetti</option>
-            <option value="Reparto">Reparto</option>
-            <option value="Clan">Noviziato</option>
-            <option value="Clan">Clan</option>
-            <option value="Capi">Co.Ca.</option>
-          </select>
+          <div>
+            <label for="branca">Branca: </label>
+            <select id="branca" name="branca" required>
+              <option value="" disabled selected hidden>Seleziona</option>
+              <option value="Lupetti">Lupetti</option>
+              <option value="Reparto">Reparto</option>
+              <option value="Clan">Noviziato</option>
+              <option value="Clan">Clan</option>
+              <option value="Capi">Co.Ca.</option>
+            </select>
+          </div>
           <div>
             <label for="gruppo">Gruppo:</label>
-            <select id="gruppo" name="gruppo" onclick="populateGruppoDropdown()" required>
+            <select
+              id="gruppo"
+              name="gruppo"
+              onclick="getGruppiList()"
+              required
+            >
               <!-- Opzioni saranno popolate dinamicamente tramite JavaScript -->
             </select>
           </div>
