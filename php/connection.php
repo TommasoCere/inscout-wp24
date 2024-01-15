@@ -3,7 +3,7 @@
 include_once('config.php');
 
 // Creazione della connessione
-$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+$conn = mysqli_connect(getenv('DB_HOST'), getenv('DB_USER'), getenv('DB_PASSWORD'), getenv('DB_NAME'));
 
 // Verifica della connessione
 if (!$conn) {

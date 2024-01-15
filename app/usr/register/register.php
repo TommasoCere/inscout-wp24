@@ -5,12 +5,13 @@
     $nome = $_POST['nome'];
     $cognome = $_POST['cognome'];
     $branca = $_POST['branca'];
-    $gruppo = $_POST['gruppo'];
+    $cittaGruppo = $_POST['cittaGruppo'];
+    $numeroGruppo = $_POST['numeroGruppo'];
 
     // Includi il file di configurazione
     include_once('../../../php/connection.php');
     // Query
-    $sql = "INSERT INTO UTENTI (username, password, email, nome, cognome, branca, gruppoDiAppartenenza) VALUES ('$username', '$password', '$email', '$nome', '$cognome', '$branca', '$gruppo')";
+    $sql = "INSERT INTO UTENTI (username, password, email, nome, cognome, branca, cittàGruppo, numeroGruppo) VALUES ('$username', '$password', '$email', '$nome', '$cognome', '$branca', '$cittaGruppo', '$numeroGruppo')";
     //echo $sql;
     $result = mysqli_query($conn, $sql);
     $conn->close();
@@ -21,10 +22,9 @@
         $_SESSION['username'] = $username;
         $_SESSION['password'] = $password;
 
-        // Redirect alla dashboard
-        header("Location: ../login/index.php");
+        echo json_encode(['success' => true]);
     } else {
         // Redirect al login
-        echo "Errore nella registrazione";
+        echo json_encode(['success' => false, 'error' => 'Errore nella registrazione']);
     }
 ?>

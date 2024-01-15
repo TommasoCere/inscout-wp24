@@ -1,7 +1,12 @@
 <?php
-    // Parametri di connessione al database
-    define('DB_HOST', '93.41.239.63');
-    define('DB_USER', 'admin');
-    define('DB_PASSWORD', 'DatabaseInscout');
-    define('DB_NAME', 'inscout');
+    function loadEnv() {
+        $envFile = __DIR__ . '/conf.env';
+        if (file_exists($envFile)) {
+            $env = parse_ini_file($envFile);
+            foreach ($env as $key => $value) {
+                putenv("$key=$value");
+            }
+        }
+    }
+    loadEnv();
 ?>

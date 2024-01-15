@@ -1,11 +1,18 @@
 function register() {
-  var username = "username";
+  var username = document.getElementById("username").value.toLowerCase().trim();
   var password = document.getElementById("password").value;
-  var email = "abc@abc.it";
+  var email = document.getElementById("email").value.toLowerCase().trim();
   var nome = "nome";
   var cognome = "cognome";
   var branca = "branca";
   var gruppo = document.getElementById("gruppo").value;
+  // dividi la città dal numero es. "Alta valle del Tevere 1" -> "Alta valle del Tevere" e "1"
+  var tmp = gruppo.split(" ");
+  var cittàGruppo = tmp.slice(0, tmp.length - 1).join(" ");
+  var numeroGruppo = tmp[tmp.length - 1];
+
+  console.log("città: " + cittàGruppo);
+  console.log("numero: " + numeroGruppo);
 
   var formData = new FormData();
   formData.append("username", username);
@@ -14,7 +21,8 @@ function register() {
   formData.append("nome", nome);
   formData.append("cognome", cognome);
   formData.append("branca", branca);
-  formData.append("gruppo", gruppo);
+  formData.append("cittaGruppo", cittàGruppo);
+  formData.append("numeroGruppo", numeroGruppo);
 
   const xmlhttp = new XMLHttpRequest();
   const url = "./register.php";
