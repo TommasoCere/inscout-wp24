@@ -26,3 +26,22 @@ function register() {
     xmlhttp.open('GET', url, true);
     xmlhttp.send();
 }
+
+function populateGruppoDropdown() {
+    console.log('populateGruppoDropdown');
+    $.ajax({
+        type: 'GET',
+        url: './getGruppi.php',
+        dataType: 'json',
+        success: function(data) {
+            console.log(data);
+            var select = document.getElementById('gruppo');
+            for (var i = 0; i < data.length; i++) {
+                var option = document.createElement('option');
+                option.text = data[i].nome;
+                option.value = data[i].nome;
+                select.add(option);
+            }
+        }
+    });
+}
