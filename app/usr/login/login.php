@@ -16,11 +16,12 @@
         // Imposta la sessione
         session_start();
         $_SESSION['username'] = $username;
-        $_SESSION['password'] = $password;
-        // Utente trovato
-        echo json_encode(['success' => true]);
+        $_SESSION['userId'] = $result->fetch_assoc()['id'];
+        include_once('../../../php/request/token.php');
+        $token = getToken();
+        echo json_encode(['success' => true, 'token' => $token]);
     } else {
         // Utente non trovato
-        echo json_encode(['success' => false, 'error' => 'Utente non trovato']);
+        echo json_encode(['success' => false, 'message' => 'Password o username errati']);
     }
 ?>

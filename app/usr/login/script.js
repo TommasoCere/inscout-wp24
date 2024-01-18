@@ -1,3 +1,10 @@
+import { errorPopup } from '../../utils/utils.js';
+
+document.addEventListener('DOMContentLoaded', ()=> {
+    const loginButton = document.getElementById('loginButton');
+    loginButton.addEventListener('click', login);
+});
+
 function login() {
     var username = document.getElementById('username').value.toLowerCase().trim();
     var password = document.getElementById('password').value;
@@ -9,9 +16,10 @@ function login() {
         if (this.readyState == 4 && this.status == 200) {
             var response = JSON.parse(this.responseText);
             if (response.success) {
+                setToken(response.token);
                 window.location.href = '../../home/index.html';
             } else {
-                document.getElementById('error').innerHTML = response.error;
+                errorPopup('error', 'ATTENZIONE', response.message);
             }
         }
     };
