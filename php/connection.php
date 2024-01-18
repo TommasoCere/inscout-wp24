@@ -1,6 +1,7 @@
 <?php
 // Includi il file di configurazione
-include_once('config.php');
+include_once('utils.php');
+loadEnv();
 
 // Creazione della connessione
 $conn = mysqli_connect(getenv('DB_HOST'), getenv('DB_USER'), getenv('DB_PASSWORD'), getenv('DB_NAME'));

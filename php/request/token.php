@@ -1,10 +1,18 @@
 <?php
+include_once('../utils.php');
+loadEnvSecretKey();
+use Firebase\JWT\JWT;
 
-include_once('vendor/autoload.php');
-$token = array(
-    'username' => $user['username']
+$userId = $_SESSION['userId'];
+$username = $_SESSION['username'];
+$secretKey = getenv('JWT_SECRET_TOKEN');
+
+$tokenPayload = array(
+    "userId" => $userId,
+    "username" => $username
 );
-//$token = \Firebase\JWT\JWT::encode($token, getenv('JWT_SECRET'));
-echo json_encode(array('token' => $token));
+
+$jwt = JWT::encode($tokenPayload, $secretKey, 'HS256');
+echo json_encode(array("token" => $jwt));
 
 ?>
