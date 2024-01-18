@@ -3,8 +3,8 @@
 include_once('utils.php');
 loadEnv();
 
-// Creazione della connessione
-$conn = mysqli_connect(getenv('DB_HOST'), getenv('DB_USER'), getenv('DB_PASSWORD'), getenv('DB_NAME'));
+// console log
+$conn = mysqli_connect(getenv('DB_HOST'), getenv('DB_USER'), getenv('DB_PASSWORD'), getenv('DB_NAME'), getenv('DB_PORT'));
 
 // Verifica della connessione
 if (!$conn) {

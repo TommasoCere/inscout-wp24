@@ -15,7 +15,7 @@ if (isset($authHeader)) {
         $decoded = JWT::decode($token, new Key($secretKey, 'HS256'));
         if ($decoded->exp > time()) {
             $userId = $decoded->userId;
-            $username = $decoded->username;
+            $cittaGruppo = $decoded->cittaGruppo;
             echo json_encode(array("message" => "Accesso consentito"));
         } else {
             echo json_encode(array("message" => "Token scaduto"));

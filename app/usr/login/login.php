@@ -16,7 +16,7 @@
         // Imposta la sessione
         session_start();
         $_SESSION['username'] = $username;
-        $_SESSION['userId'] = $result->fetch_assoc()['id'];
+        $_SESSION['cittaGruppo'] = $result->fetch_assoc()['cittàGruppo'];
         include_once('../../../php/request/token.php');
         $token = getToken();
         echo json_encode(['success' => true, 'token' => $token]);
