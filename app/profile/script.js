@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', ()=> {
     logoutButton.addEventListener('click', logout);
     const registrationButton = document.getElementById('registrationButton');
     registrationButton.addEventListener('click', registration);
+    const testButton = document.getElementById('testButton');
+    testButton.addEventListener('click', test);
 });
 
 function login() {
@@ -35,6 +37,7 @@ function logout() {
             if (response.success) {
                 // reindirizzo al login
                 errorPopup('success', 'ATTENZIONE', response.message);
+                window.location.href = '../usr/login/index.html';
             } else {
                 errorPopup('error', 'ATTENZIONE', response.message);
             }
@@ -44,9 +47,31 @@ function logout() {
     } else {
         errorPopup('info', 'ATTENZIONE', logged.message);
         // reinidirizzo al login
-        //window.location.href = '../usr/login/index.html';
+        // window.location.href = '../usr/login/index.html';
     }
 }
 
 function registration() {
+}
+
+function test() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "userInfo.php", false);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send();
+    if (xhr.readyState == 4 && xhr.status == 200) {
+        var response = JSON.parse(xhr.responseText);
+        if (response.success) {
+            errorPopup('success', 'ATTENZIONE', response.message);
+            // iserisco i dati nella pagina
+            document.getElementById('nome').innerHTML = response.nome;
+            document.getElementById('cognome').innerHTML = response.cognome;
+            document.getElementById('email').innerHTML = response.email;
+            document.getElementById('citta').innerHTML = response.cittaGruppo;
+        } else {
+            errorPopup('error', 'ATTENZIONE', response.message);
+        }
+    } else {
+        console.error("isLogged function error");
+    }
 }
