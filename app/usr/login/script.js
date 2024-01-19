@@ -16,11 +16,6 @@ function login() {
         if (this.readyState == 4 && this.status == 200) {
             var response = JSON.parse(this.responseText);
             if (response.success) {
-                // imposto il cookie
-                var d = new Date();
-                d.setTime(d.getTime() + (365*24*60*60));
-                var exp = 'expires='+ d.toUTCString();
-                document.cookie = 'token=' + response.token + ';' + exp + ';path=/';
                 // reindirizzo alla home
                 window.location.href = '../../home/index.html';
             } else {

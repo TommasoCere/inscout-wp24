@@ -19,7 +19,8 @@
         $_SESSION['cittaGruppo'] = $result->fetch_assoc()['cittàGruppo'];
         include_once('../../../php/request/token.php');
         $token = getToken();
-        echo json_encode(['success' => true, 'token' => $token]);
+        setcookie('token', $token, time() + (365 * 24 * 60 * 60), "/", "", false, true);
+        echo json_encode(['success' => true, 'message' => 'Accesso consentito']);
     } else {
         // Utente non trovato
         echo json_encode(['success' => false, 'message' => 'Password o username errati']);
