@@ -13,16 +13,15 @@
 
     // Controlla se l'utente esiste
     if ($result->num_rows > 0) {
-        // Imposta la sessione
-        session_start();
-        $_SESSION['username'] = $username;
-        $_SESSION['cittaGruppo'] = $result->fetch_assoc()['cittàGruppo'];
+        $cittaGruppo = $result->fetch_assoc()['cittaGruppo'];
         include_once('../../../php/request/token.php');
-        $token = getToken();
-        setcookie('token', $token, time() + (365 * 24 * 60 * 60), "/", "", false, true);
+        $token = getToken($username, $cittaGruppo);
+        setcookie('token', $token, time() + (31536000), "/", "", false, true);
+        header('Content-type: application/json');
         echo json_encode(['success' => true, 'message' => 'Accesso consentito']);
     } else {
         // Utente non trovato
+        header('Content-type: application/json');
         echo json_encode(['success' => false, 'message' => 'Password o username errati']);
     }
 ?>

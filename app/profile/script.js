@@ -22,6 +22,30 @@ function login() {
 }
 
 function logout() {
+    // controllo che non sia già loggato
+    var logged = isLogged();
+    if (logged.message == "Accesso consentito") {
+        // logout
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "../../php/logout.php", false);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send();
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var response = JSON.parse(xhr.responseText);
+            if (response.success) {
+                // reindirizzo al login
+                errorPopup('success', 'ATTENZIONE', response.message);
+            } else {
+                errorPopup('error', 'ATTENZIONE', response.message);
+            }
+        } else {
+            errorPopup('error', 'ATTENZIONE', 'Errore di connessione');
+        }
+    } else {
+        errorPopup('info', 'ATTENZIONE', logged.message);
+        // reinidirizzo al login
+        //window.location.href = '../usr/login/index.html';
+    }
 }
 
 function registration() {

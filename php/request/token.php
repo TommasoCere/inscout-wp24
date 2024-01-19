@@ -5,9 +5,7 @@ loadEnvSecretKey();
 use Firebase\JWT\JWT;
 require __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
-function getToken() {
-    $cittaGruppo = $_SESSION['cittaGruppo'];
-    $username = $_SESSION['username'];
+function getToken($username, $cittaGruppo) {
     $secretKey = getenv('JWT_SECRET_TOKEN');
     // scadenza dopo un anno
     $expTime = time() + 31536000;
