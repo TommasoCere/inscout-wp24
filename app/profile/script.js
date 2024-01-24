@@ -52,6 +52,15 @@ function logout() {
 }
 
 function registration() {
+    // controllo che non sia già loggato
+    var logged = isLogged();
+    if (logged.message == "Accesso consentito") {
+        errorPopup('info', 'ATTENZIONE', 'Sei già loggato!');
+    } else {
+        errorPopup('info', 'ATTENZIONE', logged.message);
+        // reinidirizzo al login
+        window.location.href = '../usr/register/index.html';
+    }
 }
 
 function test() {

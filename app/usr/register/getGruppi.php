@@ -7,10 +7,7 @@ $gruppi = array();
 while ($row = mysqli_fetch_assoc($result)) {
     $gruppi[] = $row;
 }
-
-// Converte l'array in JSON
-$json = json_encode($gruppi);
-echo $json;
-
 $conn->close();
+header('Content-Type: application/json');
+echo json_encode($gruppi);
 ?>

@@ -10,21 +10,31 @@
 
     // Includi il file di configurazione
     include_once('../../../php/connection.php');
-    // Query
-    $sql = "INSERT INTO UTENTI (username, password, email, nome, cognome, branca, cittàGruppo, numeroGruppo) VALUES ('$username', '$password', '$email', '$nome', '$cognome', '$branca', '$cittaGruppo', '$numeroGruppo')";
-    //echo $sql;
+    
+    // controllo se l'utente esiste già
+    $sql = "SELECT * FROM UTENTI WHERE username = '$username'";
     $result = mysqli_query($conn, $sql);
-    $conn->close();
-    // Controlla se è andato a buon fine
-    if ($result) {
-        // Imposta la sessione
-        session_start();
-        $_SESSION['username'] = $username;
-        $_SESSION['password'] = $password;
-
-        echo json_encode(['success' => true]);
+    $num_row = mysqli_num_rows($result);
+    $row=mysqli_fetch_array($result);
+    if( $num_row >= 1 ) {
+        echo json_encode(array('success' => false, 'message' => 'Username già in uso'));
     } else {
-        // Redirect al login
-        echo json_encode(['success' => false, 'error' => 'Errore nella registrazione']);
+        // controllo se l'email esiste già
+        $sql = "SELECT * FROM UTENTI WHERE email = '$email'";
+        $result = mysqli_query($conn, $sql);
+        $num_row = mysqli_num_rows($result);
+        $row=mysqli_fetch_array($result);
+        if( $num_row >= 1 ) {
+            echo json_encode(array('success' => false, 'message' => 'Email già in uso'));
+        } else {
+            // inserisco l'utente nel database
+            $sql = "INSERT INTO UTENTI (username, password, email, nome, cognome, branca, cittaGruppo, numeroGruppo) VALUES ('$username', '$password', '$email', '$nome', '$cognome', '$branca', '$cittaGruppo', '$numeroGruppo')";
+            $result = mysqli_query($conn, $sql);
+            if($result) {
+                echo json_encode(array('success' => true, 'message' => 'Registrazione avvenuta con successo'));
+            } else {
+                echo json_encode(array('success' => false, 'message' => 'Errore durante la registrazione'));
+            }
+        }
     }
 ?>

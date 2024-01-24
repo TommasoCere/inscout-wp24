@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
     <link rel="stylesheet" href="css/style.css" />
+    <script src="../../utils/dist/notifications.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="../../utils/dist/notifications.css" type="text/css">
+    <script type="module" src="script.js"></script>
   </head>
   <body>
     <div class="container">
@@ -20,7 +23,7 @@
           />
           <input type="text" id="nome" placeholder="Nome" required />
           <input type="text" id="cognome" placeholder="Cognome" required />
-          <input type="text" id="email" placeholder="Email" required />
+          <input type="email" id="email" placeholder="Email" required />
           <div>
             <label for="branca">Branca: </label>
             <select id="branca" name="branca" required>
@@ -35,20 +38,17 @@
           <div>
             <label for="gruppo">Gruppo:</label>
             <select
-              id="gruppo"
+              id="gruppoSelect"
               name="gruppo"
-              onclick="getGruppiList()"
               required
             >
               <!-- Opzioni saranno popolate dinamicamente tramite JavaScript -->
             </select>
           </div>
-          <button type="button" onclick="register()">Register</button>
+          <button id="registerButton" type="button">Register</button>
         </form>
         <p>Already have an account? <a href="../login/index.html">Login</a></p>
       </div>
     </div>
   </body>
-
-  <script src="script.js"></script>
 </html>
