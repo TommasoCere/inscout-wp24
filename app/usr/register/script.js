@@ -1,8 +1,8 @@
 import { errorPopup } from '../../utils/utils.js';
 
 document.addEventListener('DOMContentLoaded', ()=> {
-  const loginButton = document.getElementById('registerButton');
-  loginButton.addEventListener('click', register);
+  const registerButton = document.getElementById('registerButton');
+  registerButton.addEventListener('click', register);
   const gruppiList = document.getElementById('gruppoSelect');
   gruppiList.addEventListener('click', getGruppiList);
 });

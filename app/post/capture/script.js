@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
     const cameraPreview = document.getElementById("cameraPreview");
     const captureButton = document.getElementById("captureButton");
+    const backButton = document.getElementById("backButton");
+    backButton.addEventListener('click', turnBack);
 
     // Richiedi l'accesso alla fotocamera
     navigator.mediaDevices.getUserMedia({ video: true })
@@ -33,4 +35,12 @@ document.addEventListener("DOMContentLoaded", function() {
         // Ora puoi inviare imageDataURL al server o fare altre operazioni
         console.log(imageDataURL);
     }
+});
+
+function turnBack() {
+    // torna alla pagina precedente
+    window.history.back();
+}
+
+document.addEventListener("DOMContentLoaded", function() {
 });
