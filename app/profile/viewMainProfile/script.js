@@ -1,4 +1,4 @@
-import { errorPopup, isLogged } from '../utils/utils.js';
+import { errorPopup, isLogged } from '../../utils/utils.js';
 
 document.addEventListener('DOMContentLoaded', ()=> {
     const loginButton = document.getElementById('loginButton');
