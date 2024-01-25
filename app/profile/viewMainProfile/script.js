@@ -1,16 +1,5 @@
 import { errorPopup, isLogged } from '../../utils/utils.js';
 
-document.addEventListener('DOMContentLoaded', ()=> {
-    const loginButton = document.getElementById('loginButton');
-    loginButton.addEventListener('click', login);
-    const logoutButton = document.getElementById('logoutButton');
-    logoutButton.addEventListener('click', logout);
-    const registrationButton = document.getElementById('registrationButton');
-    registrationButton.addEventListener('click', registration);
-    const testButton = document.getElementById('testButton');
-    testButton.addEventListener('click', test);
-});
-
 function login() {
     // controllo che non sia già loggato
     var logged = isLogged();
@@ -51,19 +40,15 @@ function logout() {
     }
 }
 
-function registration() {
-    // controllo che non sia già loggato
+document.addEventListener('DOMContentLoaded', ()=> {
     var logged = isLogged();
-    if (logged.message == "Accesso consentito") {
-        errorPopup('info', 'ATTENZIONE', 'Sei già loggato!');
-    } else {
-        errorPopup('info', 'ATTENZIONE', logged.message);
-        // reinidirizzo al login
-        window.location.href = '../usr/register/index.html';
+    if (!logged.success) {
+        errorPopup('info', 'ATTENZIONE', "Devi effettuare l'accesso");
+        window.location.href = '../../usr/login/index.html';
+        return;
     }
-}
 
-function test() {
+    // inserisco i dati nella pagina
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "userInfo.php", false);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -71,16 +56,14 @@ function test() {
     if (xhr.readyState == 4 && xhr.status == 200) {
         var response = JSON.parse(xhr.responseText);
         if (response.success) {
-            errorPopup('success', 'ATTENZIONE', response.message);
             // iserisco i dati nella pagina
             document.getElementById('nome').innerHTML = response.nome;
             document.getElementById('cognome').innerHTML = response.cognome;
-            document.getElementById('email').innerHTML = response.email;
-            document.getElementById('citta').innerHTML = response.cittaGruppo;
+            document.getElementById('username').innerHTML = response.username;
         } else {
             errorPopup('error', 'ATTENZIONE', response.message);
         }
     } else {
         console.error("isLogged function error");
     }
-}
+});

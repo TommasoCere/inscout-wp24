@@ -11,14 +11,14 @@ if (isset($_COOKIE['token'])) {
         $secretKey = getenv('JWT_SECRET_TOKEN');
         $decoded = JWT::decode($token, new Key($secretKey, 'HS256'));
         if ($decoded->exp > time()) {
-            echo json_encode(array("message" => "Accesso consentito"));
+            echo json_encode(array("success" => true, "message" => "Accesso consentito"));
         } else {
-            echo json_encode(array("message" => "Token scaduto"));
+            echo json_encode(array("success" => false, "message" => "Token scaduto"));
         }
     } catch (Exception $e) {
-        echo json_encode(array("message" => "Accesso negato"));
+        echo json_encode(array("success" => false, "message" => "Token non valido"));
     }
 } else {
-    echo json_encode(array("message" => "Token non trovato"));
+    echo json_encode(array("success" => false, "message" => "Token non presente"));
 }
 ?>
