@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina Commenti Foto</title>
+    <style>
+        /* Stili CSS per la presentazione */
+        #commentSection {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        #comments {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="commentSection">
+    <img src="path/all/tua/immagine.jpg" alt="Descrizione dell'immagine" width="400" height="300">
+    <button onclick="caricaCommenti()">Visualizza Commenti</button>
+
+    <div id="comments">
+        <!-- Qui saranno visualizzati i commenti -->
+    </div>
+
+    <textarea id="nuovoCommento" placeholder="Inserisci il tuo commento"></textarea>
+    <button onclick="aggiungiCommento()">Aggiungi Commento</button>
+</div>
+
+<script>
+    function caricaCommenti() {
+        // Simulazione del caricamento dei commenti da un server o da un altro sorgente
+        const commenti = ["Commento 1", "Commento 2", "Commento 3"];
+        const commentsContainer = document.getElementById("comments");
+
+        // Pulizia dei commenti esistenti
+        commentsContainer.innerHTML = "";
+
+        // Aggiunta dei nuovi commenti
+        commenti.forEach(commento => {
+            const p = document.createElement("p");
+            p.textContent = commento;
+            commentsContainer.appendChild(p);
+        });
+    }
+
+    function aggiungiCommento() {
+        // Simulazione dell'aggiunta di un commento
+        const nuovoCommento = document.getElementById("nuovoCommento").value;
+        const commentsContainer = document.getElementById("comments");
+
+        // Creazione di un nuovo elemento paragrafo per il commento
+        const p = document.createElement("p");
+        p.textContent = nuovoCommento;
+
+        // Aggiunta del nuovo commento alla lista di commenti
+        commentsContainer.appendChild(p);
+
+        // Pulizia del campo di input
+        document.getElementById("nuovoCommento").value = "";
+    }
+</script>
+
+</body>
+</html>
