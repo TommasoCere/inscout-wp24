@@ -59,15 +59,15 @@
     padding: 1.5%;
 }
 
-.story-row {
-    height: 86px;
-}
-
 body {
     overflow: hidden;
 }
 
 .custom-row-height {
     height: 150px;
+}
+
+.custom-container {
+    max-width: 490px;
 }
     

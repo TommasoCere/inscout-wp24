@@ -46,10 +46,16 @@ body {
 
 /* Regola il mass-width del contenitore centrale */
 .custom-container {
-    max-width: 720px;
+    max-width: 490px;
 }
 
 /* Altri stili per il contenuto all'interno del contenitore centrale */
 .custom-container h1 {
     color: #007bff; /* Colore del testo */
+}
+
+
+
+.custom-row-height {
+  height: 150px;
 }
