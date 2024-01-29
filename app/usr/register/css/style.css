@@ -63,12 +63,16 @@ body {
     border-color:#919191;
 }
 
-.form-signin select {
-    margin-bottom: 10px;
+.form-signin input[id="surname"] {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+}
+
+.form-signin select {
     background-color: #919191;
     border-color:#919191;
+    font-size: medium;
+    color: #3d3d3d;
 }
 
 
