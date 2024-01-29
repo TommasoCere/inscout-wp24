@@ -36,4 +36,15 @@
 body {
     overflow: hidden;
 }
+
+.custom-container {
+    max-width: 490px;
+    min-width: 490px;
+}
+
+.list-group-item {
+    background-color: #121212;
+    color: #f2f3f4;
+    border: none;
+}
     
