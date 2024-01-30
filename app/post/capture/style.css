@@ -1,0 +1,8 @@
+.bg-custom-dark {
+    background-color: #121212;
+}
+
+.custom-container {
+    max-width: 490px;
+    min-width: 490px;
+}
