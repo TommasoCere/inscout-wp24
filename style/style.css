@@ -1,0 +1,36 @@
+body {
+    background-color: #121212;
+    color: #f2f3f4;
+}
+
+header {
+    background-color: #1a1a1a;
+    font-family: Cocogoose;
+}
+
+footer {
+    background-color: #1a1a1a;
+}
+
+.btn {
+    color: #008d15ff;
+}
+
+@font-face {
+    font-family: "Cocogoose";
+    src: url("../static/font/Cocogoose-Pro-Semilight-trial.ttf") format("truetype");
+}
+
+@media (min-width: 768px) {
+    footer {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-btn{
+        display: none;
+    }
+}
+
+
