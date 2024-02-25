@@ -18,16 +18,19 @@
 
     <main class="overflow-x-hidden overflow-y-hidden">
         <!--POST 1 -->
-        <div class="row ms-3 align-items-center mt-3 mb-3">
-            <img class="img-fluid col-md-1 col-sm-2 col-2 rounded-circle ms-4" src="../../static/img/user.jpg" alt="">
-            <p class="col-4 h4">nome.utente</p>
+        <div class="row ms-3 align-items-center mt-3">
+            <div class="col-md-2"></div>
+            <img class="img-fluid col-md-1 col-sm-1 col-1 rounded-circle ms-4 p-0 p-md-3" src="../../static/img/user.jpg" alt="">
+            <p class="col-4 h6">nome.utente</p>
+            <div class="col-md-2"></div>
         </div>
         <div class="row m-2 mb-3">
-            <div class="col-md-5">
-                <img class="img-fluid rounded-5" src="../../static/img/post.jpg" alt="">
+            <div class="col-2"></div>
+            <div class="col-md-3">
+                <img class="img-fluid rounded-4" src="../../static/img/post.jpg" alt="">
             </div>
-            <div class="col-md-7">
-                <div class="row align-items-center">
+            <div class="col-md-5">
+                <div class="row align-items-center ms-1">
                     <img class="img-fluid col-1 p-2 pe-0" src="../../static/img/heart.png" alt="">
                     <p class="col-2 h4">4</p>
                     <img class="img-fluid col-1 p-2 pe-0" src="../../static/img/comment.png" alt="">
@@ -36,19 +39,23 @@
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius nemo dignissimos, est itaque suscipit asperiores eligendi, rerum, ratione aut consequuntur harum? Aperiam repellat perferendis, soluta facilis aspernatur quod ea ipsa?
                 </p>
             </div>
+            <div class="col-2"></div>
         </div>
-
+        
         <!--POST 2 -->
-        <div class="row ms-3 align-items-center mt-3 mb-3">
-            <img class="img-fluid col-md-1 col-sm-2 col-2 rounded-circle ms-4" src="../../static/img/user.jpg" alt="">
-            <p class="col-4 h4">nome.utente</p>
+        <div class="row ms-3 align-items-center mt-3">
+            <div class="col-md-2"></div>
+            <img class="img-fluid col-md-1 col-sm-1 col-1 rounded-circle ms-4 p-0 p-md-3" src="../../static/img/user.jpg" alt="">
+            <p class="col-4 h6">nome.utente</p>
+            <div class="col-md-2"></div>
         </div>
         <div class="row m-2 mb-3">
-            <div class="col-md-5">
-                <img class="img-fluid rounded-5" src="../../static/img/post.jpg" alt="">
+            <div class="col-2"></div>
+            <div class="col-md-3">
+                <img class="img-fluid rounded-4" src="../../static/img/post.jpg" alt="">
             </div>
-            <div class="col-md-7">
-                <div class="row align-items-center">
+            <div class="col-md-5">
+                <div class="row align-items-center ms-1">
                     <img class="img-fluid col-1 p-2 pe-0" src="../../static/img/heart.png" alt="">
                     <p class="col-2 h4">4</p>
                     <img class="img-fluid col-1 p-2 pe-0" src="../../static/img/comment.png" alt="">
@@ -57,7 +64,8 @@
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius nemo dignissimos, est itaque suscipit asperiores eligendi, rerum, ratione aut consequuntur harum? Aperiam repellat perferendis, soluta facilis aspernatur quod ea ipsa?
                 </p>
             </div>
-        </div> 
+            <div class="col-2"></div>
+        </div>      
     </main>
     
     <?php include_once "../base/footer.html"; ?>
