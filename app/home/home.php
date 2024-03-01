@@ -21,7 +21,7 @@
         <div class="row ms-3 align-items-center mt-3">
             <div class="col-md-2"></div>
             <img class="img-fluid col-md-1 col-sm-1 col-1 rounded-circle ms-4 p-0 p-md-3" src="../../static/img/user.jpg" alt="">
-            <p class="col-4 h6">nome.utente</p>
+            <p class="col-4 h6"></p>
             <div class="col-md-2"></div>
         </div>
         <div class="row m-2 mb-3">

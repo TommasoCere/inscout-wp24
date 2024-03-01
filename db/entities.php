@@ -2,7 +2,7 @@
 
 require_once "dbEntity.php";
 
-class post implements dbEntity {
+class Post implements DBEntity {
 
     private $id;
     private $picturePath;
@@ -29,11 +29,37 @@ class post implements dbEntity {
         $this->nLikes = $nLikes;
         $this->authorUsername = $authorUsername;
     }
-    public function update() {
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getPicturePath() {
+        return $this->picturePath;
+    }
+
+    public function getPublicationDate() {
+        return $this->publicationDate;
+    }
+
+    public function getText() {
+        return $this->text;
+    }
+
+    public function getNLikes() {
+        return $this->nLikes;
+    }
+
+    public function getAuthorUsername() {
+        return $this->authorUsername;
+    }
+
+
+    public function update(DBDriver $db) {
         //TODO
     }
 
-    public function delete() {
+    public function delete(DBDriver $db) {
         //TODO
     }
 
