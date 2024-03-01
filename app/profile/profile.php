@@ -21,7 +21,7 @@
           <div class="row mt-3 ms-md-5" style="background-color: #121212;">
             <div class="col-md-6 mb-1">
               <div class="row mb-3 ms-1 mt-4">
-                <div class="col-4 col-md-3">
+                <div class="col-4 col-md-4">
                   <img src="../../static/img/fiorello.jpg" alt="" class="img-fluid rounded-4">
                 </div>
                 <div class="col-8">
