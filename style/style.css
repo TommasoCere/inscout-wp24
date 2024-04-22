@@ -24,8 +24,19 @@ ul li a {
     text-decoration: none;
 }
 
-.nav-btn, .close-btn {
+.nav-btn, .btn-close {
     color: #cacaca;
+}
+
+.list-group-item {
+    border: none;
+    background-color: #121212;
+    color: #f2f3f4;
+}
+
+.modal-content {
+    background-color: #2a2a2a;
+    color: #f2f3f4;
 }
 
 @font-face {
