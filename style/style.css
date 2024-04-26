@@ -24,8 +24,29 @@ ul li a {
     text-decoration: none;
 }
 
-.nav-btn, .btn-close {
+.nav-btn{
     color: #cacaca;
+}
+
+.close-btn{
+    color: #cacaca ;
+}
+
+.comment{
+    background-color: #353535;
+    border-radius: 20px;
+    border-top-left-radius: 0px;
+}
+
+.my-comment{
+    background-color: #ffffff;
+    border-radius: 20px;
+    border-top-left-radius: 0px;
+
+}
+
+.form-control {
+    border-color: #ffffff;
 }
 
 .list-group-item {
@@ -38,6 +59,13 @@ ul li a {
     background-color: #2a2a2a;
     color: #f2f3f4;
 }
+
+.modal-header, .modal-footer {
+    border-bottom: none;
+    border-top: none;
+  }
+
+
 
 @font-face {
     font-family: "Cocogoose";
