@@ -14,6 +14,69 @@
 </head>
 
 <body>
+
+  <!-- MODALE MEDAGLIE -->
+  <div class="modal fade" id="BadgeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-centered-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Medagliere</h1>
+        </div>
+        <div class="modal-body">
+          
+          <div class="row text-start pt-3 pb-2 rounded-3" >
+            <div class="col-4 text-center mb-2">
+              <img class="img-fluid col-3" src="../../static/img/medal-icon.png" alt="">
+              <p class="h5 fs-6">Esploratore</p>
+            </div>
+            <div class="col-4 text-center mb-2">
+              <img class="img-fluid col-3" src="../../static/img/medal-icon.png" alt="">
+              <p class="h5 fs-6">Acquila d'oro</p>
+            </div>
+            <div class="col-4 text-center mb-2">
+              <img class="img-fluid col-3" src="../../static/img/medal-icon.png" alt="">
+              <p class="h5 fs-6">Maestro del fuoco</p>
+            </div>
+            <div class="col-4 text-center mb-2">
+              <img class="img-fluid col-3" src="../../static/img/medal-icon.png" alt="">
+              <p class="h5 fs-6">Signore della foresta</p>
+            </div>
+            <div class="col-4 text-center mb-2">
+              <img class="img-fluid col-3" src="../../static/img/medal-icon.png" alt="">
+              <p class="h5 fs-6">Spirito d'Avventura</p>
+            </div>
+            <div class="col-4 text-center mb-2">
+              <img class="img-fluid col-3" src="../../static/img/medal-icon.png" alt="">
+              <p class="h5 fs-6">Spirito d'Avventura</p>
+            </div>
+            <div class="col-4 text-center mb-2">
+              <img class="img-fluid col-3" src="../../static/img/medal-icon.png" alt="">
+              <p class="h5 fs-6">Spirito d'Avventura</p>
+            </div>
+            <div class="col-4 text-center mb-2">
+              <img class="img-fluid col-3" src="../../static/img/medal-icon.png" alt="">
+              <p class="h5 fs-6">Spirito d'Avventura</p>
+            </div>
+          </div>
+
+          <div class="row mb-2 m-1 mt-5 mb-0">
+            <div class="col-3">
+              <img class="img-fluid" src="../../static/img/medal-icon.png" alt="">
+            </div>
+            <div class="my-comment p-2 col-9">
+              <textarea class="form-control" id="message-text"></textarea>           
+          </div>
+        </div>
+
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
     
   <header class="container-fluid sticky-top"></header>
         <main class="m-3 pb-4">
@@ -64,7 +127,7 @@
                   <p class="h5 fs-6">Spirito d'Avventura</p>
                 </div>
                 <div class="col-4 text-center">
-                  <button class="btn btn-success mt-2 ps-4 pe-4" type="button">
+                  <button class="btn btn-success mt-2 ps-4 pe-4" type="button" data-bs-toggle="modal" data-bs-target="#BadgeModal">
                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 512 512">
                       <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/>
                     </svg>

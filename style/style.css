@@ -41,7 +41,6 @@ ul li a {
 .my-comment{
     background-color: #ffffff;
     border-radius: 20px;
-    border-top-left-radius: 0px;
 
 }
 
@@ -64,6 +63,11 @@ ul li a {
     border-bottom: none;
     border-top: none;
   }
+
+
+.user-tag{
+    background-color: #1a1a1a;
+}
 
 
 
