@@ -54,7 +54,7 @@ create table LIKES (
 create table POST (
      id int not null,
      immagine varchar(500) not null,
-     dataPubblicazione char(200) not null,
+     dataPubblicazione DATE not null,
      testo varchar(500) not null,
      nLikes int not null,
      usernameAutore varchar(50) not null,
