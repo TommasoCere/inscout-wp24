@@ -26,9 +26,9 @@ create table BADGE (
 create table COMMENTI (
      usernameAutore varchar(50) not null,
      idPost int not null,
-     id int not null,
+     id int AUTO_INCREMENT not null,
      testo varchar(500) not null,
-     constraint IDCOMMENTO primary key (usernameAutore, idPost, id));
+     constraint IDCOMMENTO primary key (id));
 
 create table CONQUISTE (
      username varchar(50) not null,
@@ -52,7 +52,7 @@ create table LIKES (
      constraint IDLIKES primary key (idPost, username));
 
 create table POST (
-     id int not null,
+     id int AUTO_INCREMENT not null,
      immagine varchar(500) not null,
      dataPubblicazione DATE not null,
      testo varchar(500) not null,
