@@ -1,16 +1,20 @@
 <?php
 
-require_once ("/db/dbEntity.php");
-require_once ("/db/dbDriver.php");
+
+
+
+require_once("./../bootstrap.php");
+require_once("./../entities.php");
+use entities\Post;
 
 global $driver;
-$driver = new DBDriver("Localhost", "root", "", "inscout");
 global $username;
+$username = "Francesco";
 
 $max_posts = 20;
 
 $sql = "SELECT P.*, U.fotoProfilo
-FROM post P, user U
+FROM post P, utenti U
 WHERE P.usernameAutore IN (
     SELECT usernameSeguito
     FROM follow
@@ -38,7 +42,6 @@ if ($result->num_rows > 0) {
         array_push($posts, $post);
     }
 }
-
 echo json_encode($posts, JSON_PRETTY_PRINT);
 
 ?>

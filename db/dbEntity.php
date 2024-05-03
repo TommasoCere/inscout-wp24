@@ -16,10 +16,6 @@ interface DBEntity extends JsonSerializable {
      */
     public function delete(DBDriver $db);
 
-    /**
-     * return the tuple as a json object
-     */
-    public function jsonSerialize();
     
     
 }
