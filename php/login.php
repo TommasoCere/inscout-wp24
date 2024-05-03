@@ -3,7 +3,7 @@
     $password = $_POST['password'] ?? '';
     
     // Includi il file di configurazione
-    include_once('../../../php/connection.php');
+    include_once('./connection.php');
     
     // Usa istruzioni preparate per prevenire SQL injection
     $stmt = $conn->prepare("SELECT * FROM UTENTI WHERE username = ? AND password = ?");

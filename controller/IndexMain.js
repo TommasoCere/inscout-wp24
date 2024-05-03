@@ -1,7 +1,4 @@
-import { addHeaderFooter } from './utility.js';
-import {  errorPopup, isLogged } from '../app/utils/utils.js';
-
-addHeaderFooter();
+import { errorPopup, isLogged } from '../app/utils/utils.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     var tokenCheck = new TokenCheck();
@@ -13,7 +10,7 @@ function TokenCheck() {
         var logged = isLogged();
         if (!logged) {
             errorPopup("error", "LOGIN", "Devi effettuare il login");
-            window.location.href = "../auth/login/index.html";
+            window.location.href = "../app/auth/login/login.html";
         }
     };
 }

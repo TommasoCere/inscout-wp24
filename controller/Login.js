@@ -1,8 +1,11 @@
-import { errorPopup } from '../../utils/utils.js';
+import { errorPopup, isLogged } from '../app/utils/utils.js';
 
 document.addEventListener('DOMContentLoaded', ()=> {
-    const loginButton = document.getElementById('loginButton');
-    loginButton.addEventListener('click', login);
+    const loginButton = document.getElementById('loginForm');
+    loginButton.addEventListener('submit', (event)=> {
+        event.preventDefault();
+        login();
+    });
 });
 
 function login() {
@@ -10,7 +13,7 @@ function login() {
     var password = document.getElementById('password').value;
     
     const xmlhttp = new XMLHttpRequest();
-    const url = 'login.php';
+    const url = '../../../php/login.php';
     const params = 'username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password);
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {

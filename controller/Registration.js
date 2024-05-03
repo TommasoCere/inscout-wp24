@@ -1,10 +1,18 @@
-import { errorPopup } from '../../utils/utils.js';
+import { errorPopup } from '../app/utils/utils.js';
 
 document.addEventListener('DOMContentLoaded', ()=> {
-  const registerButton = document.getElementById('registerButton');
-  registerButton.addEventListener('click', register);
+  //const registerButton = document.getElementById('registerButton');
+  //registerButton.addEventListener('click', register);
   const gruppiList = document.getElementById('gruppoSelect');
   gruppiList.addEventListener('click', getGruppiList);
+});
+
+document.addEventListener('DOMContentLoaded', ()=> {
+  const registrationButton = document.getElementById('registrationForm');
+  registrationButton.addEventListener('submit', (event)=> {
+      event.preventDefault();
+      register();
+  });
 });
 
 function register() {
@@ -14,9 +22,9 @@ function register() {
     document.getElementById("username").value == "" ||
     document.getElementById("password").value == "" ||
     document.getElementById("email").value == "" ||
-    document.getElementById("nome").value == "" ||
-    document.getElementById("cognome").value == "" ||
-    document.getElementById("branca").value == "" ||
+    document.getElementById("name").value == "" ||
+    document.getElementById("surname").value == "" ||
+    document.getElementById("brancaSelect").value == "" ||
     document.getElementById("gruppoSelect").value == ""
   ) {
     errorPopup("error", "ATTENZIONE", "Riempi tutti i campi!");
@@ -26,9 +34,9 @@ function register() {
   var username = document.getElementById("username").value.toLowerCase().trim();
   var password = document.getElementById("password").value;
   var email = document.getElementById("email").value.toLowerCase().trim();
-  var nome = document.getElementById("nome").value;
-  var cognome = document.getElementById("cognome").value;
-  var branca = document.getElementById("branca").value;
+  var nome = document.getElementById("name").value;
+  var cognome = document.getElementById("surname").value;
+  var branca = document.getElementById("brancaSelect").value;
   var gruppo = document.getElementById("gruppoSelect").value;
   // devo dividere il gruppo in città e numero
   var tmp = gruppo.split(" ");
@@ -52,14 +60,14 @@ function register() {
   formData.append("numeroGruppo", numeroGruppo);
 
   const xmlhttp = new XMLHttpRequest();
-  const url = "./register.php";
+  const url = "../../../php/register.php";
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       var response = JSON.parse(this.responseText);
       console.log(response);
       if (response.success) {
         errorPopup("success", "BENVENUTO", response.message);
-        window.location.href = "../login/index.html";
+        window.location.href = "../login/login.html";
       } else {
         errorPopup("error", "ATTENZIONE", response.message);
       }
@@ -70,13 +78,14 @@ function register() {
 }
 
 function getGruppiList() {
-  fetch("./getGruppi.php")
+  fetch("../../../db/getGruppi.php")
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
       var select = document.getElementById("gruppoSelect");
       for (var i = 0; i < data.length; i++) {
         var option = document.createElement("option");
-        option.text = data[i].città + " " + data[i].numero;
+        option.text = data[i].citta + " " + data[i].numero;
         option.value = option.text;
         select.add(option);
       }
