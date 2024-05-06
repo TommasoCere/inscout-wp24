@@ -21,7 +21,7 @@ export function isLogged() {
   // url a seconda di dove si trova il file
   var url = window.location.href;
   url = url.split("/");
-  url = url[0] + "//" + url[2] + "/" + url[3];
+  url = url[0] + "//" + url[2] ;
   url = url + "/php/request/validator.php";
   xhr.open("POST", url, false);
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

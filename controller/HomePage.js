@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
 function TokenCheck() {
     this.init = function() {
         var logged = isLogged();
-        if (!logged) {
-            errorPopup("error", "LOGIN", "Devi effettuare il login");
+        if (logged.message == false) {
+            errorPopup("error", "LOGIN", logged.message);
             window.location.href = "../auth/login/login.html";
         }
     };

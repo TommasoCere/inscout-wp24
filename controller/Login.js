@@ -17,10 +17,11 @@ function login() {
     const params = 'username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password);
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
             var response = JSON.parse(this.responseText);
             if (response.success) {
                 // reindirizzo alla home
-                window.location.href = '../../home/index.html';
+                window.location.href = '../../home/home.html';
             } else {
                 errorPopup('error', 'ATTENZIONE', response.message);
             }

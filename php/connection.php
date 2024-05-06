@@ -1,9 +1,12 @@
 <?php
 
-$ip = "93.71.189.146";
-$usr = "admin";
-$pswd = "DatabaseInscout";
-$dbname = "inscout";
+require_once('./utils.php');
+loadEnv();
+
+$ip = getenv('DB_HOST');
+$usr = getenv('DB_USER');
+$pswd = getenv('DB_PASSWORD');
+$dbname = getenv('DB_NAME');
 
 // Crea connessione
 $conn = mysqli_connect($ip, $usr, $pswd, $dbname);
