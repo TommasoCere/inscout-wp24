@@ -81,7 +81,6 @@ function getGruppiList() {
   fetch("../../../db/getGruppi.php")
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       var select = document.getElementById("gruppoSelect");
       for (var i = 0; i < data.length; i++) {
         var option = document.createElement("option");

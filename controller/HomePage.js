@@ -13,7 +13,7 @@ function TokenCheck() {
         var logged = isLogged();
         if (!logged) {
             errorPopup("error", "LOGIN", "Devi effettuare il login");
-            window.location.href = "../auth/login/index.html";
+            window.location.href = "../auth/login/login.html";
         }
     };
 }
