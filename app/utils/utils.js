@@ -15,7 +15,7 @@ export function errorPopup(theme, title, message) {
 }
 
 export function isLogged() {
-  console.log("isLogged function");
+  //console.log("isLogged function");
   // controllo il token con validator.php
   var xhr = new XMLHttpRequest();
   // url a seconda di dove si trova il file
