@@ -8,12 +8,14 @@ document.addEventListener('DOMContentLoaded', function() {
     tokenCheck.init();
 });
 
-function TokenCheck() {
-    this.init = function() {
-        var logged = isLogged();
-        if (logged.success == false) {
-            errorPopup("error", "LOGIN", logged.message);
-            window.location.href = "../auth/login/login.html";
-        }
-    };
+class TokenCheck {
+    constructor() {
+        this.init = function () {
+            var logged = isLogged();
+            if (logged.success == false) {
+                errorPopup("error", "LOGIN", logged.message);
+                window.location.href = "../auth/login/login.html";
+            }
+        };
+    }
 }

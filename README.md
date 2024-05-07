@@ -44,4 +44,5 @@ DB_USER=[db username]
 DB_PASSWORD=[db password]
 DB_NAME=[db name]
 JWT_SECRET_TOKEN=[jwt secret]
+SHA_SECRET_TOKEN=[sha secret]
 ```

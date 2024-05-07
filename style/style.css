@@ -69,7 +69,6 @@ ul li a {
     border-top: none;
 }
 
-
 .user-tag {
     background-color: #1a1a1a;
 }
@@ -82,21 +81,20 @@ ul li a {
 .image-container {
     position: relative;
     display: inline-block;
-  }
+}
 
-  .overlay {
+.overlay {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     opacity: 0;
     transition: opacity 0.3s;
-  }
-  
-  .thumbnail:hover + .overlay {
-    opacity: 1;
-  }
+}
 
+.thumbnail:hover+.overlay {
+    opacity: 1;
+}
 
 @font-face {
     font-family: "Cocogoose";

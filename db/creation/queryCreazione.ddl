@@ -52,7 +52,7 @@ create table LIKES (
      constraint IDLIKES primary key (idPost, username));
 
 create table POST (
-     id int not null,
+     id int not null auto_increment,
      immagine varchar(500) not null,
      dataPubblicazione char(200) not null,
      testo varchar(500) not null,
