@@ -12,9 +12,9 @@ if ($data['success']) {
     $cittaGruppo = $row['cittaGruppo'];
     $branca = $row['branca'];
     $username = $row['username'];
-    $avatar = $row['fotoProfilo'];
+    $fotoProfilo = $row['fotoProfilo'];
     header('Content-type: application/json');
-    echo json_encode(array("success" => true, "nome" => $nome, "cognome" => $cognome, "cittaGruppo" => $cittaGruppo, "username" => $username, "avatar" => $avatar, "branca" => $branca));
+    echo json_encode(array("success" => true, "nome" => $nome, "cognome" => $cognome, "cittaGruppo" => $cittaGruppo, "username" => $username, "fotoProfilo" => $fotoProfilo, "branca" => $branca));
 } else {
     echo json_encode(array("success" => false, "message" => $data['message']));
 }
