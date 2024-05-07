@@ -102,11 +102,27 @@
             }
 
             public function update(\DBDriver $db) {
-                //TODO
+                $query = "INSERT INTO like (username, idPost) VALUES (?, ?)";
+
+                try {
+                    $db->executeQuery($query, $this->username, $this->postId);
+                    $query = "UPDATE post SET nLikes = nLikes + 1 WHERE id = ?";
+                    $db->executeQuery($query, $this->postId);
+                } catch (\Exception $e) {
+                    throw new \Exception("Error while liking post: " . $e->getMessage());
+                }
             }
 
             public function delete(\DBDriver $db) {
-                //TODO
+                $query = "DEELETE FROM like WHERE username = ? AND idPost = ?";
+
+                try {
+                    $db->executeQuery($query, $this->username, $this->postId);
+                    $query = "UPDATE post SET nLikes = nLikes - 1 WHERE id = ?";
+                    $db->executeQuery($query, $this->postId);
+                } catch (\Exception $e) {
+                    throw new \Exception("Error while liking post: " . $e->getMessage());
+                }
             }
 
             public function jsonSerialize() {
