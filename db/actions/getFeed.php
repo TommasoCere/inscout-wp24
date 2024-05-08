@@ -6,10 +6,13 @@
     require_once ("./../bootstrap.php");
     require_once ("./../entities.php");
     use entities\Post;
+    include_once('../php/request/getDataToken.php');
+    $data = getDataToken();
+    $data = json_decode($data, true);
 
     global $driver;
-    global $username;
-    $username = "Francesco";
+
+    $username = $data['username'];
 
     $max_posts = 20;
 

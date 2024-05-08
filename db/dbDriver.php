@@ -6,6 +6,7 @@ class DBDriver {
     private $username;
     private $password;
     private $dbname;
+
     private $conn;
 
     public function __construct($servername, $username, $password, $dbname) {
@@ -16,7 +17,7 @@ class DBDriver {
     }
 
     public function connect() {
-        $this->conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, 3307);
+        $this->conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname, $this->dbport);
         if ($this->conn->connect_error) {
             die("Connection failed: " . $this->conn->connect_error);
         }

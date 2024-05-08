@@ -9,7 +9,7 @@ require_once("./../dbdriver.php");
 require_once("./../../vendor/autoload.php");
 require_once("./../cors.php");
 
-$driver = new DBDriver("localhost", "root", "", "inscout");
+$driver = new DBDriver(getenv('DB_HOST'), getenv('DB_USER'), getenv('DB_PASSWORD'), getenv('DB_NAME'));
 $driver->connect();
 try {
     $driver->connect();
