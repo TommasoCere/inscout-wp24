@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login System</title>
     <link rel="stylesheet" href="./css/style.css">
-    <script type="module" src="script.js"></script>
     <script src="../../utils/dist/notifications.js" type="text/javascript"></script>
     <link rel="stylesheet" href="../../utils/dist/notifications.css" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
 <body class="text-center text-custom-white" style="background-color: #121212;">
-    <form class="form-signin">
+    <form class="form-signin" id="loginForm">
         <img class="mb-4" src="../../../static/img/favicon.png" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Login</h1>
         <label for="username" class="sr-only" hidden>Username</label>
@@ -24,8 +23,10 @@
         <button type="submit" id="loginButton" class="btn btn-lg btn-primary btn-block">Login</button>
         <p id="error-message"></p>
         
-        <p>Non hai un account? <a href="../register/index.html">Registrati</a></p>
+        <p>Non hai un account? <a href="../register/registration.html">Registrati</a></p>
         <p>Torna alla <a href="../../index.html">Home</a></p>
     </form>
 </body>
+
+    <script src="../../../controller/Login.js?v=14" type="module"></script>
 </html>

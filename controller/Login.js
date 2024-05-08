@@ -1,8 +1,11 @@
-import { errorPopup } from '../../utils/utils.js';
+import { errorPopup, isLogged } from '../app/utils/utils.js';
 
 document.addEventListener('DOMContentLoaded', ()=> {
-    const loginButton = document.getElementById('loginButton');
-    loginButton.addEventListener('click', login);
+    const loginButton = document.getElementById('loginForm');
+    loginButton.addEventListener('submit', (event)=> {
+        event.preventDefault();
+        login();
+    });
 });
 
 function login() {
@@ -10,14 +13,15 @@ function login() {
     var password = document.getElementById('password').value;
     
     const xmlhttp = new XMLHttpRequest();
-    const url = 'login.php';
+    const url = '../../../php/login.php';
     const params = 'username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password);
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
             var response = JSON.parse(this.responseText);
             if (response.success) {
                 // reindirizzo alla home
-                window.location.href = '../../home/index.html';
+                window.location.href = '../../home/home.html';
             } else {
                 errorPopup('error', 'ATTENZIONE', response.message);
             }

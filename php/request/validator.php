@@ -16,7 +16,7 @@ if (isset($_COOKIE['token'])) {
             echo json_encode(array("success" => false, "message" => "Token scaduto"));
         }
     } catch (Exception $e) {
-        echo json_encode(array("success" => false, "message" => "Token non valido"));
+        echo json_encode(array("success" => false, "message" => "Token non valido - errore"));
     }
 } else {
     echo json_encode(array("success" => false, "message" => "Token non presente"));
