@@ -38,6 +38,10 @@ ul li a {
     color: #cacaca;
 }
 
+.liked{
+    color: #ff0000;
+}
+
 .comment{
     background-color: #353535;
     border-radius: 20px;

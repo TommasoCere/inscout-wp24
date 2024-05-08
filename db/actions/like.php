@@ -13,7 +13,7 @@
         $request = json_decode(file_get_contents('php://input'), true);
         $idPost = $request["postId"];
 
-        $like = new Like($username, $postId);
+        $like = new Like($username, $idPost);
         $like->update($driver);
 
         // mandare notifica

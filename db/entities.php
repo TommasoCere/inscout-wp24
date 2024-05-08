@@ -3,6 +3,7 @@
     namespace entities{
         require_once "dbEntity.php";
         require_once "dbDriver.php";
+        require_once ("bootstrap.php");
         
 
         class Post implements \DBEntity {
@@ -102,7 +103,7 @@
             }
 
             public function update(\DBDriver $db) {
-                $query = "INSERT INTO like (username, idPost) VALUES (?, ?)";
+                $query = "INSERT INTO likes (username, idPost) VALUES (?, ?)";
 
                 try {
                     $db->executeQuery($query, $this->username, $this->postId);
@@ -114,7 +115,7 @@
             }
 
             public function delete(\DBDriver $db) {
-                $query = "DEELETE FROM like WHERE username = ? AND idPost = ?";
+                $query = "DELETE FROM likes WHERE username = ? AND idPost = ?";
 
                 try {
                     $db->executeQuery($query, $this->username, $this->postId);

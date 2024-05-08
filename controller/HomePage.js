@@ -1,4 +1,4 @@
-import { addHeaderFooter, getUserInfo, like } from './utility.js';
+import { addHeaderFooter, getUserInfo, like, checkLike } from './utility.js';
 
 
 async function getFeed() {
@@ -22,9 +22,16 @@ async function createFeed() {
         clone.querySelector("#postHeader img").src = userInfo.fotoProfilo == null ? "/static/img/user.jpg" : userInfo.fotoProfilo;
         clone.querySelector("#postHeader p").innerHTML = userInfo.username;
         clone.querySelector("#postBody img").src = post.picturePath == null ? "/static/img/user.jpg" : post.picturePath;
+        clone.querySelector("#likeNumber").innerHTML = post.nLikes;
         clone.querySelector("#description").innerHTML = post.text;
+        clone.querySelector("li").setAttribute("name", post.id);
         let likeBtn = clone.querySelector("#likeButton");
-        likeBtn.addEventListener("click", function() { like(post.id, true, clone, "#likeButton", "#likeNumber"); });
+        const liked = await checkLike(post.id);
+        if (liked) {
+            likeBtn.classList.add("liked");
+        }
+        console.log(liked);
+        likeBtn.addEventListener("click", function() { like(post.id, !liked, ".like-btn", "#likeNumber"); });
         feed.appendChild(clone);
     }
 }
