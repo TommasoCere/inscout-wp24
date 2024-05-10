@@ -2,24 +2,23 @@ import { addHeaderFooter } from './utility.js';
 
 async function getFollower() {
     // DA PROVARE SE FUNZIONA !!!!!
-    const response = await fetch("http://localhost/db/actions/getFollower.php", {
-        method: "GET"
-    });
+    const response = await fetch("http://localhost/db/actions/getFollower.php", { method: "GET" });
     const users = await response.json();
     return users;
 }
 
 async function createFollowersList() {
     // DA PROVARE SE FUNZIONA !!!!!
-    const feed = document.querySelector("#feed");
+    const feed = document.querySelector("#following");
     const users = await getFollower();
 
     const template = feed.querySelector("template");
-    for (let i=0; i<posts.length; i++) {
+    for (let i=0; i<users.length; i++) {
         let user = users[i];
         let clone = template.content.cloneNode(true);
-        clone.querySelector("#profilePicture img").src = "/static/img/user.jpg";
-        clone.querySelector("#username").innerHTML = user.username;
+        //CAMBIA POI CON FOTO DB
+        clone.querySelector("#followinfLi img").src = "/static/img/user.jpg";
+        clone.querySelector("#followingLi p").innerHTML = user.username;
         feed.appendChild(clone);
     }
 }
