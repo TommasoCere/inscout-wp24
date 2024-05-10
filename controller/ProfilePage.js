@@ -9,6 +9,29 @@ async function getFollower() {
 
 async function createFollowersList() {
     // DA PROVARE SE FUNZIONA !!!!!
+    const feed = document.querySelector("#followers");
+    const users = await getFollower();
+
+    const template = feed.querySelector("template");
+    for (let i=0; i<users.length; i++) {
+        let user = users[i];
+        let clone = template.content.cloneNode(true);
+        //CAMBIA POI CON FOTO DB
+        clone.querySelector("#followerLi img").src = "/static/img/user.jpg";
+        clone.querySelector("#followerLi p").innerHTML = user.username;
+        feed.appendChild(clone);
+    }
+}
+
+async function getFollowing() {
+    // DA PROVARE SE FUNZIONA !!!!!
+    const response = await fetch("http://localhost/db/actions/getFollowing.php", { method: "GET" });
+    const users = await response.json();
+    return users;
+}
+
+async function createFollowingList() {
+    // DA PROVARE SE FUNZIONA !!!!!
     const feed = document.querySelector("#following");
     const users = await getFollower();
 

@@ -10,10 +10,10 @@ $username = "Lorenzo";
 
 $sql = "SELECT UTENTI.*
 FROM UTENTI , FOLLOW
-WHERE FOLLOW.usernameSeguito IN (
-    SELECT usernameSeguace
+WHERE FOLLOW.usernameSeguace IN (
+    SELECT usernameSeguito
     FROM FOLLOW
-    WHERE usernameSeguito = "+$username+")";
+    WHERE usernameSeguace = "+$username+")";
 try {
     $result = $driver->executeQuery($sql, $username);
 } catch (\Exception $e) {

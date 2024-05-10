@@ -65,8 +65,8 @@
     </div>
   </div>
 
-  <!-- PULSANTE SEGUITI -->
-  <div class="modal fade" id="Following" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <!-- PULSANTE SEGUITI -->
+   <div class="modal fade" id="Following" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-centered-scrollable">
       <div class="modal-content">
         <div class="modal-header">
@@ -74,64 +74,21 @@
         </div>
         <div class="modal-body">
           <!--LISTA DEI SEGUITI-->
-          <ul class="list-group main-content mt-2">
+          <ul class="list-group main-content mt-2" id="following">
+            <template>
 
-            <li href="#" class="list-group-item">
-                <div class="row">
-                    <div class="col-2">
-                        <img src="../../../static/img/user.png" alt="Foto utente" class="rounded-circle img-fluid">
-                    </div>
-                    <div class="col-8 text-start mt-3">
-                        <p>Mario Rossi</p>
-                    </div>
-                    <div class="col-2">
-                        <button type="button" class="btn btn-primary mt-2" id="segui">Segui</button>
-                    </div>
-                </div>
-            </li>
+              <li href="#" class="list-group-item" id="followingLi">
+                  <div class="row">
+                      <div class="col-2">
+                          <img src="../../../static/img/user.png" alt="Foto utente" class="rounded-circle img-fluid">
+                      </div>
+                      <div class="col-8 text-start mt-3">
+                          <p>Mario Rossi</p>
+                      </div>
+                  </div>
+              </li>
 
-            <li href="#" class="list-group-item">
-                <div class="row">
-                    <div class="col-2">
-                        <img src="../../../static/img/user.png" alt="Foto utente" class="rounded-circle img-fluid">
-                    </div>
-                    <div class="col-8 text-start mt-3">
-                        <p>Mario Rossi</p>
-                    </div>
-                    <div class="col-2">
-                        <button type="button" class="btn btn-primary mt-2" id="segui">Segui</button>
-                    </div>
-                </div>
-            </li>
-
-            <li href="#" class="list-group-item">
-                <div class="row">
-                    <div class="col-2">
-                        <img src="../../../static/img/user.png" alt="Foto utente" class="rounded-circle img-fluid">
-                    </div>
-                    <div class="col-8 text-start mt-3">
-                        <p>Mario Rossi</p>
-                    </div>
-                    <div class="col-2">
-                        <button type="button" class="btn btn-primary mt-2" id="segui">Segui</button>
-                    </div>
-                </div>
-            </li>
-
-            <li href="#" class="list-group-item">
-                <div class="row">
-                    <div class="col-2">
-                        <img src="../../../static/img/user.png" alt="Foto utente" class="rounded-circle img-fluid">
-                    </div>
-                    <div class="col-8 text-start mt-3">
-                        <p>Mario Rossi</p>
-                    </div>
-                    <div class="col-2">
-                        <button type="button" class="btn btn-primary mt-2" id="segui">Segui</button>
-                    </div>
-                </div>
-            </li>
-
+            </template>
           </ul>
           <!--FINE LISTA SEGUITI-->
         </div> 
@@ -148,70 +105,28 @@
         </div>
         <div class="modal-body">
           <!--LISTA DEI FOLLOWER-->
-          <ul class="list-group main-content mt-2">
+          <ul class="list-group main-content mt-2" id="followers">
+            <template>
 
-            <li href="#" class="list-group-item">
-                <div class="row">
-                    <div class="col-2">
-                        <img src="../../../static/img/user.png" alt="Foto utente" class="rounded-circle img-fluid">
-                    </div>
-                    <div class="col-8 text-start mt-3">
-                        <p>Mario Rossi</p>
-                    </div>
-                    <div class="col-2">
-                        <button type="button" class="btn btn-primary mt-2" id="segui">Segui</button>
-                    </div>
-                </div>
-            </li>
+              <li href="#" class="list-group-item" id="followerLi">
+                  <div class="row">
+                      <div class="col-2">
+                          <img src="../../../static/img/user.png" alt="Foto utente" class="rounded-circle img-fluid">
+                      </div>
+                      <div class="col-8 text-start mt-3">
+                          <p>Mario Rossi</p>
+                      </div>
+                  </div>
+              </li>
 
-            <li href="#" class="list-group-item">
-                <div class="row">
-                    <div class="col-2">
-                        <img src="../../../static/img/user.png" alt="Foto utente" class="rounded-circle img-fluid">
-                    </div>
-                    <div class="col-8 text-start mt-3">
-                        <p>Mario Rossi</p>
-                    </div>
-                    <div class="col-2">
-                        <button type="button" class="btn btn-primary mt-2" id="segui">Segui</button>
-                    </div>
-                </div>
-            </li>
-
-            <li href="#" class="list-group-item">
-                <div class="row">
-                    <div class="col-2">
-                        <img src="../../../static/img/user.png" alt="Foto utente" class="rounded-circle img-fluid">
-                    </div>
-                    <div class="col-8 text-start mt-3">
-                        <p>Mario Rossi</p>
-                    </div>
-                    <div class="col-2">
-                        <button type="button" class="btn btn-primary mt-2" id="segui">Segui</button>
-                    </div>
-                </div>
-            </li>
-
-            <li href="#" class="list-group-item">
-                <div class="row">
-                    <div class="col-2">
-                        <img src="../../../static/img/user.png" alt="Foto utente" class="rounded-circle img-fluid">
-                    </div>
-                    <div class="col-8 text-start mt-3">
-                        <p>Mario Rossi</p>
-                    </div>
-                    <div class="col-2">
-                        <button type="button" class="btn btn-primary mt-2" id="segui">Segui</button>
-                    </div>
-                </div>
-            </li>
-
+            </template>
           </ul>
           <!--FINE LISTA FOLLOWER-->
         </div> 
       </div>
     </div>
   </div>
+</body>
 
     
   <header class="container-fluid sticky-top"></header>
