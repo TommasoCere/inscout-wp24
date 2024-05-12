@@ -7,7 +7,7 @@ $data = json_decode($data, true);
 
 if (isset($_FILES["image"]) && !empty($_FILES["image"]["tmp_name"] && $data['success'])) {
 
-    $target_dir = "../static/img/upload/post/";
+    $target_dir = "./../../static/img/upload/post/";
     $target_file = $target_dir . basename($_FILES["image"]["name"]);
     $imageFileType = strtolower($_FILES["image"]["type"]);
 

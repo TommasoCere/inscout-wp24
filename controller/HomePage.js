@@ -31,7 +31,6 @@ async function createFeed() {
         if (liked) {
             likeBtn.classList.add("liked");
         }
-        console.log(liked);
         likeBtn.addEventListener("click", function() { like(post.id, !liked, ".like-btn", "#likeNumber"); });
         feed.appendChild(clone);
     }
@@ -39,47 +38,21 @@ async function createFeed() {
 
 
 
+function TokenCheck() {
+    this.init = function() {
+        var logged = isLogged();
+        logged = true;
+        if (!logged) {
+            errorPopup("error", "LOGIN", "Devi effettuare il login");
+            window.location.href = "../auth/login/login.html";
+        }
+    };
+}
 
-
-
-addHeaderFooter();
-createFeed();
-import { addHeaderFooter } from './utility.js';
-import {  errorPopup, isLogged } from '../app/utils/utils.js';
-
-addHeaderFooter();
-createFeed();
 
 document.addEventListener('DOMContentLoaded', function() {
     var tokenCheck = new TokenCheck();
     tokenCheck.init();
 });
-
-class TokenCheck {
-    constructor() {
-        this.init = function () {
-            var logged = isLogged();
-            if (logged.success == false) {
-                errorPopup("error", "LOGIN", logged.message);
-                window.location.href = "../auth/login/login.html";
-            }
-        };
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    var tokenCheck = new TokenCheck();
-    tokenCheck.init();
-});
-
-class TokenCheck {
-    constructor() {
-        this.init = function () {
-            var logged = isLogged();
-            if (logged.success == false) {
-                errorPopup("error", "LOGIN", logged.message);
-                window.location.href = "../auth/login/login.html";
-            }
-        };
-    }
-}
+addHeaderFooter();
+createFeed();

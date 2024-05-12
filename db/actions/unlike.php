@@ -3,11 +3,16 @@
 
     require_once ("./../bootstrap.php");
     require_once ("./../entities.php");
+    include_once('./../../php/request/getDataToken.php');
 
 
     global $driver;
     global $username;
-    $username = "Francesco";
+
+    $data = getDataToken();
+    $data = json_decode($data, true);
+
+    $username = $data['username'];
 
     try {
         $request = json_decode(file_get_contents('php://input'), true);

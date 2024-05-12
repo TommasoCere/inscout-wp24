@@ -5,9 +5,12 @@
  * It includes the db driver, the cors file and the autoload file
  * It also sets the domain variable that is used to set the domain in the cookies
  */
-require_once("./../dbdriver.php");
-require_once("./../../vendor/autoload.php");
-require_once("./../cors.php");
+require_once(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'php' . DIRECTORY_SEPARATOR . 'utils.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'dbDriver.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'cors.php');
+
+loadEnv();
 
 $driver = new DBDriver(getenv('DB_HOST'), getenv('DB_USER'), getenv('DB_PASSWORD'), getenv('DB_NAME'));
 $driver->connect();

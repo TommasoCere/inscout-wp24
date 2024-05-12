@@ -28,9 +28,10 @@ export function isLogged() {
   xhr.send();
   if (xhr.readyState == 4 && xhr.status == 200) {
     var response = JSON.parse(xhr.responseText);
-    return response;
+    return (response.message == "Accesso consentito");
   } else {
     console.error("isLogged function error");
     return false;
   }
+    
 }

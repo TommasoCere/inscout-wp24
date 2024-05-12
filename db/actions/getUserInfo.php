@@ -5,12 +5,11 @@ require_once("./../bootstrap.php");
 require_once("./../entities.php");
 
 global $driver;
-global $username;
-$username = "Francesco";
+
 $user =  $_GET["user"];
 
 $sql = "SELECT * 
-FROM utenti
+FROM UTENTI
 WHERE username = ?";
 try {
     $result = $driver->executeQuery($sql, $user);

@@ -6,7 +6,7 @@
     require_once ("./../bootstrap.php");
     require_once ("./../entities.php");
     use entities\Post;
-    include_once('../php/request/getDataToken.php');
+    include_once('./../../php/request/getDataToken.php');
     $data = getDataToken();
     $data = json_decode($data, true);
 
@@ -17,10 +17,10 @@
     $max_posts = 20;
 
     $sql = "SELECT *
-    FROM post
+    FROM POST
     WHERE usernameAutore IN (
         SELECT usernameSeguito
-        FROM follow
+        FROM FOLLOW
         WHERE usernameSeguace = ?)
     ORDER BY dataPubblicazione DESC
     LIMIT ?";

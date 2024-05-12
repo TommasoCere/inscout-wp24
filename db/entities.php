@@ -103,11 +103,11 @@
             }
 
             public function update(\DBDriver $db) {
-                $query = "INSERT INTO likes (username, idPost) VALUES (?, ?)";
+                $query = "INSERT INTO LIKES (username, idPost) VALUES (?, ?)";
 
                 try {
                     $db->executeQuery($query, $this->username, $this->postId);
-                    $query = "UPDATE post SET nLikes = nLikes + 1 WHERE id = ?";
+                    $query = "UPDATE POST SET nLikes = nLikes + 1 WHERE id = ?";
                     $db->executeQuery($query, $this->postId);
                 } catch (\Exception $e) {
                     throw new \Exception("Error while liking post: " . $e->getMessage());
@@ -115,11 +115,11 @@
             }
 
             public function delete(\DBDriver $db) {
-                $query = "DELETE FROM likes WHERE username = ? AND idPost = ?";
+                $query = "DELETE FROM LIKES WHERE username = ? AND idPost = ?";
 
                 try {
                     $db->executeQuery($query, $this->username, $this->postId);
-                    $query = "UPDATE post SET nLikes = nLikes - 1 WHERE id = ?";
+                    $query = "UPDATE POST SET nLikes = nLikes - 1 WHERE id = ?";
                     $db->executeQuery($query, $this->postId);
                 } catch (\Exception $e) {
                     throw new \Exception("Error while liking post: " . $e->getMessage());
