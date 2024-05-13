@@ -88,7 +88,7 @@ document.getElementById('profileImageModal').addEventListener('show.bs.modal', f
 
 async function getFollower() {
     // DA PROVARE SE FUNZIONA !!!!!
-    const response = await fetch("http://localhost/db/actions/getFollower.php", { method: "GET" });
+    const response = await fetch("http://localhost/db/actions/user/getFollower.php", { method: "GET" });
     const users = await response.json();
     return users;
 }
@@ -111,7 +111,7 @@ async function createFollowersList() {
 
 async function getFollowing() {
     // DA PROVARE SE FUNZIONA !!!!!
-    const response = await fetch("http://localhost/db/actions/getFollowing.php", { method: "GET" });
+    const response = await fetch("http://localhost/db/actions/user//getFollowing.php", { method: "GET" });
     const users = await response.json();
     return users;
 }

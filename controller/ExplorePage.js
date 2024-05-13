@@ -2,7 +2,7 @@ import { addHeaderFooter } from './utility.js';
 
 async function getExploreAll() {
     // DA PROVARE SE FUNZIONA !!!!!
-    const response = await fetch("http://localhost/db/actions/getExploreAll.php", { method: "GET" });
+    const response = await fetch("http://localhost/db/actions/user/getExploreAll.php", { method: "GET" });
     const users = await response.json();
     return users;
 }
@@ -26,7 +26,7 @@ async function createExploreAllList() {
 async function setExplorerResearch(stringa) {
     try {
         // Invia la richiesta POST al server
-        const response = await fetch("http://localhost/db/actions/getExplorerResearch.php", {
+        const response = await fetch("http://localhost/db/actions/user/getExplorerResearch.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
