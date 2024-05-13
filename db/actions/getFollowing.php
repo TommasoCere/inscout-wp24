@@ -6,7 +6,6 @@ use entities\User;
 
 global $driver;
 global $username;
-$username = "Lorenzo";
 
 $sql = "SELECT UTENTI.*
 FROM UTENTI , FOLLOW
