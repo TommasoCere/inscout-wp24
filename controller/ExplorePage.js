@@ -7,8 +7,17 @@ async function getExploreAll() {
     return users;
 }
 
+async function getExplorerResearch() {
+    // DA PROVARE SE FUNZIONA !!!!!
+    // COME PASSIAMO IL NOME DA CERCARE ????
+    const response = await fetch("http://localhost/db/actions/getExplorerResearch.php", { method: "GET" });
+    const users = await response.json();
+    return users;
+}
+
 async function createExploreAllList() {
     // DA PROVARE SE FUNZIONA !!!!!
+    // DOVREBBERE ANDARE BENE PER TUTTI E DUE
     const feed = document.querySelector("#exploreAll");
     const users = await getExploreAll();
 
