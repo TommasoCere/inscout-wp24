@@ -3,8 +3,7 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
 function getDataToken() {
-    include_once(__DIR__ . '/../utils.php');
-    require __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+    require_once(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php');
     loadEnvSecretKey();
 
     if (isset($_COOKIE['token'])) {

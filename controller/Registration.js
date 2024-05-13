@@ -60,7 +60,7 @@ function register() {
   formData.append("numeroGruppo", numeroGruppo);
 
   const xmlhttp = new XMLHttpRequest();
-  const url = "../../../php/register.php";
+  const url = "../../../db/actions/auth/register.php";
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       var response = JSON.parse(this.responseText);
@@ -78,7 +78,7 @@ function register() {
 }
 
 function getGruppiList() {
-  fetch("../../../db/getGruppi.php")
+  fetch("../../../db/actions/user/getGruppi.php")
     .then((response) => response.json())
     .then((data) => {
       var select = document.getElementById("gruppoSelect");

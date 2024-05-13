@@ -3,7 +3,7 @@
     namespace entities{
         require_once "dbEntity.php";
         require_once "dbDriver.php";
-        require_once ("bootstrap.php");
+        require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php';
         
 
         class Post implements \DBEntity {

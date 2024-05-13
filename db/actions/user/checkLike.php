@@ -1,20 +1,9 @@
 <?php 
+require_once(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php');
+require_once($DB_ROOT_PATH . 'connection' . DIRECTORY_SEPARATOR . 'entities.php');
 use entities\User;
 
-require_once("./../bootstrap.php");
-require_once("./../entities.php");
-include_once('./../../php/request/getDataToken.php');
-
-global $driver;
-global $username;
-
-$data = getDataToken();
-$data = json_decode($data, true);
-
-$username = $data['username'];
-
 $post =  $_GET["postId"];
-
 $sql = "SELECT * 
 FROM LIKES
 WHERE username = ? AND idPost = ?";

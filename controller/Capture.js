@@ -83,7 +83,7 @@ function uploadImage() {
     const image = convertBase64ToBlob(imageRow.split(",")[1]);
 
     const xmlhttp = new XMLHttpRequest();
-    const url = "../../../db/uploadPost.php";
+    const url = "../../../db/actions/user/uploadPost.php";
     const formData = new FormData();
     formData.append("image", image);
     formData.append("comment", comment);

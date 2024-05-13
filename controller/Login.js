@@ -13,7 +13,7 @@ function login() {
     var password = document.getElementById('password').value;
     
     const xmlhttp = new XMLHttpRequest();
-    const url = '../../../php/login.php';
+    const url = '../../../db/actions/auth/login.php';
     const params = 'username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password);
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {

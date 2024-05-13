@@ -21,7 +21,7 @@ export function resetEventListener(oldButton, fun) {
 }
 
 export async function getUserInfo(username) {
-    const response = await fetch("http://localhost/db/actions/getUserInfo.php?user=" + username, {
+    const response = await fetch("http://localhost/db/actions/user/getUserInfo.php?user=" + username, {
         method: "GET"
     });
     const userInfo = await response.json();
@@ -29,7 +29,7 @@ export async function getUserInfo(username) {
 }
 
 export async function like(post_id, toAdd, likeButton_id, likes_id) {
-    const request = toAdd ? "http://localhost/db/actions/like.php" : "http://localhost/db/actions/unlike.php";
+    const request = toAdd ? "http://localhost/db/actions/user/like.php" : "http://localhost/db/actions/user/unlike.php";
     await fetch(request, {
         method: "POST",
         credentials: "include",
@@ -55,7 +55,7 @@ export async function like(post_id, toAdd, likeButton_id, likes_id) {
 }
 
 export async function checkLike(post_id) {
-    const response = await fetch("http://localhost/db/actions/checkLike.php?postId=" + post_id, {
+    const response = await fetch("http://localhost/db/actions/user/checkLike.php?postId=" + post_id, {
         method: "GET"
     });
 

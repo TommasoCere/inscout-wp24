@@ -22,12 +22,11 @@ function TokenCheck() {
 function UserInfo() {
     this.init = function() {
         const xmlhttp = new XMLHttpRequest();
-        const url = '../../../db/getUserInfo.php';
+        const url = '../../db/actions/user/getLoggedUserInfo.php';
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 var response = JSON.parse(this.responseText);
                 if (response.success) {
-                    console.log(response);
                     document.getElementById('nameSurname').innerHTML = response.nome + ' ' + response.cognome;
                     document.getElementById('place').innerHTML = response.branca + ', ' + response.cittaGruppo;
                     if (response.fotoProfilo != "") {
@@ -48,7 +47,7 @@ document.getElementById('saveProfileImage').addEventListener('click', saveProfil
 
 function saveProfileImage() {
     const xmlhttp = new XMLHttpRequest();
-    const url = '../../../db/saveProfileImage.php';
+    const url = './../../db/actions/user/saveProfileImage.php';
     const formData = new FormData();
     const fileField = document.querySelector('input[type="file"]');
     // controllo che sia stato inserito un file
@@ -67,7 +66,6 @@ function saveProfileImage() {
         if (this.readyState == 4 && this.status == 200) {
             var response = JSON.parse(this.responseText);
             if (response.success) {
-                console.log(response);
                 var path = response.path.replace('../', 'http://localhost/');
                 document.getElementById('avatar').src = path;
                 var modal = document.getElementById('profileImageModal');

@@ -1,13 +1,13 @@
 <?php
-include_once('../php/connection.php');
-include_once('../php/request/getDataToken.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php');
+require_once($DB_ROOT_PATH . 'actions' . DIRECTORY_SEPARATOR . 'auth' . DIRECTORY_SEPARATOR . 'getDataToken.php');
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = getDataToken();
     $data = json_decode($data, true);
 
     if (isset($_FILES["file"]) && $data['success']) {
-        $target_dir = "../static/img/upload/profile/";
+        $target_dir = "../../../static/img/upload/profile/";
         $target_file = $target_dir . basename($_FILES["file"]["name"]);
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
@@ -17,7 +17,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $target_file = $target_dir . "avatar_" . $data['username'] . "." . $imageFileType;
             $sql = "SELECT fotoProfilo FROM UTENTI WHERE username = '" . $data['username'] . "'";
-            $result = $conn->query($sql);
+            $result = $driver->executeQuery($sql);
             $row = $result->fetch_assoc();
             $oldFile = $row['fotoProfilo'];
             if ($oldFile != "") {
@@ -26,7 +26,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
             $sql = "UPDATE UTENTI SET fotoProfilo = '" . $target_file . "' WHERE username = '" . $data['username'] . "'";
-            $conn->query($sql);
+            $driver->executeQuery($sql);
             echo json_encode(array("success" => true, "message" => "Immagine caricata con successo", "path" => $target_file));
         } else {
             echo json_encode(array("success" => false, "message" => "Errore durante il caricamento dell'immagine"));

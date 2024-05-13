@@ -1,11 +1,14 @@
-<?php
-include_once('../php/connection.php');
-include_once('../php/request/getDataToken.php');
+<?php 
+use entities\User;
+
+require_once(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php');
+require_once($DB_ROOT_PATH . 'connection' . DIRECTORY_SEPARATOR . 'entities.php');
+
 $data = getDataToken();
 $data = json_decode($data, true);
 if ($data['success']) {
     $sql = "SELECT * FROM UTENTI WHERE username = '" . $data['username'] . "'";
-    $result = $conn->query($sql);
+    $result = $driver->executeQuery($sql);
     $row = $result->fetch_assoc();
     $nome = $row['nome'];
     $cognome = $row['cognome'];

@@ -1,20 +1,22 @@
 <?php
-    $username = $_POST['username'] ?? '';
-    $password = $_POST['password'] ?? '';
+    $user = $_POST['username'] ?? '';
+    $pw = $_POST['password'] ?? '';
     
-    // Includi il file di configurazione
-    include_once('./connection.php');
+    require_once(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php');
     
     // Usa istruzioni preparate per prevenire SQL injection
-    $stmt = $conn->prepare("SELECT * FROM UTENTI WHERE username = ? AND password = ?");
-    $stmt->bind_param('ss', $username, $password);
+    $stmt = $driver->getConn()->prepare("SELECT * FROM UTENTI WHERE username = ? AND password = ?");
+    $stmt->bind_param('ss', $user, $pw);
     $stmt->execute();
     $result = $stmt->get_result();
 
+
     // Controlla se l'utente esiste
     if ($result->num_rows > 0) {
-        $cittaGruppo = $result->fetch_assoc()['cittaGruppo'];
-        include_once('./request/token.php');
+        $row = $result->fetch_assoc();
+        $cittaGruppo = $row['cittaGruppo'];
+        $username = $row['username'];
+        include_once($DB_ROOT_PATH . 'actions' . DIRECTORY_SEPARATOR . 'auth' . DIRECTORY_SEPARATOR . 'token.php');
         $token = getToken($username, $cittaGruppo);
         setcookie('token', $token, time() + (31536000), "/", "", false, true);
         header('Content-type: application/json');

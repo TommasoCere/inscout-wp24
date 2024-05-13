@@ -22,7 +22,7 @@ export function isLogged() {
   var url = window.location.href;
   url = url.split("/");
   url = url[0] + "//" + url[2] ;
-  url = url + "/php/request/validator.php";
+  url = url + "/db/actions/auth/validator.php";
   xhr.open("POST", url, false);
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhr.send();

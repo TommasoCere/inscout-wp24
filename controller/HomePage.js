@@ -3,7 +3,7 @@ import { errorPopup, isLogged } from '../app/utils/utils.js';
 
 
 async function getFeed() {
-    const response = await fetch("http://localhost/db/actions/getFeed.php", {
+    const response = await fetch("../../db/actions/user/getFeed.php", {
         method: "GET"
     });
     const posts = await response.json();
@@ -39,20 +39,16 @@ async function createFeed() {
 
 
 function TokenCheck() {
-    this.init = function() {
-        var logged = isLogged();
-        logged = true;
-        if (!logged) {
-            errorPopup("error", "LOGIN", "Devi effettuare il login");
-            window.location.href = "../auth/login/login.html";
-        }
-    };
+    var logged = isLogged();
+    if (logged == false) {
+        errorPopup("error", "LOGIN", logged.message);
+        window.location.href = "../auth/login/login.html";
+    }
 }
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    var tokenCheck = new TokenCheck();
-    tokenCheck.init();
+    TokenCheck();
 });
 addHeaderFooter();
 createFeed();

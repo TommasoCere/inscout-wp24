@@ -6,7 +6,6 @@ class DBDriver {
     private $username;
     private $password;
     private $dbname;
-
     private $conn;
 
     public function __construct($servername, $username, $password, $dbname) {
@@ -35,6 +34,10 @@ class DBDriver {
         $result = $stmt->get_result();
         $stmt->close();
         return $result;
+    }
+
+    public function getConn(){
+        return $this->conn;
     }
 
     public function close() {

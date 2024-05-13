@@ -1,18 +1,8 @@
 <?php
 
-
-
-
-    require_once ("./../bootstrap.php");
-    require_once ("./../entities.php");
+    require_once(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php');
+    require_once($DB_ROOT_PATH . 'connection' . DIRECTORY_SEPARATOR . 'entities.php');
     use entities\Post;
-    include_once('./../../php/request/getDataToken.php');
-    $data = getDataToken();
-    $data = json_decode($data, true);
-
-    global $driver;
-
-    $username = $data['username'];
 
     $max_posts = 20;
 

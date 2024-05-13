@@ -1,10 +1,8 @@
 <?php 
 use entities\User;
 
-require_once("./../bootstrap.php");
-require_once("./../entities.php");
-
-global $driver;
+require_once(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php');
+require_once($DB_ROOT_PATH . 'connection' . DIRECTORY_SEPARATOR . 'entities.php');
 
 $user =  $_GET["user"];
 
