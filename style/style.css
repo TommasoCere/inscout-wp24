@@ -1,4 +1,7 @@
-body, .offcanvas-body, .offcanvas-header, .offcanvas-end {
+body,
+.offcanvas-body,
+.offcanvas-header,
+.offcanvas-end {
     background-color: #121212;
     color: #f2f3f4;
 }
@@ -17,7 +20,7 @@ a {
     text-decoration: none;
 }
 
-ul li{
+ul li {
     list-style: none;
 }
 
@@ -25,21 +28,30 @@ ul li a {
     text-decoration: none;
 }
 
-.nav-btn{
+.nav-btn {
     color: #cacaca;
 }
 
-.close-btn{
-    color: #cacaca ;
+.close-btn {
+    color: #cacaca;
 }
 
-.comment{
+.like-btn{
+    text-decoration: none;
+    color: #cacaca;
+}
+
+.liked{
+    color: #ff0000;
+}
+
+.comment {
     background-color: #353535;
     border-radius: 20px;
     border-top-left-radius: 0px;
 }
 
-.my-comment{
+.my-comment {
     background-color: #ffffff;
     border-radius: 20px;
 
@@ -60,13 +72,13 @@ ul li a {
     color: #f2f3f4;
 }
 
-.modal-header, .modal-footer {
+.modal-header,
+.modal-footer {
     border-bottom: none;
     border-top: none;
-  }
+}
 
-
-.user-tag{
+.user-tag {
     background-color: #1a1a1a;
 }
 
@@ -76,7 +88,28 @@ ol {
     padding: 0;
 }
 
+.thumbnail:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
 
+.image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.thumbnail:hover+.overlay {
+    opacity: 1;
+}
 
 @font-face {
     font-family: "Cocogoose";
@@ -90,9 +123,7 @@ ol {
 }
 
 @media (max-width: 768px) {
-    .nav-btn{
+    .nav-btn {
         display: none;
     }
 }
-
-

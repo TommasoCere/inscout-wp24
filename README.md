@@ -36,10 +36,13 @@ Questo progetto è un social network sviluppato nell'ambito del corso di Tecnolo
 - Clonare il repository nella cartella htdocs di XAMPP
 - Avviare Apache
 - Creare il file `conf.env` nella cartella `php` con il seguente contenuto:
+- Eseguire il comando per installare JWT `composer require firebase/php-jwt`
 
 ```
 DB_HOST=[server ip]
 DB_USER=[db username]
 DB_PASSWORD=[db password]
 DB_NAME=[db name]
+JWT_SECRET_TOKEN=[jwt secret]
+SHA_SECRET_TOKEN=[sha secret]
 ```

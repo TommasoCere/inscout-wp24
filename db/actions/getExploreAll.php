@@ -7,7 +7,7 @@ use entities\User;
 global $driver;
 global $username;
 
-$sql = "SELECT UTENTI.* FROM UTENTI;
+$sql = "SELECT UTENTI.* FROM UTENTI";
 try {
     $result = $driver->executeQuery($sql, $username);
 } catch (\Exception $e) {
@@ -31,6 +31,3 @@ if ($result->num_rows > 0) {
         array_push($users, $user);
     }
 }
-echo json_encode($users, JSON_PRETTY_PRINT);
-
-?>

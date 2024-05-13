@@ -15,22 +15,23 @@ export function errorPopup(theme, title, message) {
 }
 
 export function isLogged() {
-  console.log("isLogged function");
+  //console.log("isLogged function");
   // controllo il token con validator.php
   var xhr = new XMLHttpRequest();
   // url a seconda di dove si trova il file
   var url = window.location.href;
   url = url.split("/");
-  url = url[0] + "//" + url[2] + "/" + url[3];
-  url = url + "/php/request/validator.php";
+  url = url[0] + "//" + url[2] ;
+  url = url + "/db/actions/auth/validator.php";
   xhr.open("POST", url, false);
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhr.send();
   if (xhr.readyState == 4 && xhr.status == 200) {
     var response = JSON.parse(xhr.responseText);
-    return response;
+    return (response.message == "Accesso consentito");
   } else {
     console.error("isLogged function error");
     return false;
   }
+    
 }

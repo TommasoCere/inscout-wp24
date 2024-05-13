@@ -1,4 +1,4 @@
-INSERT INTO gruppi(citta, numero, regione) 
+INSERT INTO GRUPPI(citta, numero, regione) 
 VALUES
 ('Bologna', 1, 'Emilia-Romagna'),
 ('Bologna', 10, 'Emilia-Romagna'),
