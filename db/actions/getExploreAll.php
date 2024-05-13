@@ -7,12 +7,7 @@ use entities\User;
 global $driver;
 global $username;
 
-$sql = "SELECT UTENTI.*
-FROM UTENTI , FOLLOW
-WHERE FOLLOW.usernameSeguace IN (
-    SELECT usernameSeguito
-    FROM FOLLOW
-    WHERE usernameSeguace = "+$username+")";
+$sql = "SELECT UTENTI.* FROM UTENTI;
 try {
     $result = $driver->executeQuery($sql, $username);
 } catch (\Exception $e) {
