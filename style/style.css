@@ -6,13 +6,9 @@ body,
     color: #f2f3f4;
 }
 
-header {
+header, footer {
     background-color: #1a1a1a;
     font-family: Cocogoose;
-}
-
-footer {
-    background-color: #1a1a1a;
 }
 
 a {
@@ -28,17 +24,9 @@ ul li a {
     text-decoration: none;
 }
 
-.nav-btn {
+.nav-btn, .close-btn, .like-btn {
     color: #cacaca;
-}
-
-.close-btn {
-    color: #cacaca;
-}
-
-.like-btn{
     text-decoration: none;
-    color: #cacaca;
 }
 
 .liked{
