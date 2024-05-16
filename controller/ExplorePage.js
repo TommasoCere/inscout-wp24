@@ -23,12 +23,10 @@ async function createExploreAllList() {
     }
 }
 
-async function setExplorerResearch(event) {
-    event.preventDefault(); // Previeni il comportamento predefinito del modulo di invio
-    var stringa = document.getElementById('ricerca').value; // Ottieni il testo inserito nell'input
+async function setExplorerResearch(stringa) {
     try {
         // Invia la richiesta POST al server
-        const response = await fetch("../..//db/actions/user/getExplorerResearch.php", {
+        const response = await fetch("http://localhost/db/actions/user/getExplorerResearch.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
