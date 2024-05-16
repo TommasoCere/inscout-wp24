@@ -1,6 +1,4 @@
-import { addHeaderFooter, getUserInfo, like, checkLike } from './utility.js';
-import { errorPopup, isLogged } from '../app/utils/utils.js';
-
+import { addHeaderFooter, getUserInfo, like, checkLike, isLogged } from './utility.js';
 
 async function getFeed() {
     const response = await fetch("../../db/actions/user/getFeed.php", {
@@ -41,7 +39,7 @@ async function createFeed() {
 function TokenCheck() {
     var logged = isLogged();
     if (logged == false) {
-        errorPopup("error", "LOGIN", logged.message);
+        console.log("Non sei loggato");
         window.location.href = "../auth/login/login.html";
     }
 }

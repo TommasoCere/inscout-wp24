@@ -20,6 +20,24 @@ export function resetEventListener(oldButton, fun) {
     return newButton;
 }
 
+export function isLogged() {
+    var xhr = new XMLHttpRequest();
+    var url = window.location.href;
+    url = url.split("/");
+    url = url[0] + "//" + url[2];
+    url = url + "/db/actions/auth/validator.php";
+    xhr.open("POST", url, false);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send();
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      var response = JSON.parse(xhr.responseText);
+      return response.message == "Accesso consentito";
+    } else {
+      console.error("isLogged function error");
+      return false;
+    }
+  }
+
 export async function getUserInfo(username) {
     const response = await fetch("http://localhost/db/actions/user/getUserInfo.php?user=" + username, {
         method: "GET"
