@@ -1,4 +1,4 @@
-import { addHeaderFooter, getUserInfo, like, checkLike } from './utility.js';
+import { addHeaderFooter, getUserInfo, like, checkLike, loadComments} from './utility.js';
 import { errorPopup, isLogged } from '../app/utils/utils.js';
 
 
@@ -27,14 +27,18 @@ async function createFeed() {
         clone.querySelector("#description").innerHTML = post.text;
         clone.querySelector("li").setAttribute("name", post.id);
         let likeBtn = clone.querySelector("#likeButton");
+        let commentBtn = clone.querySelector("#commentButton");
         const liked = await checkLike(post.id);
         if (liked) {
             likeBtn.classList.add("liked");
         }
         likeBtn.addEventListener("click", function() { like(post.id, !liked, ".like-btn", "#likeNumber"); });
+        commentBtn.addEventListener("click", function() { loadComments(post.id); });
         feed.appendChild(clone);
     }
 }
+
+
 
 
 

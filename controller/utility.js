@@ -28,8 +28,38 @@ export async function getUserInfo(username) {
     return userInfo;
 }
 
+export async function getComments(post_id) {
+    const response = await fetch("./../../db/actions/user/getComments.php?postId=" + post_id, {
+        method: "GET"
+    });
+    const comments = await response.json();
+    return comments;
+}
+
+export async function loadComments(post_id) {
+    const commentModal = document.querySelector("#commentModal");
+    const comments = await getComments(post_id);
+    const template = commentModal.querySelector("template");
+    const commentList = commentModal.querySelector("#comments");
+
+    while(commentList.firstElementChild.nextElementSibling != null) {
+        commentList.removeChild(commentList.firstElementChild.nextElementSibling);
+    }
+
+    for (let i=0; i<comments.length; i++) {
+        let comment = comments[i];
+        console.log(comment);
+        let clone = template.content.cloneNode(true);
+        clone.querySelector("img").src = comment.profilePicturePath == null ? "/static/img/user.jpg" : comment.profilePicturePath;
+        clone.querySelector("#username").innerHTML = comment.authorUsername;
+        clone.querySelector("#text").innerHTML = comment.text;
+        commentList.appendChild(clone);
+    }
+
+}
+
 export async function like(post_id, toAdd, likeButton_id, likes_id) {
-    const request = toAdd ? "http://localhost/db/actions/user/like.php" : "http://localhost/db/actions/user/unlike.php";
+    const request = toAdd ? "./../../db/actions/user/like.php" : "http://localhost/db/actions/user/unlike.php";
     await fetch(request, {
         method: "POST",
         credentials: "include",
