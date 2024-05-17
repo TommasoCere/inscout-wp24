@@ -81,28 +81,7 @@ ol {
     padding: 0;
 }
 
-.thumbnail:hover {
-    opacity: 0.7;
-    cursor: pointer;
-}
 
-.image-container {
-    position: relative;
-    display: inline-block;
-}
-
-.overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.thumbnail:hover+.overlay {
-    opacity: 1;
-}
 
 @font-face {
     font-family: "Cocogoose";

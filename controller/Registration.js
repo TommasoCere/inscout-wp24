@@ -1,22 +1,19 @@
-import { errorPopup } from '../app/utils/utils.js';
-
-document.addEventListener('DOMContentLoaded', ()=> {
+document.addEventListener("DOMContentLoaded", () => {
   //const registerButton = document.getElementById('registerButton');
   //registerButton.addEventListener('click', register);
-  const gruppiList = document.getElementById('gruppoSelect');
-  gruppiList.addEventListener('click', getGruppiList);
+  const gruppiList = document.getElementById("gruppoSelect");
+  gruppiList.addEventListener("click", getGruppiList);
 });
 
-document.addEventListener('DOMContentLoaded', ()=> {
-  const registrationButton = document.getElementById('registrationForm');
-  registrationButton.addEventListener('submit', (event)=> {
-      event.preventDefault();
-      register();
+document.addEventListener("DOMContentLoaded", () => {
+  const registrationButton = document.getElementById("registrationForm");
+  registrationButton.addEventListener("submit", (event) => {
+    event.preventDefault();
+    register();
   });
 });
 
 function register() {
-
   // controllo che tutti i campi siano stati riempiti
   if (
     document.getElementById("username").value == "" ||
@@ -27,7 +24,7 @@ function register() {
     document.getElementById("brancaSelect").value == "" ||
     document.getElementById("gruppoSelect").value == ""
   ) {
-    errorPopup("error", "ATTENZIONE", "Riempi tutti i campi!");
+    console.log("riempi tutti i campi");
     return;
   }
 
@@ -45,7 +42,7 @@ function register() {
 
   // controllo che la mail sia valida
   if (!email.includes("@")) {
-    errorPopup("error", "ATTENZIONE", "Inserisci una mail valida!");
+    console.log("email non valida");
     return;
   }
 
@@ -66,10 +63,10 @@ function register() {
       var response = JSON.parse(this.responseText);
       console.log(response);
       if (response.success) {
-        errorPopup("success", "BENVENUTO", response.message);
+        
         window.location.href = "../login/login.html";
       } else {
-        errorPopup("error", "ATTENZIONE", response.message);
+        console.log(response.message);
       }
     }
   };

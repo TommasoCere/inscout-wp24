@@ -1,5 +1,4 @@
 import { addHeaderFooter } from './utility.js';
-import {  errorPopup, isLogged } from '../app/utils/utils.js';
 
 addHeaderFooter();
 
@@ -66,7 +65,7 @@ class TokenCheck {
         this.init = function () {
             var logged = isLogged();
             if (logged.success == false) {
-                errorPopup("error", "LOGIN", logged.message);
+                
                 window.location.href = "../auth/login/login.html";
             }
         };
@@ -95,11 +94,9 @@ function uploadImage() {
                 // chiudi il modale
                 const modal = bootstrap.Modal.getInstance(document.getElementById("exampleModal"));
                 modal.hide();
-                // mostra il messaggio di successo
-                errorPopup("success", "SUCCESSO", response.message);
                 window.location.href = "../profile/profile.html";
             } else {
-                errorPopup("error", "ATTENZIONE", response.message);
+                console.log(response.message);
             }
         }
     };
