@@ -46,21 +46,23 @@
                   </div>
                 </li>
               </template>
-
             </ul>
-
-            <div class="row mb-2 m-1 mt-5 mb-0">
-              <div class="my-comment p-2">
-                <textarea class="form-control" id="message-text"></textarea>
-              </div>
-            </div>
-
-
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
+          
+          <div class="modal-footer row m-0">
+            <form>
+              <div class="row mb-4 align-items-center">
+                <div class="col-9">
+                  <label for="comment-input" hidden>comment</label>
+                  <input type="text" id="comment-input" class="form-control p-3 rounded-4">
+                </div>
+                <div class="col-3">
+                  <button id="submitComment" type="button" class="btn btn-primary">invia</button>
+                </div>
+              </div>  
+            </form>
+          </div>   
+
         </div>
       </div>
     </div>

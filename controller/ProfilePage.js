@@ -65,6 +65,7 @@ function saveProfileImage() {
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var response = JSON.parse(this.responseText);
+            
             if (response.success) {
                 var path = response.path.replace('../', 'http://localhost/');
                 document.getElementById('avatar').src = path;

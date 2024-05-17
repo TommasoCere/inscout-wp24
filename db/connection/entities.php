@@ -278,7 +278,13 @@
             }
 
             public function update(\DBDriver $db) {
-                //TODO
+                $query = "INSERT INTO COMMENTI (usernameAutore, idPost, id, testo) VALUES (?, ?, NULL, ?)";
+
+                try {
+                    $db->executeQuery($query, $this->authorUsername, $this->postId, $this->text);
+                } catch (\Exception $e) {
+                    throw new \Exception("Error while liking post: " . $e->getMessage());
+                }
             }
 
             public function delete(\DBDriver $db) {

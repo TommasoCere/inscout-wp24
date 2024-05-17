@@ -42,13 +42,10 @@ export async function loadComments(post_id) {
     const template = commentModal.querySelector("template");
     const commentList = commentModal.querySelector("#comments");
 
-    while(commentList.firstElementChild.nextElementSibling != null) {
-        commentList.removeChild(commentList.firstElementChild.nextElementSibling);
-    }
+    cleanTemplateList(commentList);
 
     for (let i=0; i<comments.length; i++) {
         let comment = comments[i];
-        console.log(comment);
         let clone = template.content.cloneNode(true);
         clone.querySelector("img").src = comment.profilePicturePath == null ? "/static/img/user.jpg" : comment.profilePicturePath;
         clone.querySelector("#username").innerHTML = comment.authorUsername;
@@ -56,6 +53,37 @@ export async function loadComments(post_id) {
         commentList.appendChild(clone);
     }
 
+    const commentBtn = commentModal.querySelector("#submitComment");
+
+    resetEventListener(commentBtn, function() { submitComment(post_id); });
+
+}
+
+export function cleanTemplateList(list) {
+    while (list.getElementsByTagName('li').length > 0) {
+        list.removeChild(list.lastChild);
+    }
+}
+
+async function submitComment(post_id) {
+    console.log("submitComment");
+    const modalFooter = document.querySelector("#commentModal .modal-footer");
+    const content = modalFooter.querySelector("input").value;
+    console.log(modalFooter.querySelector("input").value);
+    modalFooter.querySelector("input").value = "";
+    await fetch("./../../db/actions/user/uploadComment.php", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "post_id": post_id,
+            "content": content
+        })
+    });
+    cleanTemplateList(document.querySelector("#commentModal ul"));
+    loadComments(post_id);
 }
 
 export async function like(post_id, toAdd, likeButton_id, likes_id) {
