@@ -116,7 +116,7 @@ document.getElementById("BadgeModal").addEventListener("show.bs.modal", function
 });
 
 // aggiungo un listener al pulsante saveMedals
-document.getElementById("saveMedals").addEventListener("click", saveMedals);
+document.querySelector("#saveMedals").addEventListener("click", saveMedals);
 
 function saveMedals() {
   // salvo la medaglia inserita nel form
