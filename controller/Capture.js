@@ -1,4 +1,4 @@
-import { addHeaderFooter } from './utility.js';
+import { addHeaderFooter, isLogged } from './utility.js';
 
 addHeaderFooter();
 
