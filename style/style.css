@@ -29,6 +29,11 @@ ul li a {
     color: #cacaca;
 }
 
+.setting-btn {
+    color: #cacaca;
+    text-decoration: none;
+}
+
 .nav-btn, .close-btn, .comment-btn {
     color: #cacaca;
     text-decoration: none;
