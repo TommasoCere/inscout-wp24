@@ -334,16 +334,19 @@
 
         class Achievement implements \DBEntity {
             private $username;
+            private $profilePicturePath;
             private $title;
 
             /**
              * Create a new achievement
              * @param string $username The username of the user
              * @param string $title The title of the achievement
+             * @param string $profilePicturePath The path of the user's profile picture
              */
-            public function __construct($username = null, $title = null) {
+            public function __construct($username = null, $title = null, $profilePicturePath = null) {
                 $this->username = $username;
                 $this->title = $title;
+                $this->profilePicturePath = $profilePicturePath;
             }
 
             public function getUsername() {
@@ -352,6 +355,10 @@
 
             public function getTitle() {
                 return $this->title;
+            }
+
+            public function getProfilePicturePath() {
+                return $this->profilePicturePath;
             }
 
             public function update(\DBDriver $db) {
@@ -365,7 +372,8 @@
             public function jsonSerialize() {
                 return [
                     'username' => $this->username,
-                    'title' => $this->title
+                    'title' => $this->title,
+                    'profilePicturePath' => $this->profilePicturePath
                 ];
             }
         }
