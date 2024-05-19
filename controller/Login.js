@@ -1,4 +1,3 @@
-import { errorPopup, isLogged } from '../app/utils/utils.js';
 
 document.addEventListener('DOMContentLoaded', ()=> {
     const loginButton = document.getElementById('loginForm');
@@ -23,7 +22,7 @@ function login() {
                 // reindirizzo alla home
                 window.location.href = '../../home/home.html';
             } else {
-                errorPopup('error', 'ATTENZIONE', response.message);
+                console.log(response.message);
             }
         }
     };

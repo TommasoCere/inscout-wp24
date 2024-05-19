@@ -11,8 +11,6 @@
         $like = new Like($username, $idPost);
         $like->update($driver);
 
-        // mandare notifica
-
     } catch (\Exception $e) {
         http_response_code(500);
         echo json_encode(array("message" => "Error while liking post: " . $e->getMessage()));

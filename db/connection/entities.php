@@ -235,19 +235,23 @@
         class Comment implements \DBEntity {
 
             private $authorUsername;
+            private $profilePicturePath;
             private $postId;
             private $id;
             private $text;
 
+
             /**
              * Create a new comment
              * @param string $authorUsername The username of the author
+             * @param string $profilePicturePath The path of the author's profile picture
              * @param int $postId The id of the post
              * @param int $id The comment's id
              * @param string $text The text of the comment
              */
-            public function __construct($authorUsername = null, $postId = null, $id = null, $text = null) {
+            public function __construct($authorUsername = null, $profilePicturePath = null, $postId = null, $id = null, $text = null) {
                 $this->authorUsername = $authorUsername;
+                $this->profilePicturePath = $profilePicturePath;
                 $this->postId = $postId;
                 $this->id = $id;
                 $this->text = $text;
@@ -269,8 +273,18 @@
                 return $this->text;
             }
 
+            public function getProfilePicturePath() {
+                return $this->profilePicturePath;
+            }
+
             public function update(\DBDriver $db) {
-                //TODO
+                $query = "INSERT INTO COMMENTI (usernameAutore, idPost, id, testo) VALUES (?, ?, NULL, ?)";
+
+                try {
+                    $db->executeQuery($query, $this->authorUsername, $this->postId, $this->text);
+                } catch (\Exception $e) {
+                    throw new \Exception("Error while liking post: " . $e->getMessage());
+                }
             }
 
             public function delete(\DBDriver $db) {
@@ -280,6 +294,7 @@
             public function jsonSerialize() {
                 return [
                     'authorUsername' => $this->authorUsername,
+                    'profilePicturePath' => $this->profilePicturePath,
                     'postId' => $this->postId,
                     'id' => $this->id,
                     'text' => $this->text

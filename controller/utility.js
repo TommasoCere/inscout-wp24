@@ -20,6 +20,24 @@ export function resetEventListener(oldButton, fun) {
     return newButton;
 }
 
+export function isLogged() {
+    var xhr = new XMLHttpRequest();
+    var url = window.location.href;
+    url = url.split("/");
+    url = url[0] + "//" + url[2];
+    url = url + "/db/actions/auth/validator.php";
+    xhr.open("POST", url, false);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send();
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      var response = JSON.parse(xhr.responseText);
+      return response.message == "Accesso consentito";
+    } else {
+      console.error("isLogged function error");
+      return false;
+    }
+  }
+
 export async function getUserInfo(username) {
     const response = await fetch("http://localhost/db/actions/user/getUserInfo.php?user=" + username, {
         method: "GET"
@@ -28,8 +46,66 @@ export async function getUserInfo(username) {
     return userInfo;
 }
 
+export async function getComments(post_id) {
+    const response = await fetch("./../../db/actions/user/getComments.php?postId=" + post_id, {
+        method: "GET"
+    });
+    const comments = await response.json();
+    return comments;
+}
+
+export async function loadComments(post_id) {
+    const commentModal = document.querySelector("#commentModal");
+    const comments = await getComments(post_id);
+    const template = commentModal.querySelector("template");
+    const commentList = commentModal.querySelector("#comments");
+
+    cleanTemplateList(commentList);
+
+    for (let i=0; i<comments.length; i++) {
+        let comment = comments[i];
+        let clone = template.content.cloneNode(true);
+        clone.querySelector("img").src = comment.profilePicturePath == null ? "/static/img/user.jpg" : comment.profilePicturePath;
+        clone.querySelector("#username").innerHTML = comment.authorUsername;
+        clone.querySelector("#text").innerHTML = comment.text;
+        commentList.appendChild(clone);
+    }
+
+    const commentBtn = commentModal.querySelector("#submitComment");
+
+    resetEventListener(commentBtn, function() { submitComment(post_id); });
+
+}
+
+export function cleanTemplateList(list) {
+    while (list.getElementsByTagName('li').length > 0) {
+        list.removeChild(list.lastChild);
+    }
+}
+
+async function submitComment(post_id) {
+    console.log("submitComment");
+    const modalFooter = document.querySelector("#commentModal .modal-footer");
+    const content = modalFooter.querySelector("input").value;
+    console.log(modalFooter.querySelector("input").value);
+    modalFooter.querySelector("input").value = "";
+    await fetch("./../../db/actions/user/uploadComment.php", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "post_id": post_id,
+            "content": content
+        })
+    });
+    cleanTemplateList(document.querySelector("#commentModal ul"));
+    loadComments(post_id);
+}
+
 export async function like(post_id, toAdd, likeButton_id, likes_id) {
-    const request = toAdd ? "http://localhost/db/actions/user/like.php" : "http://localhost/db/actions/user/unlike.php";
+    const request = toAdd ? "./../../db/actions/user/like.php" : "http://localhost/db/actions/user/unlike.php";
     await fetch(request, {
         method: "POST",
         credentials: "include",
