@@ -1,4 +1,4 @@
-DB_HOST="93.71.189.146"
+DB_HOST="188.218.251.46"
 DB_USER="admin"
 DB_PASSWORD="DatabaseInscout"
 DB_NAME="inscout"
