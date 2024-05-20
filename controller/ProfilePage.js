@@ -240,7 +240,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 async function getFollower() {
-  const response = await fetch("../../db/actions/user/getFollower.php", {
+  const response = await fetch("../../db/actions/user/getFollowing.php", {
       method: "GET"
   });
   const users = await response.json();
@@ -252,11 +252,10 @@ async function createFollowers() {
   const users = await getFollower();
 
   const template = feed.querySelector("template");
-  var userInfo
-  for (let i=0; i<posts.length; i++) {
+  for (let i=0; i<users.length; i++) {
       let user = users[i];
       let clone = template.content.cloneNode(true);
-      clone.querySelector("#followersImg img").src = user.fotoProfilo == null ? "../../static/img/user.jpg" : userInfo.fotoProfilo;
+      clone.querySelector("#followersImg img").src = user.fotoProfilo;
       clone.querySelector("#followersP p").innerHTML = user.username;
       feed.appendChild(clone);
   }
