@@ -17,7 +17,7 @@ async function createExploreAllList() {
         let user = users[i];
         let clone = template.content.cloneNode(true);
         //CAMBIA POI CON FOTO DB
-        clone.querySelector("#exploreAll img").src = "/static/img/user.jpg";
+        clone.querySelector("#postHeader img").src = userInfo.fotoProfilo == null ? "/static/img/user.jpg" : userInfo.fotoProfilo;
         clone.querySelector("#exploreAll p").innerHTML = user.username;
         feed.appendChild(clone);
     }
@@ -68,7 +68,7 @@ async function getExplorerResearch() {
         let user = users[i];
         let clone = template.content.cloneNode(true);
         //CAMBIA POI CON FOTO DB
-        clone.querySelector("#exploreAll img").src = "/static/img/user.jpg";
+        clone.querySelector("#postHeader img").src = userInfo.fotoProfilo == null ? "/static/img/user.jpg" : userInfo.fotoProfilo;
         clone.querySelector("#exploreAll p").innerHTML = user.username;
         feed.appendChild(clone);
     }

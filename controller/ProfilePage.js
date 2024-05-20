@@ -231,50 +231,51 @@ function logout() {
   xmlhttp.send();
 }
 
+
+// FOLLOWINF FOLLOWERS SECTION
+
 async function getFollower() {
-  // DA PROVARE SE FUNZIONA !!!!!
-  const response = await fetch("http://localhost/db/actions/user/getFollower.php", { method: "GET" });
+  const response = await fetch("../../db/actions/user/getFollower.php", {
+      method: "GET"
+  });
   const users = await response.json();
   return users;
 }
 
-async function createFollowersList() {
-  // DA PROVARE SE FUNZIONA !!!!!
+async function createFollowers() {
   const feed = document.querySelector("#followers");
   const users = await getFollower();
 
   const template = feed.querySelector("template");
-  for (let i = 0; i < users.length; i++) {
-    let user = users[i];
-    let clone = template.content.cloneNode(true);
-    //CAMBIA POI CON FOTO DB
-    clone.querySelector("#followerLi img").src = "/static/img/user.jpg";
-    clone.querySelector("#followerLi p").innerHTML = user.username;
-    feed.appendChild(clone);
+  var userInfo
+  for (let i=0; i<posts.length; i++) {
+      let user = users[i];
+      let clone = template.content.cloneNode(true);
+      clone.querySelector("#followerLi img").src = user.fotoProfilo == null ? "../../static/img/user.jpg" : userInfo.fotoProfilo;
+      clone.querySelector("#followerLi p").innerHTML = user.username;
+      feed.appendChild(clone);
   }
 }
 
 async function getFollowing() {
-  // DA PROVARE SE FUNZIONA !!!!!
-  const response = await fetch("http://localhost/db/actions/user//getFollowing.php", { method: "GET" });
+  const response = await fetch("../../db/actions/user/getFollower.php", {
+      method: "GET"
+  });
   const users = await response.json();
   return users;
 }
 
-async function createFollowingList() {
-  // DA PROVARE SE FUNZIONA !!!!!
+async function createFollowing() {
   const feed = document.querySelector("#following");
   const users = await getFollower();
 
   const template = feed.querySelector("template");
-  for (let i = 0; i < users.length; i++) {
-    let user = users[i];
-    let clone = template.content.cloneNode(true);
-    //CAMBIA POI CON FOTO DB
-    clone.querySelector("#followinfLi img").src = "/static/img/user.jpg";
-    clone.querySelector("#followingLi p").innerHTML = user.username;
-    feed.appendChild(clone);
+  var userInfo
+  for (let i=0; i<posts.length; i++) {
+      let user = users[i];
+      let clone = template.content.cloneNode(true);
+      clone.querySelector("#followingLi img").src = user.fotoProfilo == null ? "../../static/img/user.jpg" : userInfo.fotoProfilo;
+      clone.querySelector("#followingLi p").innerHTML = user.username;
+      feed.appendChild(clone);
   }
 }
-
-addHeaderFooter();
