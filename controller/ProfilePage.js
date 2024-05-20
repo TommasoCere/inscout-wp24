@@ -266,6 +266,10 @@ async function getFollowing() {
 }
 
 async function createFollowing() {
+  var myModal = new bootstrap.Modal(document.getElementById('following'), {
+    backdrop: 'static',
+    keyboard: false
+  });
   const feed = document.querySelector("#following");
   const users = await getFollower();
 
