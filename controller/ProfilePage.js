@@ -257,6 +257,10 @@ async function createFollowers() {
   }
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+  createFollowing();
+});
+
 async function getFollowing() {
   const response = await fetch("../../db/actions/user/getFollower.php", {
       method: "GET"
