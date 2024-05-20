@@ -264,22 +264,21 @@ async function getFollowing() {
   const users = await response.json();
   return users;
 }
-
+  
 async function createFollowing() {
-  var myModal = new bootstrap.Modal(document.getElementById('following'), {
-    backdrop: 'static',
-    keyboard: false
-  });
-  const feed = document.querySelector("#following");
-  const users = await getFollower();
-
-  const template = feed.querySelector("template");
-  var userInfo
-  for (let i=0; i<posts.length; i++) {
+    const feed = document.querySelector("#following");
+    const users = await getFollowing();
+  
+    const template = feed.querySelector("template");
+    for (let i = 0; i < users.length; i++) {
       let user = users[i];
       let clone = template.content.cloneNode(true);
       clone.querySelector("#followingLi img").src = user.fotoProfilo == null ? "../../static/img/user.jpg" : userInfo.fotoProfilo;
       clone.querySelector("#followingLi p").innerHTML = user.username;
       feed.appendChild(clone);
-  }
+    }
+  
+  // Initialize the Bootstrap modal after script loading
+  const modal = document.getElementById('following');
+  const modalInstance = new bootstrap.Modal(modal);
 }
