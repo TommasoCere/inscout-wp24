@@ -234,6 +234,11 @@ function logout() {
 
 // FOLLOWINF FOLLOWERS SECTION
 
+document.addEventListener("DOMContentLoaded", function() {
+  createFollowing();
+  createFollowers();
+});
+
 async function getFollower() {
   const response = await fetch("../../db/actions/user/getFollower.php", {
       method: "GET"
@@ -251,15 +256,11 @@ async function createFollowers() {
   for (let i=0; i<posts.length; i++) {
       let user = users[i];
       let clone = template.content.cloneNode(true);
-      clone.querySelector("#followerLi img").src = user.fotoProfilo == null ? "../../static/img/user.jpg" : userInfo.fotoProfilo;
-      clone.querySelector("#followerLi p").innerHTML = user.username;
+      clone.querySelector("#followersImg img").src = user.fotoProfilo == null ? "../../static/img/user.jpg" : userInfo.fotoProfilo;
+      clone.querySelector("#followersP p").innerHTML = user.username;
       feed.appendChild(clone);
   }
 }
-
-document.addEventListener("DOMContentLoaded", function() {
-  createFollowing();
-});
 
 async function getFollowing() {
   const response = await fetch("../../db/actions/user/getFollower.php", {
