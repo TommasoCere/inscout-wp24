@@ -1,47 +1,49 @@
 <?php
-
-require_once("./../bootstrap.php");
-require_once("./../entities.php");
+require_once(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php');
+require_once($DB_ROOT_PATH . 'connection' . DIRECTORY_SEPARATOR . 'entities.php');
 use entities\User;
+
+echo "ciao";
 
 global $driver;
 
-// Controlla se è stata inviata una stringa
-if(isset($_POST['stringa'])) {
-    // Ottieni la stringa inviata
-    $stringa = $_POST['stringa'];
-    $sql = "SELECT UTENTI.* 
-        FROM UTENTI
-        WHERE UTENTI.username ="+$stringa;
+$sql="SELECT * FROM UTENTI";
 
-    try {
-        $result = $driver->executeQuery($sql, $username);
-    } catch (\Exception $e) {
-        throw new \Exception("Error while querying the database: " . $e->getMessage());
-    }
+echo "ciao1";
 
-    $users = array();
-    if ($result->num_rows > 0) {
-        for ($i = 0; $i < $result->num_rows; $i++) {
-            $row = $result->fetch_array();
-            $user = new User(
-                $row['username'],
-                $row["profilePicturePath"],
-                $row["name"],
-                $row["surname"],
-                $row["email"],
-                $row["password"],
-                $row["section"],
-                $row["groupCity"],
-                $row["groupNumber"]
-            );
-            array_push($users, $user);
-        }
+try {
+    $result = $driver->executeQuery($sql);
+    echo "ciao1.1";
+} catch (\Exception $e) {
+    throw new \Exception("Error while querying the database: " . $e->getMessage());
+    echo $e;
+}
+
+$users = array();
+
+echo "ciao2";
+
+if ($result->num_rows > 0) {
+    echo "ciao2.1";
+    for ($i = 0; $i < $result->num_rows; $i++) {
+        $row = $result->fetch_array();
+        $user = new User(
+            $row['username'],
+            $row['fotoProfilo'],
+            $row['nome'],
+            $row['cognome'],
+            $row['email'],
+            $row['password'],
+            $row['branca'],
+            $row['cittaGruppo'],
+            $row['numeroGruppo'],
+        );
+        array_push($users, $user);
+        echo "ciao2.2";
     }
     echo json_encode($users, JSON_PRETTY_PRINT);
-} else {
-    // Se nessuna stringa è stata inviata, restituisci un messaggio di errore
-    echo "Nessuna stringa ricevuta.";
 }
+
+echo "ciao3";
 
 ?>
