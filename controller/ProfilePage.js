@@ -233,7 +233,7 @@ function logout() {
 
 
 // FOLLOWINF FOLLOWERS SECTION
-
+/*
 async function getFollower() {
   const response = await fetch("../../db/actions/user/getFollower.php", {
       method: "GET"
@@ -261,15 +261,17 @@ async function getFollowing() {
   const response = await fetch("../../db/actions/user/getFollower.php", {
       method: "GET"
   });
+  console.log(response);
   const users = await response.json();
+  console.log(users);
   return users;
 }
   
 async function createFollowing() {
-    const feed = document.querySelector("#following");
+    //const feed = document.querySelector("#following");
     const users = await getFollowing();
   
-    const template = feed.querySelector("template");
+   const template = feed.querySelector("template");
     for (let i = 0; i < users.length; i++) {
       let user = users[i];
       let clone = template.content.cloneNode(true);
@@ -279,8 +281,4 @@ async function createFollowing() {
       clone.querySelector("#followingLi p").innerHTML = user.username;
       feed.appendChild(clone);
     }
-  
-  // Initialize the Bootstrap modal after script loading
-  const modal = document.getElementById('following');
-  const modalInstance = new bootstrap.Modal(modal);
-}
+}*/
