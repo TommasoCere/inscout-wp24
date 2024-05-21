@@ -280,5 +280,4 @@ async function createFollowing() {
       clone.querySelector("#followingP p").innerHTML = users[i].username;
       feed.appendChild(clone);
     }
-    console.log("Ciao");
 }
