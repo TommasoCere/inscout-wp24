@@ -8,7 +8,7 @@ global $driver;
 $ricerca =  $_REQUEST["stringaRicerca"];
 //cosa devo scrivere nella barra di ricerca per passare il parametro stringaRicerca?
 
-$sql="SELECT * FROM UTENTI WHERE UTENTI.username LIKE %"+$ricerca+"%";
+$sql="SELECT * FROM UTENTI WHERE UTENTI.username LIKE '".$ricerca."%'";
 try {
     $result = $driver->executeQuery($sql);
 } catch (\Exception $e) {
