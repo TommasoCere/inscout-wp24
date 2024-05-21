@@ -11,6 +11,7 @@ async function getExploreAll() {
 
 async function getExplorerResearch() {
     const search = document.getElementById('searchBar').value;
+    console.log(search);
     const response = await fetch("../../db/actions/user/getExplorerResearch.php?stringaRicerca="+search, {
         method: "GET"
     });
@@ -53,7 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 //event listerner for search button
-document.getElementById('searchButton').addEventListener('click', function() {
+document.getElementById('searchButton').addEventListener('submit', function(event) {
+    event.preventDefault();
     createFeedResearch();
 });
 
