@@ -240,7 +240,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 async function getFollower() {
-  const response = await fetch("../../db/actions/user/getFollowing.php", {
+  var userInfo;
+  const response = await fetch("../../db/actions/user/getFollowing.php?user="+userInfo, {
       method: "GET"
   });
   const users = await response.json();
@@ -262,6 +263,7 @@ async function createFollowers() {
 }
 
 async function getFollowing() {
+  var userInfo;
   const response = await fetch("../../db/actions/user/getFollower.php?user="+userInfo, {
       method: "GET"
   });
