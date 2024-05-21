@@ -262,7 +262,7 @@ async function createFollowers() {
 }
 
 async function getFollowing() {
-  const response = await fetch("../../db/actions/user/getFollower.php", {
+  const response = await fetch("../../db/actions/user/getFollower.php?user="+userInfo, {
       method: "GET"
   });
   const users = await response.json();
