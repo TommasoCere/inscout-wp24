@@ -1,4 +1,5 @@
 import { addHeaderFooter, getUserInfo, like, checkLike, isLogged, loadComments } from './utility.js';
+const defaultFeed = document.querySelector("#exploreAll");
 
 
 async function getExploreAll() {
@@ -10,7 +11,7 @@ async function getExploreAll() {
 }
 
 async function getExplorerResearch() {
-    const search = document.getElementById('searchBar').value;
+    const search = document.getElementById('ricerca').value;
     console.log(search);
     const response = await fetch("../../db/actions/user/getExplorerResearch.php?stringaRicerca="+search, {
         method: "GET"
@@ -20,10 +21,9 @@ async function getExplorerResearch() {
 }
 
 async function createFeed() {
-    const feed = document.querySelector("#exploreAll");
+    feed = defaultFeed;
     const users = await getExploreAll();
-  
-   const template = feed.querySelector("template");
+    const template = feed.querySelector("template");
     for (let i = 0; i < users.length; i++) {
       let user = users[i];
       let clone = template.content.cloneNode(true);
@@ -35,10 +35,9 @@ async function createFeed() {
 }
 
 async function createFeedResearch() {
-    const feed = document.querySelector("#exploreAll");
+    feed = defaultFeed;
     const users = await getExplorerResearch();
-  
-   const template = feed.querySelector("template");
+    const template = feed.querySelector("template");
     for (let i = 0; i < users.length; i++) {
       let user = users[i];
       let clone = template.content.cloneNode(true);
@@ -54,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 //event listerner for search button
-document.getElementById('searchButton').addEventListener('submit', function(event) {
+document.getElementById('searchForm').addEventListener('submit', function(event) {
     event.preventDefault();
     createFeedResearch();
 });
