@@ -275,9 +275,10 @@ async function createFollowing() {
   
    const template = feed.querySelector("template");
     for (let i = 0; i < users.length; i++) {
+      let user = users[i];
       let clone = template.content.cloneNode(true);
-      clone.querySelector("#followingImg img").src = users[i].profilePicturePath == null ? "/static/img/user.jpg" : users[i].fotoProfilo;
-      clone.querySelector("#followingP p").innerHTML = users[i].username;
+      clone.querySelector("#followingImg img").src = user.profilePicturePath;
+      clone.querySelector("#followingP p").innerHTML = user.username;
       feed.appendChild(clone);
     }
 }
