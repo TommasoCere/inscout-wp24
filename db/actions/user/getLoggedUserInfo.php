@@ -13,11 +13,12 @@ if ($data['success']) {
     $nome = $row['nome'];
     $cognome = $row['cognome'];
     $cittaGruppo = $row['cittaGruppo'];
+    $numeroGruppo = $row['numeroGruppo'];
     $branca = $row['branca'];
     $username = $row['username'];
     $fotoProfilo = $row['fotoProfilo'];
     header('Content-type: application/json');
-    echo json_encode(array("success" => true, "nome" => $nome, "cognome" => $cognome, "cittaGruppo" => $cittaGruppo, "username" => $username, "fotoProfilo" => $fotoProfilo, "branca" => $branca));
+    echo json_encode(array("success" => true, "name" => $nome, "surname" => $cognome, "groupCity" => $cittaGruppo, "groupNumber" => $numeroGruppo, "username" => $username, "profilePicturePath" => $fotoProfilo, "section" => $branca));
 } else {
     echo json_encode(array("success" => false, "message" => $data['message']));
 }

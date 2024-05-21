@@ -2,118 +2,95 @@ import { addHeaderFooter, isLogged } from './utility.js';
 
 //Pronod nome e cognome dell'utente e lo inserisco nel DOM con id "nameSurname"
 document.addEventListener("DOMContentLoaded", function () {
-  var tokenCheck = new TokenCheck();
-  tokenCheck.init();
-  var userInfo = new UserInfo();
-  userInfo.init();
-  var medaglie = new Medaglie();
-  medaglie.init(function () {
-    medaglie.renderMedals("medalsContainer", 5);
+  TokenCheck();
+  LoadUserInfo(null);
+  loadMedals(null, 5, "medalsContainer");
+  addHeaderFooter();
+
+  document.getElementById("BadgeModal").addEventListener("show.bs.modal", function () {
+    loadMedals(null, 0, "medalsContainerModal");
   });
+
 });
 
 function TokenCheck() {
-  this.init = function () {
-    var logged = isLogged();
-    if (logged.success == false) {
-      console.log(logged.message);
-      window.location.href = "../auth/login/login.html";
-    }
-  };
+  var logged = isLogged();
+  if (logged.success == false) {
+    console.log(logged.message);
+    window.location.href = "../auth/login/login.html";
+  }
 }
 
-function UserInfo() {
-  this.init = function () {
-    const xmlhttp = new XMLHttpRequest();
-    const url = "../../db/actions/user/getLoggedUserInfo.php";
-    xmlhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        var response = JSON.parse(this.responseText);
-        if (response.success) {
-          document.getElementById("nameSurname").innerHTML = response.nome + " " + response.cognome;
-          document.getElementById("place").innerHTML = response.branca + ", " + response.cittaGruppo;
-          if (response.fotoProfilo != "") {
-            var path = response.fotoProfilo.replace("../", "http://localhost/");
-            document.getElementById("avatar").src = path;
-          }
-        } else {
-          console.log(response.message);
-        }
+/**
+ * shows the user info in the profile page
+ * @param {*} user the user to load the info from, null if the user is the logged one
+ */
+function LoadUserInfo(user) {
+  const xmlhttp = new XMLHttpRequest();
+  let url;
+  if(user == null){
+    url = "../../db/actions/user/getLoggedUserInfo.php";
+  }
+  else {
+    url = "../../db/actions/user/getUserInfo.php?user=" + user;
+  }
+  
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      var response = JSON.parse(this.responseText);
+      document.getElementById("nameSurname").innerHTML = response.name + " " + response.surname;
+      document.getElementById("place").innerHTML = response.section + ", " + response.groupCity + " " + response.groupNumber;
+      if (response.profilePicturePath != "") {
+        var path = response.profilePicturePath.replace("../", "http://localhost/");
+        document.getElementById("avatar").src = path;
       }
-    };
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send();
+    }
   };
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send();
 }
 
-function Medaglie() {
-  this.medals = [];
-  this.init = function (callback) {
-    const self = this;
-    const xmlhttp = new XMLHttpRequest();
-    const url = "../../db/actions/user/getMedaglie.php";
-    xmlhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        var response = JSON.parse(this.responseText);
-        if (response.success) {
-          self.medals = response.medaglie;
-          console.log(self.medals);
-          if (callback) {
-            callback();
-          }
-        } else {
-          console.log(self.response.message);
-        }
-      }
-    };
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send();
-  };
-  this.getNumMedals = function (num) {
-    if (num > this.medals.length) {
-      return this.medals;
-    } else {
-      return this.medals.slice(0, num);
-    }
-  };
-  this.getAllMedals = function () {
-    return this.medals;
-  };
-  this.renderMedals = function (idContainer, num) {
-    if (num == 0) {
-      var tmpMedals = this.getAllMedals();
-    } else {
-      var tmpMedals = this.getNumMedals(num);
-    }
-    var medalsContainer = document.getElementById(idContainer);
-    for (var i = 0; i < tmpMedals.length; i++) {
-      const medalDiv = document.createElement("div");
-      medalDiv.classList.add("col-4", "text-center", "mb-2");
+async function loadMedals(user, num, idContainer) {
+  let url;
+  let medals = [];
+  if(user == null){
+    url = "../../db/actions/user/getMedaglie.php";
+  }
+  else {
+    url = "../../db/actions/user/getMedaglie.php?user=" + user;
+  }
 
-      const medalImg = document.createElement("img");
-      medalImg.classList.add("img-fluid", "col-3");
-      medalImg.src = "../../static/img/medal-icon.png";
-      medalImg.alt = "medal-icon";
-
-      const medalName = document.createElement("p");
-      medalName.classList.add("h5", "fs-6");
-      medalName.textContent = tmpMedals[i]["title"];
-
-      medalDiv.appendChild(medalImg);
-      medalDiv.appendChild(medalName);
-      medalsContainer.appendChild(medalDiv);
-    }
-  };
-}
-
-// controllo quando viene aperto il modal BadgeModal
-document.getElementById("BadgeModal").addEventListener("show.bs.modal", function () {
-  // inserico le medaglie nel form
-  var medaglie = new Medaglie();
-  medaglie.init(function () {
-    medaglie.renderMedals("medalsContainerModal", 0);
+  const response = await fetch(url, {
+    method: "GET"
   });
-});
+  medals = await response.json();
+  medals = medals.medaglie;
+
+  if (num == 0) {
+    var tmpMedals = medals;
+  } else {
+    var tmpMedals = medals.slice(0, num);
+  }
+  var medalsContainer = document.getElementById(idContainer);
+  for (var i = 0; i < tmpMedals.length; i++) {
+    const medalDiv = document.createElement("div");
+    medalDiv.classList.add("col-4", "text-center", "mb-2");
+
+    const medalImg = document.createElement("img");
+    medalImg.classList.add("img-fluid", "col-3");
+    medalImg.src = "../../static/img/medal-icon.png";
+    medalImg.alt = "medal-icon";
+
+    const medalName = document.createElement("p");
+    medalName.classList.add("h5", "fs-6");
+    medalName.textContent = tmpMedals[i]["title"];
+
+    medalDiv.appendChild(medalImg);
+    medalDiv.appendChild(medalName);
+    medalsContainer.appendChild(medalDiv);
+  }
+}
+
 
 // aggiungo un listener al pulsante saveMedals
 document.querySelector("#saveMedals").addEventListener("click", saveMedals);
@@ -232,6 +209,7 @@ function logout() {
 }
 
 
+/*
 // FOLLOWINF FOLLOWERS SECTION
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -286,3 +264,4 @@ async function createFollowing() {
       feed.appendChild(clone);
     }
 }
+*/

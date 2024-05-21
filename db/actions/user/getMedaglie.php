@@ -4,15 +4,20 @@ require_once($DB_ROOT_PATH . 'connection' . DIRECTORY_SEPARATOR . 'entities.php'
 
 use entities\Achievement;
 
-global $driver;
-global $username;
+
+if(isset($_GET["user"])) {
+    $user = $_GET["user"];
+} else {
+    $user = $username;
+}
+
 
 // selezione le medaglie dell'utente
 $sql = "SELECT CONQUISTE.*
 FROM CONQUISTE
 WHERE CONQUISTE.username = ?";
 try {
-    $result = $driver->executeQuery($sql, $username);
+    $result = $driver->executeQuery($sql, $user);
 } catch (\Exception $e) {
     throw new \Exception("Error while querying the database: " . $e->getMessage());
 }
