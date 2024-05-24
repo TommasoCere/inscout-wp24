@@ -249,7 +249,7 @@ function logout() {
 }
 
 
-/*
+
 // FOLLOWINF FOLLOWERS SECTION
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -304,4 +304,4 @@ async function createFollowing() {
       feed.appendChild(clone);
     }
 }
-*/
+
