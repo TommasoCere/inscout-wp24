@@ -235,19 +235,23 @@
         class Comment implements \DBEntity {
 
             private $authorUsername;
+            private $profilePicturePath;
             private $postId;
             private $id;
             private $text;
 
+
             /**
              * Create a new comment
              * @param string $authorUsername The username of the author
+             * @param string $profilePicturePath The path of the author's profile picture
              * @param int $postId The id of the post
              * @param int $id The comment's id
              * @param string $text The text of the comment
              */
-            public function __construct($authorUsername = null, $postId = null, $id = null, $text = null) {
+            public function __construct($authorUsername = null, $profilePicturePath = null, $postId = null, $id = null, $text = null) {
                 $this->authorUsername = $authorUsername;
+                $this->profilePicturePath = $profilePicturePath;
                 $this->postId = $postId;
                 $this->id = $id;
                 $this->text = $text;
@@ -269,8 +273,18 @@
                 return $this->text;
             }
 
+            public function getProfilePicturePath() {
+                return $this->profilePicturePath;
+            }
+
             public function update(\DBDriver $db) {
-                //TODO
+                $query = "INSERT INTO COMMENTI (usernameAutore, idPost, id, testo) VALUES (?, ?, NULL, ?)";
+
+                try {
+                    $db->executeQuery($query, $this->authorUsername, $this->postId, $this->text);
+                } catch (\Exception $e) {
+                    throw new \Exception("Error while liking post: " . $e->getMessage());
+                }
             }
 
             public function delete(\DBDriver $db) {
@@ -280,6 +294,7 @@
             public function jsonSerialize() {
                 return [
                     'authorUsername' => $this->authorUsername,
+                    'profilePicturePath' => $this->profilePicturePath,
                     'postId' => $this->postId,
                     'id' => $this->id,
                     'text' => $this->text
@@ -319,16 +334,19 @@
 
         class Achievement implements \DBEntity {
             private $username;
+            private $profilePicturePath;
             private $title;
 
             /**
              * Create a new achievement
              * @param string $username The username of the user
              * @param string $title The title of the achievement
+             * @param string $profilePicturePath The path of the user's profile picture
              */
-            public function __construct($username = null, $title = null) {
+            public function __construct($username = null, $title = null, $profilePicturePath = null) {
                 $this->username = $username;
                 $this->title = $title;
+                $this->profilePicturePath = $profilePicturePath;
             }
 
             public function getUsername() {
@@ -337,6 +355,10 @@
 
             public function getTitle() {
                 return $this->title;
+            }
+
+            public function getProfilePicturePath() {
+                return $this->profilePicturePath;
             }
 
             public function update(\DBDriver $db) {
@@ -350,7 +372,8 @@
             public function jsonSerialize() {
                 return [
                     'username' => $this->username,
-                    'title' => $this->title
+                    'title' => $this->title,
+                    'profilePicturePath' => $this->profilePicturePath
                 ];
             }
         }

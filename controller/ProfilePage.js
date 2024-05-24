@@ -1,122 +1,157 @@
-import { addHeaderFooter, isLogged } from './utility.js';
+import { addHeaderFooter, isLogged, createFeed, cleanTemplateList } from './utility.js';
+
+
+
 
 //Pronod nome e cognome dell'utente e lo inserisco nel DOM con id "nameSurname"
-document.addEventListener("DOMContentLoaded", function () {
-  var tokenCheck = new TokenCheck();
-  tokenCheck.init();
-  var userInfo = new UserInfo();
-  userInfo.init();
-  var medaglie = new Medaglie();
-  medaglie.init(function () {
-    medaglie.renderMedals("medalsContainer", 5);
+document.addEventListener("DOMContentLoaded", async function () {
+  const user = new URLSearchParams(window.location.search).get("user");
+  
+  if (user == null) {
+    document.querySelector("#follow").classList.add("d-none");
+     // aggiungo un listener al pulsante saveMedals
+    document.querySelector("#save").addEventListener("click", saveMedals);
+  }
+  else{
+    document.querySelector("#settings").classList.add("d-none");
+    document.querySelector("#addMedal").classList.add("d-none");
+    document.querySelector("#save").classList.add("d-none");
+  }
+  TokenCheck();
+  addHeaderFooter();
+  await LoadUserInfo(user);
+  await loadMedals(user, 5, "medalsContainer");
+  await createFeed(await getUserPosts(user));
+  
+  
+
+  document.getElementById("BadgeModal").addEventListener("show.bs.modal", function () {
+  loadMedals(user, 0, "medalsContainerModal");
   });
+
+  
+  document.querySelector("#followersButton").addEventListener("click", function () {
+    createFollowers(user);
+  });
+
+  document.querySelector("#followingButton").addEventListener("click", function () {
+    createFollowing(user);
+  });
+ 
+  document.getElementById("saveProfileImage").addEventListener("click", saveProfileImage);
+  // quando clicco nel modal settingsModal devo aggiornare l'immagine del presente nel modal con quella attuale
+  document.getElementById("settingsModal").addEventListener("show.bs.modal", function () {
+  var path = document.getElementById("avatar").src;
+  document.getElementById("zoomAvatar").src = path;
+  // aggiungo un listener per il pulsante deleteProfile
+  document.getElementById("deleteProfile").addEventListener("click", deleteProfile);
+  // aggiungo un listener al pulsante logout
+  document.getElementById("logout").addEventListener("click", logout);
+  });
+
+  
+
+
 });
+
+
+
 
 function TokenCheck() {
-  this.init = function () {
-    var logged = isLogged();
-    if (logged.success == false) {
-      console.log(logged.message);
-      window.location.href = "../auth/login/login.html";
-    }
-  };
+  var logged = isLogged();
+  if (logged.success == false) {
+    console.log(logged.message);
+    window.location.href = "../auth/login/login.html";
+  }
 }
 
-function UserInfo() {
-  this.init = function () {
-    const xmlhttp = new XMLHttpRequest();
-    const url = "../../db/actions/user/getLoggedUserInfo.php";
-    xmlhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        var response = JSON.parse(this.responseText);
-        if (response.success) {
-          document.getElementById("nameSurname").innerHTML = response.nome + " " + response.cognome;
-          document.getElementById("place").innerHTML = response.branca + ", " + response.cittaGruppo;
-          if (response.fotoProfilo != "") {
-            var path = response.fotoProfilo.replace("../", "http://localhost/");
-            document.getElementById("avatar").src = path;
-          }
-        } else {
-          console.log(response.message);
-        }
-      }
-    };
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send();
-  };
-}
-
-function Medaglie() {
-  this.medals = [];
-  this.init = function (callback) {
-    const self = this;
-    const xmlhttp = new XMLHttpRequest();
-    const url = "../../db/actions/user/getMedaglie.php";
-    xmlhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        var response = JSON.parse(this.responseText);
-        if (response.success) {
-          self.medals = response.medaglie;
-          console.log(self.medals);
-          if (callback) {
-            callback();
-          }
-        } else {
-          console.log(self.response.message);
-        }
-      }
-    };
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send();
-  };
-  this.getNumMedals = function (num) {
-    if (num > this.medals.length) {
-      return this.medals;
-    } else {
-      return this.medals.slice(0, num);
-    }
-  };
-  this.getAllMedals = function () {
-    return this.medals;
-  };
-  this.renderMedals = function (idContainer, num) {
-    if (num == 0) {
-      var tmpMedals = this.getAllMedals();
-    } else {
-      var tmpMedals = this.getNumMedals(num);
-    }
-    var medalsContainer = document.getElementById(idContainer);
-    for (var i = 0; i < tmpMedals.length; i++) {
-      const medalDiv = document.createElement("div");
-      medalDiv.classList.add("col-4", "text-center", "mb-2");
-
-      const medalImg = document.createElement("img");
-      medalImg.classList.add("img-fluid", "col-3");
-      medalImg.src = "../../static/img/medal-icon.png";
-      medalImg.alt = "medal-icon";
-
-      const medalName = document.createElement("p");
-      medalName.classList.add("h5", "fs-6");
-      medalName.textContent = tmpMedals[i]["title"];
-
-      medalDiv.appendChild(medalImg);
-      medalDiv.appendChild(medalName);
-      medalsContainer.appendChild(medalDiv);
-    }
-  };
-}
-
-// controllo quando viene aperto il modal BadgeModal
-document.getElementById("BadgeModal").addEventListener("show.bs.modal", function () {
-  // inserico le medaglie nel form
-  var medaglie = new Medaglie();
-  medaglie.init(function () {
-    medaglie.renderMedals("medalsContainerModal", 0);
+async function getUserPosts(user){
+  let url;
+  if(user == null){
+    url = "../../db/actions/user/getUserPosts.php";
+  }
+  else {
+    url = "../../db/actions/user/getUserPosts.php?user=" + user;
+  }
+  const response = await fetch(url, {
+    method: "GET"
   });
-});
+  const posts = await response.json();
+  return posts;
+}
 
-// aggiungo un listener al pulsante saveMedals
-document.getElementById("saveMedals").addEventListener("click", saveMedals);
+/**
+ * shows the user info in the profile page
+ * @param {*} user the user to load the info from, null if the user is the logged one
+ */
+async function LoadUserInfo(user) {
+  const xmlhttp = new XMLHttpRequest();
+  let url;
+  if(user == null){
+    url = "../../db/actions/user/getLoggedUserInfo.php";
+  }
+  else {
+    url = "../../db/actions/user/getUserInfo.php?user=" + user;
+  }
+  
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      var response = JSON.parse(this.responseText);
+      document.getElementById("nameSurname").innerHTML = response.name + " " + response.surname;
+      document.getElementById("place").innerHTML = response.section + ", " + response.groupCity + " " + response.groupNumber;
+      if (response.profilePicturePath != "") {
+        var path = response.profilePicturePath.replace("../", "http://localhost/");
+        document.getElementById("avatar").src = path;
+      }
+    }
+  };
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send();
+}
+
+async function loadMedals(user, num, idContainer) {
+  let url;
+  let medals = [];
+  if(user == null){
+    url = "../../db/actions/user/getMedaglie.php";
+  }
+  else {
+    url = "../../db/actions/user/getMedaglie.php?user=" + user;
+  }
+
+  const response = await fetch(url, {
+    method: "GET"
+  });
+  medals = await response.json();
+  medals = medals.medaglie;
+
+  if (num == 0) {
+    var tmpMedals = medals;
+  } else {
+    var tmpMedals = medals.slice(0, num);
+  }
+  var medalsContainer = document.getElementById(idContainer);
+  for (var i = 0; i < tmpMedals.length; i++) {
+    const medalDiv = document.createElement("div");
+    medalDiv.classList.add("col-4", "text-center", "mb-2");
+
+    const medalImg = document.createElement("img");
+    medalImg.classList.add("img-fluid", "col-3");
+    medalImg.src = "../../static/img/medal-icon.png";
+    medalImg.alt = "medal-icon";
+
+    const medalName = document.createElement("p");
+    medalName.classList.add("h5", "fs-6");
+    medalName.textContent = tmpMedals[i]["title"];
+
+    medalDiv.appendChild(medalImg);
+    medalDiv.appendChild(medalName);
+    medalsContainer.appendChild(medalDiv);
+  }
+}
+
+
+
 
 function saveMedals() {
   // salvo la medaglia inserita nel form
@@ -145,7 +180,7 @@ function saveMedals() {
   xmlhttp.send(formData);
 }
 
-document.getElementById("saveProfileImage").addEventListener("click", saveProfileImage);
+
 
 function saveProfileImage() {
   const xmlhttp = new XMLHttpRequest();
@@ -183,14 +218,9 @@ function saveProfileImage() {
   xmlhttp.send(formData);
 }
 
-// quando clicco nel modal settingsModal devo aggiornare l'immagine del presente nel modal con quella attuale
-document.getElementById("settingsModal").addEventListener("show.bs.modal", function () {
-  var path = document.getElementById("avatar").src;
-  document.getElementById("zoomAvatar").src = path;
-});
 
-// aggiungo un listener per il pulsante deleteProfile
-document.getElementById("deleteProfile").addEventListener("click", deleteProfile);
+
+
 
 function deleteProfile() {
   const xmlhttp = new XMLHttpRequest();
@@ -211,8 +241,7 @@ function deleteProfile() {
   //logout();
 }
 
-// aggiungo un listener al pulsante logout
-document.getElementById("logout").addEventListener("click", logout);
+
 
 function logout() {
   const xmlhttp = new XMLHttpRequest();
@@ -231,50 +260,65 @@ function logout() {
   xmlhttp.send();
 }
 
-async function getFollower() {
-  // DA PROVARE SE FUNZIONA !!!!!
-  const response = await fetch("http://localhost/db/actions/user/getFollower.php", { method: "GET" });
+
+
+// FOLLOWINF FOLLOWERS SECTION
+
+async function getFollower(user) {
+  let url;
+  if(user == null) {
+    url = "../../db/actions/user/getFollower.php";
+  } else {
+    url = "../../db/actions/user/getFollower.php?user=" + user;
+  }
+  const response = await fetch(url, {
+      method: "GET"
+  });
   const users = await response.json();
   return users;
 }
 
-async function createFollowersList() {
-  // DA PROVARE SE FUNZIONA !!!!!
+async function createFollowers(user) {
   const feed = document.querySelector("#followers");
-  const users = await getFollower();
+  const users = await getFollower(user);
+  cleanTemplateList(feed);
 
   const template = feed.querySelector("template");
-  for (let i = 0; i < users.length; i++) {
-    let user = users[i];
-    let clone = template.content.cloneNode(true);
-    //CAMBIA POI CON FOTO DB
-    clone.querySelector("#followerLi img").src = "/static/img/user.jpg";
-    clone.querySelector("#followerLi p").innerHTML = user.username;
-    feed.appendChild(clone);
+  for (let i=0; i<users.length; i++) {
+      let user = users[i];
+      let clone = template.content.cloneNode(true);
+      clone.querySelector("#followersImg img").src = user.profilePicturePath;
+      clone.querySelector("#followersP p").innerHTML = user.username;
+      feed.appendChild(clone);
   }
 }
 
-async function getFollowing() {
-  // DA PROVARE SE FUNZIONA !!!!!
-  const response = await fetch("http://localhost/db/actions/user//getFollowing.php", { method: "GET" });
+async function getFollowing(user) {
+  let url;
+  if(user == null) {
+    url = "../../db/actions/user/getFollowing.php";
+  } else {
+    url = "../../db/actions/user/getFollowing.php?user=" + user;
+  }
+  const response = await fetch(url, {
+      method: "GET"
+  });
   const users = await response.json();
   return users;
 }
 
-async function createFollowingList() {
-  // DA PROVARE SE FUNZIONA !!!!!
-  const feed = document.querySelector("#following");
-  const users = await getFollower();
-
-  const template = feed.querySelector("template");
-  for (let i = 0; i < users.length; i++) {
-    let user = users[i];
-    let clone = template.content.cloneNode(true);
-    //CAMBIA POI CON FOTO DB
-    clone.querySelector("#followinfLi img").src = "/static/img/user.jpg";
-    clone.querySelector("#followingLi p").innerHTML = user.username;
-    feed.appendChild(clone);
-  }
+async function createFollowing(user) {
+    const feed = document.querySelector("#following");
+    const users = await getFollowing(user);
+    cleanTemplateList(feed);
+  
+   const template = feed.querySelector("template");
+    for (let i = 0; i < users.length; i++) {
+      let user = users[i];
+      let clone = template.content.cloneNode(true);
+      clone.querySelector("#followingImg img").src = user.profilePicturePath;
+      clone.querySelector("#followingP p").innerHTML = user.username;
+      feed.appendChild(clone);
+    }
 }
 
-addHeaderFooter();

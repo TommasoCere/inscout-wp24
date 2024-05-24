@@ -4,20 +4,18 @@
     require_once($DB_ROOT_PATH . 'connection' . DIRECTORY_SEPARATOR . 'entities.php');
     use entities\Post;
 
-
-    $max_posts = 20;
+    if(isset($_GET["user"])) {
+        $user = $_GET["user"];
+    } else {
+        $user = $username;
+    }
 
     $sql = "SELECT *
     FROM POST
-    WHERE usernameAutore IN (
-        SELECT usernameSeguito
-        FROM FOLLOW
-        WHERE usernameSeguace = ?)
-    OR usernameAutore = ?
-    ORDER BY dataPubblicazione DESC
-    LIMIT ?";
+    WHERE usernameAutore = ?
+    ORDER BY dataPubblicazione DESC";
     try {
-        $result = $driver->executeQuery($sql, $username, $username, $max_posts);
+        $result = $driver->executeQuery($sql, $user);
     } catch (\Exception $e) {
         throw new \Exception("Error while querying the database: " . $e->getMessage());
     }
@@ -37,6 +35,5 @@
         }
     }
     echo json_encode($posts, JSON_PRETTY_PRINT);
-
 
 ?>

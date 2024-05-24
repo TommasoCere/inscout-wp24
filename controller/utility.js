@@ -46,8 +46,66 @@ export async function getUserInfo(username) {
     return userInfo;
 }
 
+export async function getComments(post_id) {
+    const response = await fetch("./../../db/actions/user/getComments.php?postId=" + post_id, {
+        method: "GET"
+    });
+    const comments = await response.json();
+    return comments;
+}
+
+export async function loadComments(post_id) {
+    const commentModal = document.querySelector("#commentModal");
+    const comments = await getComments(post_id);
+    const template = commentModal.querySelector("template");
+    const commentList = commentModal.querySelector("#comments");
+
+    cleanTemplateList(commentList);
+
+    for (let i=0; i<comments.length; i++) {
+        let comment = comments[i];
+        let clone = template.content.cloneNode(true);
+        clone.querySelector("img").src = comment.profilePicturePath == null ? "/static/img/user.jpg" : comment.profilePicturePath;
+        clone.querySelector("#username").innerHTML = comment.authorUsername;
+        clone.querySelector("#text").innerHTML = comment.text;
+        commentList.appendChild(clone);
+    }
+
+    const commentBtn = commentModal.querySelector("#submitComment");
+
+    resetEventListener(commentBtn, function() { submitComment(post_id); });
+
+}
+
+export function cleanTemplateList(list) {
+    while (list.getElementsByTagName('li').length > 0) {
+        list.removeChild(list.lastChild);
+    }
+}
+
+async function submitComment(post_id) {
+    console.log("submitComment");
+    const modalFooter = document.querySelector("#commentModal .modal-footer");
+    const content = modalFooter.querySelector("input").value;
+    console.log(modalFooter.querySelector("input").value);
+    modalFooter.querySelector("input").value = "";
+    await fetch("./../../db/actions/user/uploadComment.php", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "post_id": post_id,
+            "content": content
+        })
+    });
+    cleanTemplateList(document.querySelector("#commentModal ul"));
+    loadComments(post_id);
+}
+
 export async function like(post_id, toAdd, likeButton_id, likes_id) {
-    const request = toAdd ? "http://localhost/db/actions/user/like.php" : "http://localhost/db/actions/user/unlike.php";
+    const request = toAdd ? "./../../db/actions/user/like.php" : "http://localhost/db/actions/user/unlike.php";
     await fetch(request, {
         method: "POST",
         credentials: "include",
@@ -84,4 +142,31 @@ export async function checkLike(post_id) {
     } else {
         return false;
     }     
+}
+
+export async function createFeed(posts) {
+    const feed = document.querySelector("#feed");
+
+    const template = feed.querySelector("template");
+    var userInfo
+    for (let i=0; i<posts.length; i++) {
+        userInfo = await getUserInfo(posts[i].authorUsername);
+        let post = posts[i];
+        let clone = template.content.cloneNode(true);
+        clone.querySelector("#postHeader img").src = userInfo.fotoProfilo == null ? "/static/img/user.jpg" : userInfo.fotoProfilo;
+        clone.querySelector("#postHeader p").innerHTML = userInfo.username;
+        clone.querySelector("#postBody img").src = post.picturePath == null ? "/static/img/user.jpg" : post.picturePath;
+        clone.querySelector("#likeNumber").innerHTML = post.nLikes;
+        clone.querySelector("#description").innerHTML = post.text;
+        clone.querySelector("li").setAttribute("name", post.id);
+        let likeBtn = clone.querySelector("#likeButton");
+        let commentBtn = clone.querySelector("#commentButton");
+        const liked = await checkLike(post.id);
+        if (liked) {
+            likeBtn.classList.add("liked");
+        }
+        likeBtn.addEventListener("click", function() { like(post.id, !liked, ".like-btn", "#likeNumber"); });
+        commentBtn.addEventListener("click", function() { loadComments(post.id); });
+        feed.appendChild(clone);
+    }
 }

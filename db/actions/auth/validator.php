@@ -5,13 +5,14 @@ loadEnvSecretKey();
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
+
+
 if (isset($_COOKIE['token'])) {
     $token = $_COOKIE['token'];
     try{
         $secretKey = getenv('JWT_SECRET_TOKEN');
         $decoded = JWT::decode($token, new Key($secretKey, 'HS256'));
         if ($decoded->exp > time()) {
-            $username = $decoded->username;
             echo json_encode(array("success" => true, "message" => "Accesso consentito"));
         } else {
             echo json_encode(array("success" => false, "message" => "Token scaduto"));
@@ -22,4 +23,5 @@ if (isset($_COOKIE['token'])) {
 } else {
     echo json_encode(array("success" => false, "message" => "Token non presente"));
 }
+
 ?>

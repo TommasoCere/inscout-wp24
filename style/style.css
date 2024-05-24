@@ -16,6 +16,7 @@ a {
     text-decoration: none;
 }
 
+
 ul li {
     list-style: none;
 }
@@ -24,13 +25,22 @@ ul li a {
     text-decoration: none;
 }
 
-.nav-btn, .close-btn, .like-btn {
+.like-btn {
+    color: #cacaca;
+}
+
+.setting-btn {
     color: #cacaca;
     text-decoration: none;
 }
 
-.liked{
-    color: #ff0000;
+.nav-btn, .close-btn, .comment-btn {
+    color: #cacaca;
+    text-decoration: none;
+}
+
+.liked {
+    color: #ff0000 !important;
 }
 
 .comment {

@@ -1,41 +1,45 @@
 <?php
-
-require_once("./../bootstrap.php");
-require_once("./../entities.php");
+require_once(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php');
+require_once($DB_ROOT_PATH . 'connection' . DIRECTORY_SEPARATOR . 'entities.php');
 use entities\User;
 
 global $driver;
-global $username;
 
-$sql = "SELECT UTENTI.*
-FROM UTENTI , FOLLOW
-WHERE FOLLOW.usernameSeguito IN (
-    SELECT usernameSeguace
-    FROM FOLLOW
-    WHERE usernameSeguito = "+$username+")";
+if(isset($_GET["user"])) {
+    $loggedUser = $_GET["user"];
+} else {
+    $loggedUser = $username;
+}
+
+
+$sql="SELECT u.* FROM UTENTI u, FOLLOW f WHERE u.username = f.usernameSeguace AND f.usernameSeguito = '$loggedUser'";
+
 try {
-    $result = $driver->executeQuery($sql, $username);
+    $result = $driver->executeQuery($sql);
 } catch (\Exception $e) {
     throw new \Exception("Error while querying the database: " . $e->getMessage());
+    echo $e;
 }
+
 $users = array();
+
 if ($result->num_rows > 0) {
     for ($i = 0; $i < $result->num_rows; $i++) {
         $row = $result->fetch_array();
         $user = new User(
             $row['username'],
-            $row["profilePicturePath"],
-            $row["name"],
-            $row["surname"],
-            $row["email"],
-            $row["password"],
-            $row["section"],
-            $row["groupCity"],
-            $row["groupNumber"]
+            $row['fotoProfilo'],
+            $row['nome'],
+            $row['cognome'],
+            $row['email'],
+            null,
+            $row['branca'],
+            $row['cittaGruppo'],
+            $row['numeroGruppo'],
         );
         array_push($users, $user);
     }
+    echo json_encode($users, JSON_PRETTY_PRINT);
 }
-echo json_encode($users, JSON_PRETTY_PRINT);
 
 ?>
