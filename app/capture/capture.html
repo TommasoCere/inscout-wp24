@@ -22,45 +22,45 @@
   <body class="bg-custom-dark">
     <header class="container-fluid sticky-top"></header>
     <main>
-      <div
-        class="container-fluid d-flex flex-column align-items-center justify-content-center vh-100 custom-container"
-      >
-        <!-- Container per la videocamera -->
+      <!--TOAST-->
+      <div class="toast-container position-fixed top-0 end-0 p-3">
         <div
-          class="container"
-          style="width: 441px; height: 531px; position: relative"
+          id="liveToast"
+          class="toast text-white border-0 align-items-center"
+          style="background-color: #343a40"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
         >
-          <video
-            id="cameraPreview"
-            width="100%"
-            height="100%"
-            style="object-fit: cover"
-          ></video>
+          <div class="d-flex">
+            <div class="toast-body" id="toast-body"></div>
+            <button
+              type="button"
+              class="btn-close btn-close-white me-2 m-auto"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-fluid d-flex flex-column align-items-center justify-content-center vh-100 custom-container">
+        <!-- Container per la videocamera -->
+        <div class="container" style="width: 441px; height: 531px; position: relative">
+          <video id="cameraPreview" width="100%" height="100%" style="object-fit: cover"></video>
           <!-- Aggiungi altri elementi o personalizzazioni necessarie qui -->
         </div>
 
         <!-- Pulsante per scattare la foto -->
-        <button id="captureButton" class="btn btn-primary mt-3">
-          Scatta Foto
-        </button>
+        <button id="captureButton" class="btn btn-primary mt-3">Scatta Foto</button>
       </div>
 
       <!-- MODALE COMMENTI e VISUALIZZAZIONE FOTO -->
-      <div
-        class="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div
-          class="modal-dialog modal-dialog-centered modal-dialog-centered-scrollable"
-        >
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-centered-scrollable">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">
-                Carica il post
-              </h1>
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Carica il post</h1>
             </div>
             <div class="modal-body d-flex flex-column align-items-center">
               <img id="capturedImage" class="img-fluid" alt="imgCapture" />
@@ -71,16 +71,8 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Chiudi
-              </button>
-              <button type="button" class="btn btn-primary" id="saveButton">
-                Carica
-              </button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+              <button type="button" class="btn btn-primary" id="saveButton">Carica</button>
             </div>
           </div>
         </div>

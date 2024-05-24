@@ -85,7 +85,6 @@ export function cleanTemplateList(list) {
 }
 
 async function submitComment(post_id) {
-  console.log("submitComment");
   const modalFooter = document.querySelector("#commentModal .modal-footer");
   const content = modalFooter.querySelector("input").value;
   console.log(modalFooter.querySelector("input").value);
@@ -212,4 +211,24 @@ export async function sendEmail(userEmail, username, subject, text1, text2, text
       "&color=" +
       color
   );
+}
+
+export function showToast( message ) {
+  const toastContent = document.getElementById('liveToast');
+  const toastBody = document.getElementById('toast-body');
+
+  // Aggiorna il contenuto del toast
+  toastBody.textContent = message;
+  toastContent.className = `toast text-white border-0 align-items-center ${message}`;
+
+  const toast = new bootstrap.Toast(toastContent);
+
+  // Mostra il toast
+  toast.show();
+
+  // Nascondi il toast dopo 5 secondi
+  setTimeout(() => {
+    toast.hide();
+  }, 5000);
+
 }

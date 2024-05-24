@@ -12,7 +12,7 @@ async function getFeed() {
 function TokenCheck() {
     var logged = isLogged();
     if (logged == false) {
-        console.log("Non sei loggato");
+        
         window.location.href = "../auth/login/login.html";
     }
 }

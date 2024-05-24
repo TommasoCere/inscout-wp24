@@ -1,4 +1,4 @@
-import { sendEmail } from "./utility.js";
+import { sendEmail, showToast } from "./utility.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   //const registerButton = document.getElementById('registerButton');
@@ -26,7 +26,7 @@ function register() {
     document.getElementById("brancaSelect").value == "" ||
     document.getElementById("gruppoSelect").value == ""
   ) {
-    console.log("riempi tutti i campi");
+    showToast("Compila tutti i campi per continuare");
     return;
   }
 
@@ -44,7 +44,8 @@ function register() {
 
   // controllo che la mail sia valida
   if (!email.includes("@")) {
-    console.log("email non valida");
+    
+    showToast("Email non valida");
     return;
   }
 
@@ -63,7 +64,6 @@ function register() {
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       var response = JSON.parse(this.responseText);
-      console.log(response);
       if (response.success) {
         var bool = sendEmail(
           email,
@@ -77,7 +77,8 @@ function register() {
         );
         window.location.href = "../login/login.html";
       } else {
-        console.log(response.message);
+        
+        showToast(response.message);
       }
     }
   };

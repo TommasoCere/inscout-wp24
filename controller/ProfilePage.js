@@ -1,4 +1,4 @@
-import { addHeaderFooter, isLogged, createFeed, cleanTemplateList } from './utility.js';
+import { addHeaderFooter, isLogged, createFeed, cleanTemplateList, showToast } from './utility.js';
 
 
 
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 function TokenCheck() {
   var logged = isLogged();
   if (logged.success == false) {
-    console.log(logged.message);
+    
     window.location.href = "../auth/login/login.html";
   }
 }
@@ -160,7 +160,7 @@ function saveMedals() {
   const formData = new FormData();
   const medalName = document.getElementById("medalName").value;
   if (medalName == "") {
-    console.log("Inserisci un nome per la medaglia");
+    showToast("Inserisci un nome per la medaglia");
     return;
   }
   formData.append("titolo", medalName);
@@ -172,7 +172,7 @@ function saveMedals() {
         document.getElementById("medalName").value = "";
         window.location.reload();
       } else {
-        console.log(response.message);
+        showToast(response.message);
       }
     }
   };
@@ -189,12 +189,12 @@ function saveProfileImage() {
   const fileField = document.querySelector('input[type="file"]');
   // controllo che sia stato inserito un file
   if (!fileField.files[0]) {
-    console.log("Inserisci un file");
+    showToast("Inserisci un file");
     return;
   } else {
     // controllo che il file sia un'immagine
     if (!fileField.files[0].type.match("image.*")) {
-      console.log("Il file inserito non è un'immagine");
+      showToast("Il file inserito non è un'immagine");
       return;
     }
   }
@@ -210,7 +210,7 @@ function saveProfileImage() {
         modalInstance.hide();
         window.location.reload();
       } else {
-        console.log(response.message);
+        showToast(response.message);
       }
     }
   };
@@ -231,7 +231,7 @@ function deleteProfile() {
       if (response.success) {
         window.location.href = "../auth/login/login.html";
       } else {
-        console.log(response.message);
+        
       }
     }
   };
@@ -251,7 +251,7 @@ function logout() {
       if (response.success) {
         window.location.href = "../auth/login/login.html";
       } else {
-        console.log(response.message);
+        showToast(response.message);
       }
     }
   };
