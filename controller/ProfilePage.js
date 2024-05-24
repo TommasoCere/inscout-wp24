@@ -274,11 +274,7 @@ async function createFollowers(viewuser) {
   const feed = document.querySelector("#followers");
   const users = await getFollower(viewuser);
   cleanTemplateList(feed);
-  if (users.length == 0) {
-    document.getElementById("followersButtonP").innerHTML = "0";
-  } else {
-    document.getElementById("followersButtonP").innerHTML =users.length;
-  }
+  document.getElementById("followersButtonP").innerHTML =users.length;
   const template = feed.querySelector("template");
   for (let i=0; i<users.length; i++) {
       let user = users[i];
@@ -312,11 +308,7 @@ async function createFollowing(viewuser) {
     const feed = document.querySelector("#following");
     const users = await getFollowing(viewuser);
     cleanTemplateList(feed);
-    if (users.length == 0) {
-      document.getElementById("followingButtonP").innerHTML = "0";
-    } else {
-      document.getElementById("followingButtonP").innerHTML =users.length;
-    }
+    document.getElementById("followingButtonP").innerHTML =users.length;
     const template = feed.querySelector("template");
     for (let i = 0; i < users.length; i++) {
       let user = users[i];
