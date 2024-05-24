@@ -1,15 +1,47 @@
-import { addHeaderFooter, isLogged } from './utility.js';
+import { addHeaderFooter, isLogged, createFeed } from './utility.js';
+
+
+
 
 //Pronod nome e cognome dell'utente e lo inserisco nel DOM con id "nameSurname"
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
+  const user = new URLSearchParams(window.location.search).get("user");
+  
+  if (user == null) {
+    document.querySelector("#follow").classList.add("d-none");
+     // aggiungo un listener al pulsante saveMedals
+    document.querySelector("#save").addEventListener("click", saveMedals);
+  }
+  else{
+    document.querySelector("#settings").classList.add("d-none");
+    document.querySelector("#addMedal").classList.add("d-none");
+    document.querySelector("#save").classList.add("d-none");
+  }
   TokenCheck();
-  LoadUserInfo(null);
-  loadMedals(null, 5, "medalsContainer");
   addHeaderFooter();
+  await LoadUserInfo(null);
+  await loadMedals(null, 5, "medalsContainer");
+  await createFeed(await getUserPosts(null));
+  
+  
 
   document.getElementById("BadgeModal").addEventListener("show.bs.modal", function () {
-    loadMedals(null, 0, "medalsContainerModal");
+  loadMedals(null, 0, "medalsContainerModal");
   });
+
+  
+
+ 
+  document.getElementById("saveProfileImage").addEventListener("click", saveProfileImage);
+  // quando clicco nel modal settingsModal devo aggiornare l'immagine del presente nel modal con quella attuale
+  document.getElementById("settingsModal").addEventListener("show.bs.modal", function () {
+  var path = document.getElementById("avatar").src;
+  document.getElementById("zoomAvatar").src = path;
+  // aggiungo un listener per il pulsante deleteProfile
+  document.getElementById("deleteProfile").addEventListener("click", deleteProfile);
+  // aggiungo un listener al pulsante logout
+  document.getElementById("logout").addEventListener("click", logout);
+});
 
 });
 
@@ -21,11 +53,26 @@ function TokenCheck() {
   }
 }
 
+async function getUserPosts(user){
+  let url;
+  if(user == null){
+    url = "../../db/actions/user/getUserPosts.php";
+  }
+  else {
+    url = "../../db/actions/user/getUserPosts.php?user=" + user;
+  }
+  const response = await fetch(url, {
+    method: "GET"
+  });
+  const posts = await response.json();
+  return posts;
+}
+
 /**
  * shows the user info in the profile page
  * @param {*} user the user to load the info from, null if the user is the logged one
  */
-function LoadUserInfo(user) {
+async function LoadUserInfo(user) {
   const xmlhttp = new XMLHttpRequest();
   let url;
   if(user == null){
@@ -92,8 +139,7 @@ async function loadMedals(user, num, idContainer) {
 }
 
 
-// aggiungo un listener al pulsante saveMedals
-document.querySelector("#saveMedals").addEventListener("click", saveMedals);
+
 
 function saveMedals() {
   // salvo la medaglia inserita nel form
@@ -122,7 +168,7 @@ function saveMedals() {
   xmlhttp.send(formData);
 }
 
-document.getElementById("saveProfileImage").addEventListener("click", saveProfileImage);
+
 
 function saveProfileImage() {
   const xmlhttp = new XMLHttpRequest();
@@ -160,14 +206,9 @@ function saveProfileImage() {
   xmlhttp.send(formData);
 }
 
-// quando clicco nel modal settingsModal devo aggiornare l'immagine del presente nel modal con quella attuale
-document.getElementById("settingsModal").addEventListener("show.bs.modal", function () {
-  var path = document.getElementById("avatar").src;
-  document.getElementById("zoomAvatar").src = path;
-});
 
-// aggiungo un listener per il pulsante deleteProfile
-document.getElementById("deleteProfile").addEventListener("click", deleteProfile);
+
+
 
 function deleteProfile() {
   const xmlhttp = new XMLHttpRequest();
@@ -188,8 +229,7 @@ function deleteProfile() {
   //logout();
 }
 
-// aggiungo un listener al pulsante logout
-document.getElementById("logout").addEventListener("click", logout);
+
 
 function logout() {
   const xmlhttp = new XMLHttpRequest();

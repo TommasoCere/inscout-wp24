@@ -32,7 +32,7 @@
               <!-- Gli elementi HTML delle medaglie saranno aggiunti qui dinamicamente -->
             </div>
 
-            <div class="row mb-2 m-1 mt-5 mb-0">
+            <div id="addMedal" class="row mb-2 m-1 mt-5 mb-0">
               <div class="col-3">
                 <img class="img-fluid" src="../../static/img/medal-icon.png" alt="" />
               </div>
@@ -43,8 +43,53 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="saveMedals">Salva</button>
+            <button id="save" type="button" class="btn btn-primary" id="saveMedals">Salva</button>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!--MODALE COMMENTI-->
+    <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-centered-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Commenti</h1>
+          </div>
+          <div class="modal-body">
+            <ul class="p-0 m-0" id="comments">
+              <template>
+                <li class="row mb-3">
+                  <div class="col-3">
+                    <img src="/static/img/user.jpg" class="img-fluid rounded-circle" alt="">
+                  </div>
+                  <div class="col-9">
+                    <p id="username" class="h5">nome.utente</p>
+                    <div class="comment p-3">
+                      <p id="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius nemo dignissimos, est itaque suscipit
+                        asperiores eligendi, rerum, ratione aut consequuntur harum? Aperiam repellat perferendis, soluta
+                        facilis aspernatur quod ea ipsa?</p>
+                    </div>
+                  </div>
+                </li>
+              </template>
+            </ul>
+          </div>
+          
+          <div class="modal-footer row m-0">
+            <form>
+              <div class="row mb-4 align-items-center">
+                <div class="col-9">
+                  <label for="comment-input" hidden>comment</label>
+                  <input type="text" id="comment-input" class="form-control p-3 rounded-4">
+                </div>
+                <div class="col-3">
+                  <button id="submitComment" type="button" class="btn btn-primary">invia</button>
+                </div>
+              </div>  
+            </form>
+          </div>   
+
         </div>
       </div>
     </div>
@@ -111,7 +156,7 @@
       <!--info profilo-->
       <div class="col-12 col-md-6 mb-4">
         <div class="row">
-          <div class="col-4">
+          <div class="col-5">
             <img id="avatar" src="../../static/img/user.jpg" alt="ProfileImage" class="img-fluid rounded-4" />
           </div>
           <div class="col-5">
@@ -128,14 +173,15 @@
               </div>
             </div>
           </div>
-          <div class="col-3 text-end">
-            <button class="setting-btn btn btn-link" type="button" data-bs-toggle="modal" data-bs-target="#settingsModal">
+          <div class="col-2 text-end">
+            <button id="settings" class="setting-btn btn btn-link" type="button" data-bs-toggle="modal" data-bs-target="#settingsModal">
               <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 576 512">
                 <path d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8c-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4L83.1 425.9c-8.8 2.8-18.6 .3-24.5-6.8c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 273.1 64 264.6 64 256s.6-17.1 1.7-25.4L22.4 191.2c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.3 24.5 6.8c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336a80 80 0 1 0 0-160 80 80 0 1 0 0 160z"/>
               </svg>
             </button>
           </div>
         </div>
+        <button id="follow" class="btn btn-primary mt-3" style="width: 100%">Segui</button>
       </div>
 
       <!--medagliere-->
@@ -145,7 +191,7 @@
             <div class="col-4 text-center" id="buttonMedal">
             <button class="btn btn-success mt-2 ps-4 pe-4" type="button" data-bs-toggle="modal" data-bs-target="#BadgeModal">
               <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 512 512">
-                <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                <path d="M226.5 92.9c14.3 42.9-.3 86.2-32.6 96.8s-70.1-15.6-84.4-58.5s.3-86.2 32.6-96.8s70.1 15.6 84.4 58.5zM100.4 198.6c18.9 32.4 14.3 70.1-10.2 84.1s-59.7-.9-78.5-33.3S-2.7 179.3 21.8 165.3s59.7 .9 78.5 33.3zM69.2 401.2C121.6 259.9 214.7 224 256 224s134.4 35.9 186.8 177.2c3.6 9.7 5.2 20.1 5.2 30.5v1.6c0 25.8-20.9 46.7-46.7 46.7c-11.5 0-22.9-1.4-34-4.2l-88-22c-15.3-3.8-31.3-3.8-46.6 0l-88 22c-11.1 2.8-22.5 4.2-34 4.2C84.9 480 64 459.1 64 433.3v-1.6c0-10.4 1.6-20.8 5.2-30.5zM421.8 282.7c-24.5-14-29.1-51.7-10.2-84.1s54-47.3 78.5-33.3s29.1 51.7 10.2 84.1s-54 47.3-78.5 33.3zM310.1 189.7c-32.3-10.6-46.9-53.9-32.6-96.8s52.1-69.1 84.4-58.5s46.9 53.9 32.6 96.8s-52.1 69.1-84.4 58.5z"/>
               </svg>
             </button>
             </div>
@@ -156,7 +202,7 @@
     </div>
 
     <ol id="feed" class="pb-4">
-
+      <template>
         <!--POST -->
         <li>
           <a id="postHeader" class="row ms-3 align-items-center mt-3" href="/app/profile/otherProifile.html">
@@ -198,6 +244,8 @@
           </div>
 
         </li>
+
+      </template>
     </ol>
     
 

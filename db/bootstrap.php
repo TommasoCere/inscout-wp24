@@ -29,16 +29,14 @@ if($data->success){
 else {
     $username = null;
 }
-    
+ 
 global $DB_ROOT_PATH;
 global $driver;
 global $username;
 
-/*
-$domain = $_SERVER['HTTP_HOST'];
-if ($domain == "localhost")
-    $domain = "http://localhost";
-else {
-    $domain = "https://partylinker.live";
-} */
+
+
+
+
+
 ?>
