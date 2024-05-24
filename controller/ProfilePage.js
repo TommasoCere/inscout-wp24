@@ -258,7 +258,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 async function getFollower() {
-  const response = await fetch("../../db/actions/user/getFollowing.php", {
+  var userInfo;
+  const response = await fetch("../../db/actions/user/getFollowing.php?user="+userInfo, {
       method: "GET"
   });
   const users = await response.json();
@@ -273,22 +274,21 @@ async function createFollowers() {
   for (let i=0; i<users.length; i++) {
       let user = users[i];
       let clone = template.content.cloneNode(true);
-      clone.querySelector("#followersImg img").src = user.fotoProfilo;
+      clone.querySelector("#followersImg img").src = user.profilePicturePath;
       clone.querySelector("#followersP p").innerHTML = user.username;
       feed.appendChild(clone);
   }
 }
 
 async function getFollowing() {
-  const response = await fetch("../../db/actions/user/getFollower.php", {
+  var userInfo;
+  const response = await fetch("../../db/actions/user/getFollower.php?user="+userInfo, {
       method: "GET"
   });
-  console.log(response);
   const users = await response.json();
-  console.log(users);
   return users;
 }
-  
+
 async function createFollowing() {
     const feed = document.querySelector("#following");
     const users = await getFollowing();
@@ -297,9 +297,7 @@ async function createFollowing() {
     for (let i = 0; i < users.length; i++) {
       let user = users[i];
       let clone = template.content.cloneNode(true);
-      console.log(user.fotoProfilo);
-      console.log(user.username);
-      clone.querySelector("#followingImg img").src = user.fotoProfilo;
+      clone.querySelector("#followingImg img").src = user.profilePicturePath;
       clone.querySelector("#followingP p").innerHTML = user.username;
       feed.appendChild(clone);
     }

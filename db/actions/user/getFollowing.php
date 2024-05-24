@@ -5,7 +5,10 @@ use entities\User;
 
 global $driver;
 
-$sql="SELECT * FROM UTENTI ";
+$loggedUser =  $_GET["user"];
+
+$sql="SELECT * FROM UTENTI, FOLLOW WHERE UTENTI.username IN (
+        SELECT FOLLOW.usernameSeguito FROM FOLLOW WHERE usernameSeguace = '$loggedUser')";
 
 try {
     $result = $driver->executeQuery($sql);

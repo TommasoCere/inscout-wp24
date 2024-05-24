@@ -5,8 +5,10 @@ use entities\User;
 
 global $driver;
 
-$sql="SELECT * FROM UTENTI";
+$ricerca =  $_REQUEST["stringaRicerca"];
+//cosa devo scrivere nella barra di ricerca per passare il parametro stringaRicerca?
 
+$sql="SELECT * FROM UTENTI WHERE UTENTI.username LIKE '".$ricerca."%'";
 try {
     $result = $driver->executeQuery($sql);
 } catch (\Exception $e) {
