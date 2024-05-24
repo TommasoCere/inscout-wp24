@@ -43,7 +43,7 @@ async function createFeedResearch() {
       let user = users[i];
       let clone = template.content.cloneNode(true);
         clone.querySelector("#exploreAllImg img").src = user.profilePicturePath;
-        clone.querySelector("#exploreAllName p").innerHTML = user.username;
+        clone.querySelector("#exploreAllName a").innerHTML = user.username;
         clone.querySelector("#exploreAllName a").href="app/profile/profile.html?user="+user.username;
         feed.appendChild(clone);
     }
