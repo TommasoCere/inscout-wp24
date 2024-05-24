@@ -1,3 +1,5 @@
+import { sendEmail } from "./utility.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   //const registerButton = document.getElementById('registerButton');
   //registerButton.addEventListener('click', register);
@@ -63,7 +65,16 @@ function register() {
       var response = JSON.parse(this.responseText);
       console.log(response);
       if (response.success) {
-        
+        var bool = sendEmail(
+          email,
+          username,
+          "Registrazione confermata",
+          "Grazie per esserti registato " + username + "!",
+          "Ciao " + nome + " " + cognome + ", clicca sul pulsante sottostante per iniziare a condividere i tuoi momenti con gli altri scout!",
+          "Entra nel sito",
+          "https://inscout.me",
+          "#FF0000"
+        );
         window.location.href = "../login/login.html";
       } else {
         console.log(response.message);

@@ -237,8 +237,7 @@ function deleteProfile() {
   };
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
-  // chiamo il logout
-  //logout();
+  logout();
 }
 
 
