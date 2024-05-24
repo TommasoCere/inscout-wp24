@@ -1,3 +1,5 @@
+import { sendEmail, showToast } from "./utility.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   //const registerButton = document.getElementById('registerButton');
   //registerButton.addEventListener('click', register);
@@ -24,7 +26,7 @@ function register() {
     document.getElementById("brancaSelect").value == "" ||
     document.getElementById("gruppoSelect").value == ""
   ) {
-    console.log("riempi tutti i campi");
+    showToast("Compila tutti i campi per continuare");
     return;
   }
 
@@ -42,7 +44,8 @@ function register() {
 
   // controllo che la mail sia valida
   if (!email.includes("@")) {
-    console.log("email non valida");
+    
+    showToast("Email non valida");
     return;
   }
 
@@ -61,12 +64,21 @@ function register() {
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       var response = JSON.parse(this.responseText);
-      console.log(response);
       if (response.success) {
-        
+        var bool = sendEmail(
+          email,
+          username,
+          "Registrazione confermata",
+          "Grazie per esserti registato " + username + "!",
+          "Ciao " + nome + " " + cognome + ", clicca sul pulsante sottostante per iniziare a condividere i tuoi momenti con gli altri scout!",
+          "Entra nel sito",
+          "https://inscout.me",
+          "#FF0000"
+        );
         window.location.href = "../login/login.html";
       } else {
-        console.log(response.message);
+        
+        showToast(response.message);
       }
     }
   };
