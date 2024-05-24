@@ -24,9 +24,13 @@ async function createFeed() {
     const users = await getExploreAll();
     const template = feed.querySelector("template");
     for (let i = 0; i < users.length; i++) {
-      let user = users[i];
-      let clone = template.content.cloneNode(true);
-        clone.querySelector("#exploreAllImg img").src = user.profilePicturePath;
+        let user = users[i];
+        let clone = template.content.cloneNode(true);
+        if(user.profilePicturePath == null || user.profilePicturePath == "") {
+            user.profilePicturePath = "../../static/img/user.jpg";
+        }else{
+            clone.querySelector("#exploreAllImg img").src = user.profilePicturePath;
+        }
         clone.querySelector("#exploreAllName a").innerHTML = user.username;
         clone.querySelector("#exploreAllName a").href="../../app/profile/profile.html?user="+user.username;
         feed.appendChild(clone);

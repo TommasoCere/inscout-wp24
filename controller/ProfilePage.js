@@ -274,12 +274,20 @@ async function createFollowers(viewuser) {
   const feed = document.querySelector("#followers");
   const users = await getFollower(viewuser);
   cleanTemplateList(feed);
-  document.getElementById("followersButtonP").innerHTML =users.length;
+  if (users.length == 0) {
+    document.getElementById("followersButtonP").innerHTML = "0";
+  } else {
+    document.getElementById("followersButtonP").innerHTML =users.length;
+  }
   const template = feed.querySelector("template");
   for (let i=0; i<users.length; i++) {
       let user = users[i];
       let clone = template.content.cloneNode(true);
-      clone.querySelector("#followersImg img").src = user.profilePicturePath;
+      if(user.profilePicturePath == null || user.profilePicturePath == "") {
+        user.profilePicturePath = "../../static/img/user.jpg";
+      }else{
+        clone.querySelector("#exploreAllImg img").src = user.profilePicturePath;
+      }lePicturePath;
       clone.querySelector("#followersP a").innerHTML = user.username;
       clone.querySelector("#followersP a").href="../../app/profile/profile.html?user="+user.username;
       feed.appendChild(clone);
@@ -304,12 +312,20 @@ async function createFollowing(viewuser) {
     const feed = document.querySelector("#following");
     const users = await getFollowing(viewuser);
     cleanTemplateList(feed);
-    document.getElementById("followingButtonP").innerHTML =users.length;  
+    if (users.length == 0) {
+      document.getElementById("followingButtonP").innerHTML = "0";
+    } else {
+      document.getElementById("followingButtonP").innerHTML =users.length;
+    }
     const template = feed.querySelector("template");
     for (let i = 0; i < users.length; i++) {
       let user = users[i];
       let clone = template.content.cloneNode(true);
-      clone.querySelector("#followingImg img").src = user.profilePicturePath;
+      if(user.profilePicturePath == null || user.profilePicturePath == "") {
+        user.profilePicturePath = "../../static/img/user.jpg";
+      }else{
+        clone.querySelector("#exploreAllImg img").src = user.profilePicturePath;
+      }clone.querySelector("#followingImg img").src = user.profilePicturePath;
       clone.querySelector("#followingP a").innerHTML = user.username;
       clone.querySelector("#followingP a").href="../../app/profile/profile.html?user="+user.username;
       feed.appendChild(clone);
