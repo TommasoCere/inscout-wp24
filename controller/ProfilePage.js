@@ -289,7 +289,7 @@ async function createFollowers(viewuser) {
       let clone = template.content.cloneNode(true);
       clone.querySelector("#followersImg img").src = user.profilePicturePath;
       clone.querySelector("#followersP a").innerHTML = user.username;
-      clone.querySelector("#followersP a").href = "../../app/profile/profile.html?user=" + user;
+      clone.querySelector("#followersP a").href="../../app/profile/profile.html?user="+user.username;
       feed.appendChild(clone);
   }
 }
@@ -319,7 +319,7 @@ async function createFollowing(viewuser) {
       let clone = template.content.cloneNode(true);
       clone.querySelector("#followingImg img").src = user.profilePicturePath;
       clone.querySelector("#followingP a").innerHTML = user.username;
-      clone.querySelector("#followersP a").href = "../../app/profile/profile.html?user=" + user;
+      clone.querySelector("#followingP a").href="../../app/profile/profile.html?user="+user.username;
       feed.appendChild(clone);
     }
 }
