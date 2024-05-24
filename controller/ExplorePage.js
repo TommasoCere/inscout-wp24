@@ -27,24 +27,23 @@ async function createFeed() {
       let user = users[i];
       let clone = template.content.cloneNode(true);
         clone.querySelector("#exploreAllImg img").src = user.profilePicturePath;
-        clone.querySelector("#exploreAllName p").innerHTML = user.username;
-        clone.querySelector("#exploreAllName a").href="app/profile/profile.html?user="+user.username;
-        let likeBtn = clone.querySelector("#exploreAllName button");
+        clone.querySelector("#exploreAllName a").innerHTML = user.username;
+        clone.querySelector("#exploreAllName a").href="../../app/profile/profile.html?user="+user.username;
         feed.appendChild(clone);
     }
 }
 
 async function createFeedResearch() {
     const feed = document.getElementById("exploreAll");
-    feed.innerHTML = "<template> <li class='mt-3 p-2 ps-4 mx-auto user-tag rounded-4' style='width: 9.6cm'> <div class='row align-items-center'> <div class='col-3' id='exploreAllImg'> <img src='/static/img/user.jpg' class='img-fluid rounded-circle' alt=''> </div> <div class='col-9' id='exploreAllName'> <p class='h4 text-start mb-2'>cippa.lippa</p> <button class='btn btn-primary mb-2' style='width: 90%;'>segui</button> </div> </div>          </li> </template>";
+    feed.innerHTML = "<template> <li class='mt-3 p-2 ps-4 mx-auto user-tag rounded-4' style='width: 9.6cm'> <div class='row align-items-center'> <div class='col-3' id='exploreAllImg'> <img src='/static/img/user.jpg' class='img-fluid rounded-circle' alt=''> </div> <div class='col-9' id='exploreAllName'> <p class='h4 text-start mb-2'> <a href='app/profile/profile.html'>cippa.lippa</a> </p> </div> </div>          </li> </template>";
     const users = await getExplorerResearch();
     const template = feed.querySelector("template");
     for (let i = 0; i < users.length; i++) {
       let user = users[i];
       let clone = template.content.cloneNode(true);
         clone.querySelector("#exploreAllImg img").src = user.profilePicturePath;
-        clone.querySelector("#exploreAllName a").innerHTML = user.username;
-        clone.querySelector("#exploreAllName a").href="app/profile/profile.html?user="+user.username;
+        clone.querySelector("#exploreAllName a").innerHTML =user.username;
+        clone.querySelector("#exploreAllName a").href="../../app/profile/profile.html?user="+user.username;
         feed.appendChild(clone);
     }
 }
