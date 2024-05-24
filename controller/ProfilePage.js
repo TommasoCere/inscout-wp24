@@ -278,9 +278,9 @@ async function getFollower(user) {
   return users;
 }
 
-async function createFollowers(user) {
+async function createFollowers(viewuser) {
   const feed = document.querySelector("#followers");
-  const users = await getFollower(user);
+  const users = await getFollower(viewuser);
   cleanTemplateList(feed);
 
   const template = feed.querySelector("template");
@@ -289,7 +289,7 @@ async function createFollowers(user) {
       let clone = template.content.cloneNode(true);
       clone.querySelector("#followersImg img").src = user.profilePicturePath;
       clone.querySelector("#followersP a").innerHTML = user.username;
-      clone.querySelector("#followersP a").href = "app/profile/profile.html?user=" + user;
+      clone.querySelector("#followersP a").href = "../../app/profile/profile.html?user=" + user;
       feed.appendChild(clone);
   }
 }
@@ -308,9 +308,9 @@ async function getFollowing(user) {
   return users;
 }
 
-async function createFollowing(user) {
+async function createFollowing(viewuser) {
     const feed = document.querySelector("#following");
-    const users = await getFollowing(user);
+    const users = await getFollowing(viewuser);
     cleanTemplateList(feed);
   
    const template = feed.querySelector("template");
@@ -319,7 +319,7 @@ async function createFollowing(user) {
       let clone = template.content.cloneNode(true);
       clone.querySelector("#followingImg img").src = user.profilePicturePath;
       clone.querySelector("#followingP a").innerHTML = user.username;
-      clone.querySelector("#followersP a").href = "app/profile/profile.html?user=" + user;
+      clone.querySelector("#followersP a").href = "../../app/profile/profile.html?user=" + user;
       feed.appendChild(clone);
     }
 }
