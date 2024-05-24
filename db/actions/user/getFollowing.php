@@ -5,10 +5,14 @@ use entities\User;
 
 global $driver;
 
-$loggedUser =  $_GET["user"];
+if(isset($_GET["user"])) {
+    $loggedUser = $_GET["user"];
+} else {
+    $loggedUser = $username;
+}
 
-$sql="SELECT * FROM UTENTI, FOLLOW WHERE UTENTI.username IN (
-        SELECT FOLLOW.usernameSeguito FROM FOLLOW WHERE usernameSeguace = '$loggedUser')";
+
+$sql="SELECT u.* FROM UTENTI u, FOLLOW f WHERE u.username = f.usernameSeguito AND f.usernameSeguace = '$loggedUser'";
 
 try {
     $result = $driver->executeQuery($sql);
@@ -28,7 +32,7 @@ if ($result->num_rows > 0) {
             $row['nome'],
             $row['cognome'],
             $row['email'],
-            $row['password'],
+            null,
             $row['branca'],
             $row['cittaGruppo'],
             $row['numeroGruppo'],

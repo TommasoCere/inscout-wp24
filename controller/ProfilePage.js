@@ -1,4 +1,4 @@
-import { addHeaderFooter, isLogged, createFeed } from './utility.js';
+import { addHeaderFooter, isLogged, createFeed, cleanTemplateList } from './utility.js';
 
 
 
@@ -19,18 +19,24 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
   TokenCheck();
   addHeaderFooter();
-  await LoadUserInfo(null);
-  await loadMedals(null, 5, "medalsContainer");
-  await createFeed(await getUserPosts(null));
+  await LoadUserInfo(user);
+  await loadMedals(user, 5, "medalsContainer");
+  await createFeed(await getUserPosts(user));
   
   
 
   document.getElementById("BadgeModal").addEventListener("show.bs.modal", function () {
-  loadMedals(null, 0, "medalsContainerModal");
+  loadMedals(user, 0, "medalsContainerModal");
   });
 
   
+  document.querySelector("#followersButton").addEventListener("click", function () {
+    createFollowers(user);
+  });
 
+  document.querySelector("#followingButton").addEventListener("click", function () {
+    createFollowing(user);
+  });
  
   document.getElementById("saveProfileImage").addEventListener("click", saveProfileImage);
   // quando clicco nel modal settingsModal devo aggiornare l'immagine del presente nel modal con quella attuale
@@ -41,9 +47,15 @@ document.addEventListener("DOMContentLoaded", async function () {
   document.getElementById("deleteProfile").addEventListener("click", deleteProfile);
   // aggiungo un listener al pulsante logout
   document.getElementById("logout").addEventListener("click", logout);
-});
+  });
+
+  
+
 
 });
+
+
+
 
 function TokenCheck() {
   var logged = isLogged();
@@ -252,23 +264,24 @@ function logout() {
 
 // FOLLOWINF FOLLOWERS SECTION
 
-document.addEventListener("DOMContentLoaded", function() {
-  createFollowing();
-  createFollowers();
-});
-
-async function getFollower() {
-  var userInfo;
-  const response = await fetch("../../db/actions/user/getFollowing.php?user="+userInfo, {
+async function getFollower(user) {
+  let url;
+  if(user == null) {
+    url = "../../db/actions/user/getFollower.php";
+  } else {
+    url = "../../db/actions/user/getFollower.php?user=" + user;
+  }
+  const response = await fetch(url, {
       method: "GET"
   });
   const users = await response.json();
   return users;
 }
 
-async function createFollowers() {
+async function createFollowers(user) {
   const feed = document.querySelector("#followers");
-  const users = await getFollower();
+  const users = await getFollower(user);
+  cleanTemplateList(feed);
 
   const template = feed.querySelector("template");
   for (let i=0; i<users.length; i++) {
@@ -280,18 +293,24 @@ async function createFollowers() {
   }
 }
 
-async function getFollowing() {
-  var userInfo;
-  const response = await fetch("../../db/actions/user/getFollower.php?user="+userInfo, {
+async function getFollowing(user) {
+  let url;
+  if(user == null) {
+    url = "../../db/actions/user/getFollowing.php";
+  } else {
+    url = "../../db/actions/user/getFollowing.php?user=" + user;
+  }
+  const response = await fetch(url, {
       method: "GET"
   });
   const users = await response.json();
   return users;
 }
 
-async function createFollowing() {
+async function createFollowing(user) {
     const feed = document.querySelector("#following");
-    const users = await getFollowing();
+    const users = await getFollowing(user);
+    cleanTemplateList(feed);
   
    const template = feed.querySelector("template");
     for (let i = 0; i < users.length; i++) {

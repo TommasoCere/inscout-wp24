@@ -4,16 +4,6 @@
     require_once($DB_ROOT_PATH . 'connection' . DIRECTORY_SEPARATOR . 'entities.php');
     use entities\Post;
 
-    /*
-    $data = getDataToken();
-    $data = json_decode($data);
-    if($data->success){
-        $GLOBALS['username']= $data->username;
-    }   
-    else {
-        $GLOBALS['username'] = null;
-    }*/
-
 
     $max_posts = 20;
 

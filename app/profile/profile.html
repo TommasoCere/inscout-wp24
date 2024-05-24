@@ -105,13 +105,13 @@
           <!--LISTA DEI SEGUITI-->
           <ul class="list-group main-content mt-2" id="following">
             <template>
-              <li href="#" class="list-group-item">
-                  <div class="row">
-                      <div class="col-2" id="followingImg">
+              <li>
+                  <div class="row m-2 p-3 align-items-center rounded-4" style="background-color: #161616;">
+                      <div class="col-3" id="followingImg">
                           <img src="../../../static/img/user.png" alt="Foto utente" class="rounded-circle img-fluid">
                       </div>
-                      <div class="col-8 text-start mt-3" id="followingP">
-                          <p>Mario Rossi</p>
+                      <div class="col-9 text-start mt-3" id="followingP">
+                          <p class="h2">Mario Rossi</p>
                       </div>
                   </div>
               </li>
@@ -134,13 +134,13 @@
           <!--LISTA DEI FOLLOWERS-->
           <ul class="list-group main-content mt-2" id="followers">
             <template>
-              <li href="#" class="list-group-item">
-                  <div class="row">
-                      <div class="col-2" id="followersImg">
+              <li>
+                  <div class="row m-2 p-3 align-items-center rounded-4" style="background-color: #161616;">
+                      <div class="col-3" id="followersImg">
                           <img src="../../../static/img/user.png" alt="Foto utente" class="rounded-circle img-fluid">
                       </div>
-                      <div class="col-8 text-start mt-3" id="followersP">
-                          <p>Mario Rossi</p>
+                      <div class="col-3 text-start mt-3" id="followersP">
+                          <p class="h2">Mario Rossi</p>
                       </div>
                   </div>
               </li>
@@ -163,14 +163,14 @@
             <h1 id="nameSurname" class="h3 mb-0">loading</h1>
             <p id="place" class="">loading</p>
             <div class="row">
-              <div class="col-6 text-center" data-bs-toggle="modal" data-bs-target="#Following">  
+              <button id="followingButton" class="btn btn-link setting-btn col-6 text-center" style="color: #f2f3f4" data-bs-toggle="modal" data-bs-target="#Following">  
                 <p class="mb-0">Following</p>
                 <p class="h5 ms-3 m-md-0 m-sm-0">543</p>
-              </div>
-              <div class="col-6 text-center" data-bs-toggle="modal" data-bs-target="#Followers">
+              </button>
+              <button id="followersButton" class="btn btn-link setting-btn col-6 text-center" style="color: #f2f3f4" data-bs-toggle="modal" data-bs-target="#Followers">
                 <p class="mb-0">Followers</p>
                 <p class="h5 ms-3 m-md-0 m-sm-0">543</p>
-              </div>
+              </button>
             </div>
           </div>
           <div class="col-2 text-end">
