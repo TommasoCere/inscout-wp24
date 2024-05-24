@@ -7,8 +7,8 @@ global $driver;
 
 $loggedUser =  $_GET["user"];
 
-$sql="SELECT * FROM UTENTI, FOLLOW WHERE UTENTI.username IN (
-        SELECT FOLLOW.usernameSeguito FROM FOLLOW WHERE usernameSeguace = '$loggedUser')";
+$sql="SELECT * FROM UTENTI WHERE UTENTI.username IN (
+    SELECT FOLLOW.usernameSeguito  FROM FOLLOW WHERE usernameSeguace ='".$loggedUser."')";
 
 try {
     $result = $driver->executeQuery($sql);
