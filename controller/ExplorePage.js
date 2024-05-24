@@ -1,5 +1,4 @@
 import { addHeaderFooter, getUserInfo, like, checkLike, isLogged, loadComments } from './utility.js';
-const defaultFeed = document.querySelector("#exploreAll");
 
 
 async function getExploreAll() {
@@ -21,7 +20,7 @@ async function getExplorerResearch() {
 }
 
 async function createFeed() {
-    feed = defaultFeed;
+    const feed = document.getElementById("exploreAll");
     const users = await getExploreAll();
     const template = feed.querySelector("template");
     for (let i = 0; i < users.length; i++) {
@@ -35,7 +34,8 @@ async function createFeed() {
 }
 
 async function createFeedResearch() {
-    feed = defaultFeed;
+    const feed = document.getElementById("exploreAll");
+    feed.innerHTML = "<template> <li class='mt-3 p-2 ps-4 mx-auto user-tag rounded-4' style='width: 9.6cm'> <div class='row align-items-center'> <div class='col-3' id='exploreAllImg'> <img src='/static/img/user.jpg' class='img-fluid rounded-circle' alt=''> </div> <div class='col-9' id='exploreAllName'> <p class='h4 text-start mb-2'>cippa.lippa</p> <button class='btn btn-primary mb-2' style='width: 90%;'>segui</button> </div> </div>          </li> </template>";
     const users = await getExplorerResearch();
     const template = feed.querySelector("template");
     for (let i = 0; i < users.length; i++) {
