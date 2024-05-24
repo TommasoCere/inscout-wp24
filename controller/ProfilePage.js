@@ -22,20 +22,12 @@ document.addEventListener("DOMContentLoaded", async function () {
   await LoadUserInfo(user);
   await loadMedals(user, 5, "medalsContainer");
   await createFeed(await getUserPosts(user));
-  
+  createFollowers(user);
+  createFollowing(user);
   
 
   document.getElementById("BadgeModal").addEventListener("show.bs.modal", function () {
   loadMedals(user, 0, "medalsContainerModal");
-  });
-
-  
-  document.querySelector("#followersButton").addEventListener("click", function () {
-    createFollowers(user);
-  });
-
-  document.querySelector("#followingButton").addEventListener("click", function () {
-    createFollowing(user);
   });
  
   document.getElementById("saveProfileImage").addEventListener("click", saveProfileImage);
@@ -282,7 +274,7 @@ async function createFollowers(viewuser) {
   const feed = document.querySelector("#followers");
   const users = await getFollower(viewuser);
   cleanTemplateList(feed);
-
+  document.getElementById("followersButtonP").innerHTML =users.length;
   const template = feed.querySelector("template");
   for (let i=0; i<users.length; i++) {
       let user = users[i];
@@ -312,8 +304,8 @@ async function createFollowing(viewuser) {
     const feed = document.querySelector("#following");
     const users = await getFollowing(viewuser);
     cleanTemplateList(feed);
-  
-   const template = feed.querySelector("template");
+    document.getElementById("followingButtonP").innerHTML =users.length;  
+    const template = feed.querySelector("template");
     for (let i = 0; i < users.length; i++) {
       let user = users[i];
       let clone = template.content.cloneNode(true);
