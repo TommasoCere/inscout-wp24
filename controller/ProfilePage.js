@@ -1,14 +1,19 @@
-import { addHeaderFooter, isLogged, createFeed, cleanTemplateList, showToast } from './utility.js';
+import { addHeaderFooter, isLogged, createFeed, cleanTemplateList, showToast, checkFollow, follow, unfollow } from './utility.js';
 
 
 
 
 //Pronod nome e cognome dell'utente e lo inserisco nel DOM con id "nameSurname"
 document.addEventListener("DOMContentLoaded", async function () {
+
+  const loggedUser = await getLoggedUsername();
   const user = new URLSearchParams(window.location.search).get("user");
   
-  if (user == null) {
-    document.querySelector("#follow").classList.add("d-none");
+  let follow = document.querySelector("#follow");
+  if (user == null || user == loggedUser) {
+    
+    follow.classList.add("d-none");
+
      // aggiungo un listener al pulsante saveMedals
     document.querySelector("#save").addEventListener("click", saveMedals);
   }
@@ -16,6 +21,19 @@ document.addEventListener("DOMContentLoaded", async function () {
     document.querySelector("#settings").classList.add("d-none");
     document.querySelector("#addMedal").classList.add("d-none");
     document.querySelector("#save").classList.add("d-none");
+    if(checkFollow(user)){
+      follow.innerHTML = "Non seguire più";
+      follow.classList.add("unfollow");
+      follow.addEventListener("click", function () {
+        unfollow(user, "follow");
+      });
+    } else {
+      follow.innerHTML = "Segui";
+      follow.classList.add("follow");
+      follow.addEventListener("click", function () {
+        follow(user, "follow");
+      });
+    }
   }
   TokenCheck();
   addHeaderFooter();
@@ -47,7 +65,13 @@ document.addEventListener("DOMContentLoaded", async function () {
 });
 
 
-
+async function getLoggedUsername() {
+  const response = await fetch("../../db/actions/auth/getLoggedUsername.php", {
+    method: "GET"
+  });
+  const user = await response.json();
+  return user;
+}
 
 function TokenCheck() {
   var logged = isLogged();

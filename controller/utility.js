@@ -146,6 +146,65 @@ export async function checkLike(post_id) {
   }
 }
 
+export async function checkFollow(username) {
+  const response = await fetch("http://localhost/db/actions/user/checkFollow.php?followed=" + username, {
+    method: "GET",
+  });
+
+  const result = await response.json();
+
+  if (result.message == "Follow exists") {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+export async function follow(username, followButtonId) {
+  await fetch("./../../db/actions/user/follow.php", {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      followed: username,
+    }),
+  });
+
+  const followButton = document.querySelector("#" + followButtonId);
+  followButton.innerHTML = "Non seguire più";
+  followButton.classList.remove("follow");
+  followButton.classList.add("unfollow");
+  resetEventListener(followButton, function () {
+    unfollow(username, followButtonId);
+  });
+}
+
+
+
+export async function unfollow(username, followButtonId) {
+  await fetch("./../../db/actions/user/unfollow.php", {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      followed: username,
+    }),
+  });
+
+  const followButton = document.querySelector("#" + followButtonId);
+  followButton.innerHTML = "Segui";
+  followButton.classList.remove("unfollow");
+  followButton.classList.add("follow");
+  resetEventListener(followButton, function () {
+    follow(username, followButtonId);
+  });
+}
+
+
 export async function createFeed(posts) {
   const feed = document.querySelector("#feed");
 
@@ -160,6 +219,7 @@ export async function createFeed(posts) {
     clone.querySelector("#postBody img").src = post.picturePath == null ? "/static/img/user.jpg" : post.picturePath;
     clone.querySelector("#likeNumber").innerHTML = post.nLikes;
     clone.querySelector("#description").innerHTML = post.text;
+    clone.querySelector("a").href = "./../profile/profile.html?user=" + post.authorUsername;
     clone.querySelector("li").setAttribute("name", post.id);
     let likeBtn = clone.querySelector("#likeButton");
     let commentBtn = clone.querySelector("#commentButton");

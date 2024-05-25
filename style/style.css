@@ -86,6 +86,16 @@ ol {
     padding: 0;
 }
 
+.unfollow{
+    background-color: gray;
+    border-color: gray;
+}
+
+.follow{
+    background-color: #002fff;
+    border-color: #002fff;
+}
+
 
 
 @font-face {
