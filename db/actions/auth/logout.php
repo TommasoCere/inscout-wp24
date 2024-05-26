@@ -16,6 +16,9 @@ session_destroy();
 // Cancella il cookie "token"
 setcookie('token', '', time() - 31536000, "/");
 
+// Cancella il cookie "loggedUsername"
+setcookie('loggedUsername', '', time() - 31536000, "/");
+
 // Cancella il cookie PHPSESSID
 setcookie('PHPSESSID', '', time() - 3600, '/');
 

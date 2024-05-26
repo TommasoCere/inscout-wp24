@@ -1,4 +1,4 @@
-import { addHeaderFooter, isLogged, createFeed, cleanTemplateList, showToast, checkFollow, follow, unfollow } from './utility.js';
+import { addHeaderFooter, isLogged, createFeed, cleanTemplateList, showToast, checkFollow, unfollow, follow } from './utility.js';
 
 
 
@@ -9,10 +9,10 @@ document.addEventListener("DOMContentLoaded", async function () {
   const loggedUser = await getLoggedUsername();
   const user = new URLSearchParams(window.location.search).get("user");
   
-  let follow = document.querySelector("#follow");
+  let followButton = document.querySelector("#follow");
   if (user == null || user == loggedUser) {
     
-    follow.classList.add("d-none");
+    followButton.classList.add("d-none");
 
      // aggiungo un listener al pulsante saveMedals
     document.querySelector("#save").addEventListener("click", saveMedals);
@@ -21,16 +21,17 @@ document.addEventListener("DOMContentLoaded", async function () {
     document.querySelector("#settings").classList.add("d-none");
     document.querySelector("#addMedal").classList.add("d-none");
     document.querySelector("#save").classList.add("d-none");
-    if(checkFollow(user)){
-      follow.innerHTML = "Non seguire più";
-      follow.classList.add("unfollow");
-      follow.addEventListener("click", function () {
+    let follows = await checkFollow(user);
+    if(follows){
+      followButton.innerHTML = "Non seguire più";
+      followButton.classList.add("unfollow");
+      followButton.addEventListener("click", function () {
         unfollow(user, "follow");
       });
     } else {
-      follow.innerHTML = "Segui";
-      follow.classList.add("follow");
-      follow.addEventListener("click", function () {
+      followButton.innerHTML = "Segui";
+      followButton.classList.add("follow");
+      followButton.addEventListener("click", function () {
         follow(user, "follow");
       });
     }
