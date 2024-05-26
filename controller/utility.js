@@ -153,7 +153,7 @@ export async function checkFollow(username) {
 
   const result = await response.json();
 
-  if (result.message == "Follow exists") {
+  if (result.message == "follow exists") {
     return true;
   } else {
     return false;
@@ -211,11 +211,10 @@ export async function createFeed(posts) {
   const template = feed.querySelector("template");
   var userInfo;
   for (let i = 0; i < posts.length; i++) {
-    userInfo = await getUserInfo(posts[i].authorUsername);
     let post = posts[i];
     let clone = template.content.cloneNode(true);
-    clone.querySelector("#postHeader img").src = userInfo.fotoProfilo == null ? "/static/img/user.jpg" : userInfo.fotoProfilo;
-    clone.querySelector("#postHeader p").innerHTML = userInfo.username;
+    clone.querySelector("#postHeader img").src = post.authorProfilePicturePath == null ? "/static/img/user.jpg" : post.authorProfilePicturePath;
+    clone.querySelector("#postHeader p").innerHTML = post.authorUsername;
     clone.querySelector("#postBody img").src = post.picturePath == null ? "/static/img/user.jpg" : post.picturePath;
     clone.querySelector("#likeNumber").innerHTML = post.nLikes;
     clone.querySelector("#description").innerHTML = post.text;
