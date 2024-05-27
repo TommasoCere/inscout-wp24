@@ -21,7 +21,7 @@
   </head>
   <body class="bg-custom-dark">
     <header class="container-fluid sticky-top"></header>
-    <main>
+    <main class="overflow-x-hidden overflow-y-hidden">
       <!--TOAST-->
       <div class="toast-container position-fixed top-0 end-0 p-3">
         <div
@@ -44,15 +44,15 @@
         </div>
       </div>
 
-      <div class="container-fluid d-flex flex-column align-items-center justify-content-center vh-100 custom-container">
+      <div class="col text-center"  style="max-width: 500px; margin: auto;">
         <!-- Container per la videocamera -->
-        <div class="container" style="width: 441px; height: 531px; position: relative">
-          <video id="cameraPreview" width="100%" height="100%" style="object-fit: cover"></video>
+        <div class="container cameraContainer">
+          <video id="cameraPreview" class="camera"></video>
           <!-- Aggiungi altri elementi o personalizzazioni necessarie qui -->
         </div>
 
         <!-- Pulsante per scattare la foto -->
-        <button id="captureButton" class="btn btn-primary mt-3">Scatta Foto</button>
+        <button id="captureButton" class="btn btn-primary mt-5">Scatta Foto</button>
       </div>
 
       <!-- MODALE COMMENTI e VISUALIZZAZIONE FOTO -->
