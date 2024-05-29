@@ -40,6 +40,8 @@ if ($result->num_rows > 0) {
         array_push($users, $user);
     }
     echo json_encode($users, JSON_PRETTY_PRINT);
+} else {
+    echo json_encode(array("response" => "no users"));
 }
 
 ?>
