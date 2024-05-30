@@ -17,7 +17,7 @@ async function getExplorerResearch() {
             method: "GET"
         });
         const users = await response.json();
-        if (users.length == 0) {
+        if (users == "Nessun utente trovato") {
             return null;
         }
         return users;
