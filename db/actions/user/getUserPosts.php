@@ -10,8 +10,8 @@
         $user = $username;
     }
 
-    $sql = "SELECT *
-    FROM POST
+    $sql = "SELECT p.*, u.fotoProfilo
+    FROM POST p JOIN UTENTI u ON p.usernameAutore = u.username
     WHERE usernameAutore = ?
     ORDER BY dataPubblicazione DESC";
     try {
@@ -29,7 +29,8 @@
                 $row["dataPubblicazione"],
                 $row["testo"],
                 $row["nLikes"],
-                $row["usernameAutore"]
+                $row["usernameAutore"],
+                $row["fotoProfilo"]
             );
             array_push($posts, $post);
         }

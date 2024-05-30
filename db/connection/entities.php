@@ -14,6 +14,7 @@
             private $text;
             private $nLikes;
             private $authorUsername;
+            private $authorProfilePicturePath;
 
             /**
              * Create a new post
@@ -25,13 +26,14 @@
              * @param string $authorUsername The username of the author
              */
             public function __construct($id = null, $picturePath = null, $publicationDate = null,
-                    $text = null, $nLikes = null, $authorUsername = null) {
+                    $text = null, $nLikes = null, $authorUsername = null, $authorProfilePicturePath = null) {
                 $this->id = $id;
                 $this->picturePath = $picturePath;
                 $this->publicationDate = $publicationDate;
                 $this->text = $text;
                 $this->nLikes = $nLikes;
                 $this->authorUsername = $authorUsername;
+                $this->authorProfilePicturePath = $authorProfilePicturePath;
             }
 
             public function getId() {
@@ -58,6 +60,10 @@
                 return $this->authorUsername;
             }
 
+            public function getAuthorProfilePicturePath() {
+                return $this->authorProfilePicturePath;
+            }
+
 
             public function update(\DBDriver $db) {
                 //TODO
@@ -74,7 +80,8 @@
                     'publicationDate' => $this->publicationDate,
                     'text' => $this->text,
                     'nLikes' => $this->nLikes,
-                    'authorUsername' => $this->authorUsername
+                    'authorUsername' => $this->authorUsername,
+                    'authorProfilePicturePath' => $this->authorProfilePicturePath
                 ];
             }
         }

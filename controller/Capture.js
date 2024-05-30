@@ -1,4 +1,4 @@
-import { addHeaderFooter } from './utility.js';
+import { addHeaderFooter, isLogged, showToast } from './utility.js';
 
 addHeaderFooter();
 
@@ -90,13 +90,13 @@ function uploadImage() {
         if (this.readyState == 4 && this.status == 200) {
             var response = JSON.parse(this.responseText);
             if (response.success) {
-                console.log(response);
+                
                 // chiudi il modale
                 const modal = bootstrap.Modal.getInstance(document.getElementById("exampleModal"));
                 modal.hide();
                 window.location.href = "../profile/profile.html";
             } else {
-                console.log(response.message);
+                showToast(response.message);
             }
         }
     };

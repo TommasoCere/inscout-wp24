@@ -37,6 +37,7 @@ Questo progetto è un social network sviluppato nell'ambito del corso di Tecnolo
 - Avviare Apache
 - Creare il file `conf.env` nella cartella `php` con il seguente contenuto:
 - Eseguire il comando per installare JWT `composer require firebase/php-jwt`
+- Eseguire il comando per installare SendGrid `sendgrid/sendgrid`
 
 ```
 DB_HOST=[server ip]

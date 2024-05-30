@@ -20,7 +20,7 @@ try {
 } catch (Exception $e) {
     throw new Exception("Error while connecting to the database: " . $e->getMessage());
 }
-
+/*
 $data = getDataToken();
 $data = json_decode($data);
 if($data->success){
@@ -28,7 +28,9 @@ if($data->success){
 }   
 else {
     $username = null;
-}
+} */
+
+$username = $_COOKIE['loggedUsername'] ?? null;
  
 global $DB_ROOT_PATH;
 global $driver;

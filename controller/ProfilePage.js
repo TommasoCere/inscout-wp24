@@ -1,14 +1,19 @@
-import { addHeaderFooter, isLogged, createFeed, cleanTemplateList } from './utility.js';
+import { addHeaderFooter, isLogged, createFeed, cleanTemplateList, showToast, checkFollow, unfollow, follow } from './utility.js';
 
 
 
 
 //Pronod nome e cognome dell'utente e lo inserisco nel DOM con id "nameSurname"
 document.addEventListener("DOMContentLoaded", async function () {
+
+  const loggedUser = await getLoggedUsername();
   const user = new URLSearchParams(window.location.search).get("user");
   
-  if (user == null) {
-    document.querySelector("#follow").classList.add("d-none");
+  let followButton = document.querySelector("#follow");
+  if (user == null || user == loggedUser) {
+    
+    followButton.classList.add("d-none");
+
      // aggiungo un listener al pulsante saveMedals
     document.querySelector("#save").addEventListener("click", saveMedals);
   }
@@ -16,6 +21,20 @@ document.addEventListener("DOMContentLoaded", async function () {
     document.querySelector("#settings").classList.add("d-none");
     document.querySelector("#addMedal").classList.add("d-none");
     document.querySelector("#save").classList.add("d-none");
+    let follows = await checkFollow(user);
+    if(follows){
+      followButton.innerHTML = "Non seguire più";
+      followButton.classList.add("unfollow");
+      followButton.addEventListener("click", function () {
+        unfollow(user, "follow");
+      });
+    } else {
+      followButton.innerHTML = "Segui";
+      followButton.classList.add("follow");
+      followButton.addEventListener("click", function () {
+        follow(user, "follow");
+      });
+    }
   }
   TokenCheck();
   addHeaderFooter();
@@ -47,12 +66,18 @@ document.addEventListener("DOMContentLoaded", async function () {
 });
 
 
-
+async function getLoggedUsername() {
+  const response = await fetch("../../db/actions/auth/getLoggedUsername.php", {
+    method: "GET"
+  });
+  const user = await response.json();
+  return user;
+}
 
 function TokenCheck() {
   var logged = isLogged();
   if (logged.success == false) {
-    console.log(logged.message);
+    
     window.location.href = "../auth/login/login.html";
   }
 }
@@ -152,7 +177,7 @@ function saveMedals() {
   const formData = new FormData();
   const medalName = document.getElementById("medalName").value;
   if (medalName == "") {
-    console.log("Inserisci un nome per la medaglia");
+    showToast("Inserisci un nome per la medaglia");
     return;
   }
   formData.append("titolo", medalName);
@@ -164,7 +189,7 @@ function saveMedals() {
         document.getElementById("medalName").value = "";
         window.location.reload();
       } else {
-        console.log(response.message);
+        showToast(response.message);
       }
     }
   };
@@ -181,12 +206,12 @@ function saveProfileImage() {
   const fileField = document.querySelector('input[type="file"]');
   // controllo che sia stato inserito un file
   if (!fileField.files[0]) {
-    console.log("Inserisci un file");
+    showToast("Inserisci un file");
     return;
   } else {
     // controllo che il file sia un'immagine
     if (!fileField.files[0].type.match("image.*")) {
-      console.log("Il file inserito non è un'immagine");
+      showToast("Il file inserito non è un'immagine");
       return;
     }
   }
@@ -202,7 +227,7 @@ function saveProfileImage() {
         modalInstance.hide();
         window.location.reload();
       } else {
-        console.log(response.message);
+        showToast(response.message);
       }
     }
   };
@@ -223,14 +248,13 @@ function deleteProfile() {
       if (response.success) {
         window.location.href = "../auth/login/login.html";
       } else {
-        console.log(response.message);
+        
       }
     }
   };
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
-  // chiamo il logout
-  //logout();
+  logout();
 }
 
 
@@ -244,7 +268,7 @@ function logout() {
       if (response.success) {
         window.location.href = "../auth/login/login.html";
       } else {
-        console.log(response.message);
+        showToast(response.message);
       }
     }
   };
@@ -267,23 +291,31 @@ async function getFollower(user) {
       method: "GET"
   });
   const users = await response.json();
-  return users;
+  if(users.response == "no users"){
+    return null;
+  } else {
+    return users;
+  }
+  
 }
 
 async function createFollowers(viewuser) {
   const feed = document.querySelector("#followers");
   const users = await getFollower(viewuser);
   cleanTemplateList(feed);
-  document.getElementById("followersButtonP").innerHTML =users.length;
-  const template = feed.querySelector("template");
-  for (let i=0; i<users.length; i++) {
+  document.getElementById("followersButtonP").innerHTML = users == null ? 0 : users.length;
+  if(users != null) {
+    const template = feed.querySelector("template");
+    for (let i=0; i<users.length; i++) {
       let user = users[i];
       let clone = template.content.cloneNode(true);
       clone.querySelector("#followersImg img").src = user.profilePicturePath;
       clone.querySelector("#followersP a").innerHTML = user.username;
       clone.querySelector("#followersP a").href="../../app/profile/profile.html?user="+user.username;
       feed.appendChild(clone);
+    }
   }
+  
 }
 
 async function getFollowing(user) {
@@ -297,22 +329,29 @@ async function getFollowing(user) {
       method: "GET"
   });
   const users = await response.json();
-  return users;
+  if(users.response == "no users"){
+    return null;
+  } else {
+    return users;
+  }
 }
 
 async function createFollowing(viewuser) {
     const feed = document.querySelector("#following");
     const users = await getFollowing(viewuser);
     cleanTemplateList(feed);
-    document.getElementById("followingButtonP").innerHTML =users.length;
-    const template = feed.querySelector("template");
-    for (let i = 0; i < users.length; i++) {
-      let user = users[i];
-      let clone = template.content.cloneNode(true);
-      clone.querySelector("#followingImg img").src = user.profilePicturePath;
-      clone.querySelector("#followingP a").innerHTML = user.username;
-      clone.querySelector("#followingP a").href="../../app/profile/profile.html?user="+user.username;
-      feed.appendChild(clone);
+    document.getElementById("followingButtonP").innerHTML =users == null ? 0 : users.length;
+    if (users != null) {
+      const template = feed.querySelector("template");
+      for (let i = 0; i < users.length; i++) {
+        let user = users[i];
+        let clone = template.content.cloneNode(true);
+        clone.querySelector("#followingImg img").src = user.profilePicturePath;
+        clone.querySelector("#followingP a").innerHTML = user.username;
+        clone.querySelector("#followingP a").href="../../app/profile/profile.html?user="+user.username;
+        feed.appendChild(clone);
+      }
     }
+    
 }
 

@@ -7,15 +7,13 @@
 
     $max_posts = 20;
 
-    $sql = "SELECT *
-    FROM POST
-    WHERE usernameAutore IN (
-        SELECT usernameSeguito
-        FROM FOLLOW
-        WHERE usernameSeguace = ?)
-    OR usernameAutore = ?
-    ORDER BY dataPubblicazione DESC
-    LIMIT ?";
+    $sql = "SELECT p.*, u.fotoProfilo
+            FROM POST p JOIN UTENTI u ON p.usernameAutore = u.username
+            WHERE p.usernameAutore IN
+            (SELECT f.usernameSeguito FROM FOLLOW f WHERE f.usernameSeguace = ?)
+            OR p.usernameAutore = ?
+            ORDER BY p.dataPubblicazione DESC
+            LIMIT ?";
     try {
         $result = $driver->executeQuery($sql, $username, $username, $max_posts);
     } catch (\Exception $e) {
@@ -31,7 +29,8 @@
                 $row["dataPubblicazione"],
                 $row["testo"],
                 $row["nLikes"],
-                $row["usernameAutore"]
+                $row["usernameAutore"],
+                $row["fotoProfilo"]
             );
             array_push($posts, $post);
         }

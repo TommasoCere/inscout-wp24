@@ -19,6 +19,7 @@
         include_once($DB_ROOT_PATH . 'actions' . DIRECTORY_SEPARATOR . 'auth' . DIRECTORY_SEPARATOR . 'token.php');
         $token = getToken($username, $cittaGruppo);
         setcookie('token', $token, time() + (31536000), "/", "", false, true);
+        setcookie('loggedUsername', $username, time() + (31536000), "/", "", false, true);
         header('Content-type: application/json');
         echo json_encode(['success' => true, 'message' => 'Accesso consentito']);
     } else {
