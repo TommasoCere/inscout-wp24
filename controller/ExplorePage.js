@@ -5,8 +5,8 @@ async function getExploreAll() {
     const response = await fetch("../../db/actions/user/getExploreAll.php", {
         method: "GET"
     });
-    const posts = await response.json();
-    return posts;
+    const users = await response.json();
+    return users;
 }
 
 async function getExplorerResearch() {
@@ -16,8 +16,11 @@ async function getExplorerResearch() {
         const response = await fetch("../../db/actions/user/getExplorerResearch.php?stringaRicerca="+search, {
             method: "GET"
         });
-        const posts = await response.json();
-        return posts;
+        const users = await response.json();
+        if (users.length == 0) {
+            return null;
+        }
+        return users;
     }
     return null;
 }
