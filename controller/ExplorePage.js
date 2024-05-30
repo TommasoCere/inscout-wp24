@@ -62,4 +62,6 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
     createFeedResearch();
 });
 
+document.getElementById("searchButton").addEventListener('click', getExplorerResearch());
+
 addHeaderFooter();

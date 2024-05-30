@@ -1,58 +1,51 @@
 <!DOCTYPE html>
 <html lang="it">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login System</title>
-    <link rel="stylesheet" href="/style/login.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
-    />
-    <link rel="icon" href="../../../static/img/favicon.png" />
-  </head>
 
-  <body class="text-center text-custom-white" style="background-color: #121212">
-    <!--TOAST-->
-    <div class="toast-container position-fixed top-0 end-0 p-3">
-      <div
-        id="liveToast"
-        class="toast text-white border-0 align-items-center"
-        style="background-color: #343a40"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-      >
-        <div class="d-flex">
-          <div class="toast-body" id="toast-body"></div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login System</title>
+  <link rel="stylesheet" href="/style/login.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  <link rel="icon" href="../../../static/img/favicon.png" />
+</head>
+
+<body class="text-center text-custom-white" style="background-color: #121212">
+  <!--TOAST-->
+  <div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="liveToast" class="toast text-white border-0 align-items-center" style="background-color: #343a40"
+      role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" id="toast-body"></div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+          aria-label="Close"></button>
       </div>
     </div>
+  </div>
 
-    <form class="form-signin" id="loginForm">
-      <img class="mb-4" src="../../../static/img/favicon.png" alt="" width="72" height="72" />
-      <h1 class="h3 mb-3 font-weight-normal">Login</h1>
-      <label for="username" class="sr-only" hidden>Username</label>
-      <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus />
+  <form class="form-signin" id="loginForm">
+    <img class="mb-4" src="../../../static/img/favicon.png" alt="" width="72" height="72" />
+    <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+    <label for="username" class="sr-only" hidden>Username</label>
+    <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus />
 
-      <label for="password" class="sr-only" hidden>Password</label>
-      <input type="password" id="password" name="password" class="form-control" placeholder="Password" required />
+    <label for="password" class="sr-only" hidden>Password</label>
+    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required />
 
-      <button type="submit" id="loginButton" class="btn btn-lg btn-primary btn-block">Login</button>
-      <p id="error-message"></p>
+    <button type="submit" id="loginButton" class="btn btn-lg btn-primary btn-block">Login</button>
+    <p id="error-message"></p>
 
-      <p>Non hai un account? <a href="../register/registration.html">Registrati</a></p>
-      <p>Torna alla <a href="../../index.html">Home</a></p>
-    </form>
-  </body>
+    <p>Non hai un account? <a href="../register/registration.html">Registrati</a></p>
+    <p>Torna alla <a href="../../index.html">Home</a></p>
+  </form>
+
 
   <script src="../../../controller/Login.js?v=14" type="module"></script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"
-  ></script>
+    crossorigin="anonymous"></script>
+
+</body>
+
 </html>
