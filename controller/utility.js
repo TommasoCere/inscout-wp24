@@ -213,7 +213,7 @@ export async function createFeed(posts) {
   for (let i = 0; i < posts.length; i++) {
     let post = posts[i];
     let clone = template.content.cloneNode(true);
-    clone.querySelector("#postHeader img").src = post.authorProfilePicturePath == null ? "/static/img/user.jpg" : post.authorProfilePicturePath;
+    clone.querySelector("#postHeader img").src = post.authorProfilePicturePath == "" ? "/static/img/user.jpg" : post.authorProfilePicturePath;
     clone.querySelector("#postHeader img").alt = "foto profilo di " + post.authorUsername;
     clone.querySelector("#postHeader p").innerHTML = post.authorUsername;
     clone.querySelector("#postBody img").src = post.picturePath == null ? "/static/img/user.jpg" : post.picturePath;
