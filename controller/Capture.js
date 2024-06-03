@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const cameraPreview = document.getElementById("cameraPreview");
     const captureButton = document.getElementById("captureButton");
 
-    // creo la variabile per l'immagine
     var imgamge = new Image();
 
     // Richiedi l'accesso alla fotocamera
@@ -19,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .catch((error) => console.error('Errore nell\'accesso alla fotocamera:', error));
 
-    // Gestisci il click sul pulsante di cattura
     captureButton.addEventListener("click", function() {
         takePicture();
         showModale();
@@ -30,32 +28,27 @@ document.addEventListener("DOMContentLoaded", function() {
         const canvas = document.createElement("canvas");
         const context = canvas.getContext("2d");
 
-        // Imposta le dimensioni del canvas come quelle del video
-        canvas.width = 441;
-        canvas.height = 531;
+        const videoWidth = cameraPreview.videoWidth;
+        const videoHeight = cameraPreview.videoHeight;
 
-        // Disegna il frame corrente del video sul canvas
+        canvas.width = videoWidth;
+        canvas.height = videoHeight;
+
         context.drawImage(cameraPreview, 0, 0, canvas.width, canvas.height);
 
-        // Ottieni il data URL dell'immagine
         var imageDataURL = canvas.toDataURL("image/jpeg");
-
-        // ritaglia l'immagine con width: 441px; height: 531px;
-        
         
         // salva l'immagine
         imgamge.src = imageDataURL;
     }
 
     function showModale() {
-        // Mostra il modale con id exampleModal
         const modal = new bootstrap.Modal(document.getElementById("exampleModal"));
         modal.show();
-        // Aggiungi l'immagine al img con id capturedImage
         document.getElementById("capturedImage").src = imgamge.src;
-        // aggiungi il click listener al pulsante di carico
         document.getElementById("saveButton").addEventListener("click", function() {
             uploadImage();
+            document.getElementById("saveButton").removeEventListener("click", uploadImage);
         });
     }
 });
@@ -73,12 +66,10 @@ class TokenCheck {
 }
 
 function uploadImage() {
-    // Ottieni l'immagine da capturedImage
+    console.log("uploadImage");
     const imageRow = document.getElementById("capturedImage").src;
-    // ottieni il commento
     const comment = document.getElementById("message-text").value;
     
-    // converti l'immagine in un blob
     const image = convertBase64ToBlob(imageRow.split(",")[1]);
 
     const xmlhttp = new XMLHttpRequest();
