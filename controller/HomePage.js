@@ -1,25 +1,22 @@
-import { addHeaderFooter, getUserInfo, like, checkLike, isLogged, loadComments, createFeed } from './utility.js';
-
+import { addHeaderFooter, getUserInfo, like, checkLike, isLogged, loadComments, createFeed } from "./utility.js";
 
 async function getFeed() {
-    const response = await fetch("../../db/actions/user/getFeed.php", {
-        method: "GET"
-    });
-    const posts = await response.json();
-    return posts;
+  const response = await fetch("../../db/actions/user/getFeed.php", {
+    method: "GET",
+  });
+  const posts = await response.json();
+  return posts;
 }
 
 function TokenCheck() {
-    var logged = isLogged();
-    if (logged == false) {
-        
-        window.location.href = "../auth/login/login.html";
-    }
+  var logged = isLogged();
+  if (logged == false) {
+    window.location.href = "../auth/login/login.html";
+  }
 }
 
-
-document.addEventListener('DOMContentLoaded', function() {
-    TokenCheck();
+document.addEventListener("DOMContentLoaded", function () {
+  TokenCheck();
 });
 addHeaderFooter();
 createFeed(await getFeed());

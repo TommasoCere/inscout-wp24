@@ -1,69 +1,87 @@
 <!DOCTYPE html>
 <html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <link rel="stylesheet" href="/style/capture.css" />
+    <link rel="stylesheet" href="/style/style.css" />
+    <title>Scatta Foto</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-    crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-  <link rel="stylesheet" href="/style/capture.css" />
-  <link rel="stylesheet" href="/style/style.css" />
-  <title>Scatta Foto</title>
-</head>
-
-<body class="bg-custom-dark">
-  <header class="container-fluid sticky-top"></header>
-  <main class="overflow-x-hidden overflow-y-hidden">
-    <!--TOAST-->
-    <div class="toast-container position-fixed top-0 end-0 p-3">
-      <div id="liveToast" class="toast text-white border-0 align-items-center" style="background-color: #343a40"
-        role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-          <div class="toast-body" id="toast-body"></div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-            aria-label="Close"></button>
+  <body class="bg-custom-dark">
+    <header class="container-fluid sticky-top"></header>
+    <main class="overflow-x-hidden overflow-y-hidden">
+      <!--TOAST-->
+      <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div
+          id="liveToast"
+          class="toast text-white border-0 align-items-center"
+          style="background-color: #343a40"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div class="d-flex">
+            <div class="toast-body" id="toast-body"></div>
+            <button
+              type="button"
+              class="btn-close btn-close-white me-2 m-auto"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="col text-center" style="max-width: 500px; margin: auto;">
-      <!-- Container per la videocamera -->
-      <div class="container cameraContainer">
-        <video id="cameraPreview" class="camera"></video>
+      <div class="col text-center" style="max-width: 500px; margin: auto">
+        <!-- Container per la videocamera -->
+        <div class="container cameraContainer">
+          <video id="cameraPreview" class="camera"></video>
+        </div>
+        <button id="switchCameraButton" class="btn btn-primary mt-5">
+          <img style="width: 30px"
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACVklEQVR4nO2Yy2oUQRSGP8dL1KiogYBbBYUoLtyIGkERxM1gRiToI6h4ewidZJVV3iBZ+CwuBhI0EbNQmfgAGnRQsaXg73Bs1Omuqenplvqh6JnqPqfr66o+51RDVFRUVFQNdQv4CCQDNuejNSqIc8C3ABBp+w6cLxtiP7CuASwE8LcgX+vyXZoWdeMVYCyAvzH5SuTbW3uA+YLrvQecJZycr16B+28CbY19W3MF13MXaBJeTQ2wyFieWwep8UXqo0tmZraV0tVNSXbcEeR/npG9wF3gBfAO+AJsKUcsA7PA7qqD3AQ+5Ig0b4GZKoN8lp8OcA84BewDxoEp4BGwqmt+KnftqCJIC7gDNP5xTUOQvT/lgTpGrasGpjlqkEk1Xz0w78xvpUaZIJNa76sDwOw074wLFKWDpBCpnQ/MNeAo8FQ+ltR/BLieMwgMBJKF8IGZNvuPG8b+mNnnXB4myCED4Y4/9Pu16TuYw8+4QrSzea+jS5xrJnwfGCbIdObpf9L/EwbQXZNHEwbGto7OMeyldcE89Teym9JsuXNFlIXpFIAIGn6XZfcYfx0GXnpABAWZld1Kn2zeTxMeEEFBXBLbkK0rO8pWErJEacnWlRtXCtgdB04ymJLQtdacgbmvjP03uSX4EPiqqFcpkEbmS4wLxU+A08oHLm+cURn/ylw3XzWQVDMqAPttrDY8a6tSy3i3jb2t2mlNm60t5ZwlRbpdge6VVGE/EkJJBKn6jGyqw32GrNsn067tbOeINFVtz7KlRtvjS/goW1cQPnv9qKioqCiC6BdgKK6lSSxMfAAAAABJRU5ErkJggg=="
+          />
+        </button>
+        <button id="captureButton" style="margin-left: 10px" class="btn btn-primary mt-5">Scatta Foto</button>
       </div>
 
-      <button id="captureButton" class="btn btn-primary mt-5">Scatta Foto</button>
-    </div>
-
-    <!-- MODALE COMMENTI e VISUALIZZAZIONE FOTO -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-dialog-centered-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Carica il post</h1>
-          </div>
-          <div class="modal-body d-flex flex-column align-items-center">
-            <img src="#" id="capturedImage" class="img-fluid" alt="imgCapture" />
-            <div class="row mb-2 m-1 mt-5 mb-0">
-              <div class="my-comment p-2">
-                <textarea class="form-control" id="message-text"></textarea>
+      <!-- MODALE COMMENTI e VISUALIZZAZIONE FOTO -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-centered-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Carica il post</h1>
+            </div>
+            <div class="modal-body d-flex flex-column align-items-center">
+              <img src="#" id="capturedImage" class="img-fluid" alt="imgCapture" />
+              <div class="row mb-2 m-1 mt-5 mb-0">
+                <div class="my-comment p-2">
+                  <textarea class="form-control" id="message-text"></textarea>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-            <button type="button" class="btn btn-primary" id="saveButton">Carica</button>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+              <button type="button" class="btn btn-primary" id="saveButton">Carica</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </main>
-  <footer class="footer fixed-bottom"></footer>
-  <script src="../../controller/Capture.js?v=14" type="module"></script>
-</body>
-
+    </main>
+    <footer class="footer fixed-bottom"></footer>
+    <script src="../../controller/Capture.js?v=14" type="module"></script>
+  </body>
 </html>

@@ -35,7 +35,7 @@ Questo progetto è un social network sviluppato nell'ambito del corso di Tecnolo
 - Installare XAMPP
 - Clonare il repository nella cartella htdocs di XAMPP
 - Avviare Apache
-- Creare il file `conf.env` nella cartella `php` con il seguente contenuto:
+- Creare il file `conf.env` nella cartella `connection` con il seguente contenuto:
 - Eseguire il comando per installare JWT `composer require firebase/php-jwt`
 - Eseguire il comando per installare SendGrid `composer require sendgrid/sendgrid`
 - Controllare le autorizzazioni `sudo chmod 775 static` e `sudo chown -R www-data:www-data static`
