@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const captureButton = document.getElementById("captureButton");
   const switchCameraButton = document.getElementById("switchCameraButton");
 
-  var imgamge = new Image();
+  var image = new Image();
   var currentStream = null;
   var useFrontCamera = true;
 
@@ -42,10 +42,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   captureButton.addEventListener("click", function () {
     takePicture();
-    showModale();
+    showModal();
   });
 
-  toggleCameraButton.addEventListener("click", function () {
+  switchCameraButton.addEventListener("click", function () {
     useFrontCamera = !useFrontCamera;
     startCamera();
   });

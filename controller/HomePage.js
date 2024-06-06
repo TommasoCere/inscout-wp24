@@ -1,4 +1,4 @@
-import { addHeaderFooter, getUserInfo, like, checkLike, isLogged, loadComments, createFeed } from "./utility.js";
+import { addHeaderFooter, getUserInfo, like, checkLike, isLogged, loadComments, createFeed, showToast } from "./utility.js";
 
 async function getFeed() {
   const response = await fetch("../../db/actions/user/getFeed.php", {
@@ -12,6 +12,8 @@ function TokenCheck() {
   var logged = isLogged();
   if (logged == false) {
     window.location.href = "../auth/login/login.html";
+  } else {
+    showToast("Benvenuto ");
   }
 }
 
