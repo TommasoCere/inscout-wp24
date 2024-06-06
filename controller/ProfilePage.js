@@ -102,20 +102,18 @@ async function LoadUserInfo(user) {
     url = "../../db/actions/user/getUserInfo.php?user=" + user;
   }
 
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      var response = JSON.parse(this.responseText);
-      document.getElementById("nameSurname").innerHTML = response.name + " " + response.surname;
-      document.getElementById("place").innerHTML = response.section + ", " + response.groupCity + " " + response.groupNumber;
-      if (response.profilePicturePath != "") {
-        var path = response.profilePicturePath.replace("../", "http://localhost/");
-        document.getElementById("avatar").src = path;
-      }
-    }
-  };
-  xmlhttp.open("GET", url, true);
-  xmlhttp.send();
+  let response = await fetch(url, {
+    method: "GET",
+  });
+  response = await response.json();
+  document.getElementById("nameSurname").innerHTML = response.name + " " + response.surname;
+  document.getElementById("place").innerHTML = response.section + ", " + response.groupCity + " " + response.groupNumber;
+  if (response.profilePicturePath != "") {
+    var path = response.profilePicturePath.replace("../", "http://localhost/");
+    document.getElementById("avatar").src = path;
+  }
 }
+
 
 async function loadMedals(user, num, idContainer) {
   let url;
