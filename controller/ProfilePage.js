@@ -108,7 +108,7 @@ async function LoadUserInfo(user) {
       document.getElementById("nameSurname").innerHTML = response.name + " " + response.surname;
       document.getElementById("place").innerHTML = response.section + ", " + response.groupCity + " " + response.groupNumber;
       if (response.profilePicturePath != "") {
-        var path = response.profilePicturePath.replace("../", "http://localhost/");
+        var path = response.profilePicturePath.replace("../", "https://inscout.me/");
         document.getElementById("avatar").src = path;
       }
     }
@@ -205,7 +205,7 @@ function saveProfileImage() {
     if (this.readyState == 4 && this.status == 200) {
       var response = JSON.parse(this.responseText);
       if (response.success) {
-        var path = response.path.replace("../", "http://localhost/");
+        var path = response.path.replace("../", "https://inscout.me/");
         document.getElementById("avatar").src = path;
         var modal = document.getElementById("settingsModal");
         var modalInstance = bootstrap.Modal.getInstance(modal);
