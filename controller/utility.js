@@ -1,12 +1,12 @@
 export function addHeaderFooter() {
   // adds the header and footer to the page
-  fetch("http://localhost/app/base/header.html")
+  fetch("./../base/header.html")
     .then((response) => response.text())
     .then((data) => {
       document.querySelector("header").innerHTML = data;
     });
 
-  fetch("http://localhost/app/base/footer.html")
+  fetch("./../base/footer.html")
     .then((response) => response.text())
     .then((data) => {
       document.querySelector("footer").innerHTML = data;
@@ -39,7 +39,7 @@ export function isLogged() {
 }
 
 export async function getUserInfo(username) {
-  const response = await fetch("http://localhost/db/actions/user/getUserInfo.php?user=" + username, {
+  const response = await fetch("./../../db/actions/user/getUserInfo.php?user=" + username, {
     method: "GET",
   });
   const userInfo = await response.json();
@@ -105,7 +105,7 @@ async function submitComment(post_id) {
 }
 
 export async function like(post_id, toAdd, likeButton_id, likes_id) {
-  const request = toAdd ? "./../../db/actions/user/like.php" : "http://localhost/db/actions/user/unlike.php";
+  const request = toAdd ? "./../../db/actions/user/like.php" : "./../../db/actions/user/unlike.php";
   await fetch(request, {
     method: "POST",
     credentials: "include",
@@ -133,7 +133,7 @@ export async function like(post_id, toAdd, likeButton_id, likes_id) {
 }
 
 export async function checkLike(post_id) {
-  const response = await fetch("http://localhost/db/actions/user/checkLike.php?postId=" + post_id, {
+  const response = await fetch("./../../db/actions/user/checkLike.php?postId=" + post_id, {
     method: "GET",
   });
 
@@ -147,7 +147,7 @@ export async function checkLike(post_id) {
 }
 
 export async function checkFollow(username) {
-  const response = await fetch("http://localhost/db/actions/user/checkFollow.php?followed=" + username, {
+  const response = await fetch("./../../db/actions/user/checkFollow.php?followed=" + username, {
     method: "GET",
   });
 
