@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const cameraPreview = document.getElementById("cameraPreview");
   const captureButton = document.getElementById("captureButton");
   const switchCameraButton = document.getElementById("switchCameraButton");
+  const loadImageButton = document.getElementById("loadImageButton");
 
   var image = new Image();
   var currentStream = null;
@@ -50,6 +51,27 @@ document.addEventListener("DOMContentLoaded", function () {
     startCamera();
   });
 
+  loadImageButton.addEventListener("click", function () {
+    const fileField = document.querySelector('input[type="file"]');
+    // controllo che sia stato inserito un file
+    if (!fileField.files[0]) {
+      showToast("Inserisci un file");
+      return;
+    } else {
+      // controllo che il file sia un'immagine
+      if (!fileField.files[0].type.match("image.*")) {
+        showToast("Il file inserito non è un'immagine");
+        return;
+      }
+    }
+    const reader = new FileReader();
+    reader.onload = function () {
+      image.src = reader.result;
+      showModale();
+    };
+    reader.readAsDataURL(fileField.files[0]);
+  });
+
   // Funzione per catturare la foto
   function takePicture() {
     const canvas = document.createElement("canvas");
@@ -66,13 +88,13 @@ document.addEventListener("DOMContentLoaded", function () {
     var imageDataURL = canvas.toDataURL("image/jpeg");
 
     // salva l'immagine
-    imgamge.src = imageDataURL;
+    image.src = imageDataURL;
   }
 
   function showModale() {
     const modal = new bootstrap.Modal(document.getElementById("exampleModal"));
     modal.show();
-    document.getElementById("capturedImage").src = imgamge.src;
+    document.getElementById("capturedImage").src = image.src;
     document.getElementById("saveButton").addEventListener("click", function () {
       uploadImage();
       document.getElementById("saveButton").removeEventListener("click", uploadImage);
