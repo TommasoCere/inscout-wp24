@@ -11,6 +11,7 @@ async function getFeed() {
 function TokenCheck() {
   var logged = isLogged();
   if (logged == false) {
+    showToast("Devi effettuare il login per accedere a questa pagina");
     window.location.href = "../auth/login/login.html";
   } else {
     showToast("Benvenuto ");
