@@ -28,11 +28,10 @@ try {
         foreach ($files_profile as $file) {
             unlink($file);
         }
+        return json_encode(array("success" => true, "message" => "Account eliminato con successo"));
     } catch (\Exception $e) {
-        throw new \Exception("Error while committing the transaction: " . $e->getMessage());
+        return json_encode(array("success" => true, "message" => "Account eliminato con successo: " + $e->getMessage()));
     }
 } catch (\Exception $e) {
-    throw new \Exception("Error while querying the database: " . $e->getMessage());
+    return json_encode(array("success" => false, "message" => "Errore durante l'eliminazione dell'account: " + $e->getMessage()));
 }
-echo json_encode(array("success" => true, "message" => "Account eliminato con successo"));
-?>

@@ -227,6 +227,7 @@ function deleteProfile() {
       if (response.success) {
         window.location.href = "../auth/login/login.html";
       } else {
+        showToast(response.message);
       }
     }
   };
