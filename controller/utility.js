@@ -31,7 +31,7 @@ export function isLogged() {
   xhr.send();
   if (xhr.readyState == 4 && xhr.status == 200) {
     var response = JSON.parse(xhr.responseText);
-    return response.message == "Accesso consentito";
+    return response;
   } else {
     console.error("isLogged function error");
     return false;
@@ -181,8 +181,6 @@ export async function follow(username, followButtonId) {
   });
 }
 
-
-
 export async function unfollow(username, followButtonId) {
   await fetch("./../../db/actions/user/unfollow.php", {
     method: "POST",
@@ -204,7 +202,6 @@ export async function unfollow(username, followButtonId) {
   });
 }
 
-
 export async function createFeed(posts) {
   const feed = document.querySelector("#feed");
 
@@ -213,7 +210,8 @@ export async function createFeed(posts) {
   for (let i = 0; i < posts.length; i++) {
     let post = posts[i];
     let clone = template.content.cloneNode(true);
-    clone.querySelector("#postHeader img").src = post.authorProfilePicturePath == "" ? "/static/img/user.jpg" : post.authorProfilePicturePath;
+    clone.querySelector("#postHeader img").src =
+      post.authorProfilePicturePath == "" ? "/static/img/user.jpg" : post.authorProfilePicturePath;
     clone.querySelector("#postHeader img").alt = "foto profilo di " + post.authorUsername;
     clone.querySelector("#postHeader p").innerHTML = post.authorUsername;
     clone.querySelector("#postBody img").src = post.picturePath == null ? "/static/img/user.jpg" : post.picturePath;
@@ -273,9 +271,9 @@ export async function sendEmail(userEmail, username, subject, text1, text2, text
   );
 }
 
-export function showToast( message ) {
-  const toastContent = document.getElementById('liveToast');
-  const toastBody = document.getElementById('toast-body');
+export function showToast(message) {
+  const toastContent = document.getElementById("liveToast");
+  const toastBody = document.getElementById("toast-body");
 
   // Aggiorna il contenuto del toast
   toastBody.textContent = message;
@@ -290,5 +288,4 @@ export function showToast( message ) {
   setTimeout(() => {
     toast.hide();
   }, 5000);
-
 }

@@ -4,6 +4,7 @@ import { addHeaderFooter, isLogged, createFeed, cleanTemplateList, showToast, ch
 
 //Pronod nome e cognome dell'utente e lo inserisco nel DOM con id "nameSurname"
 document.addEventListener("DOMContentLoaded", async function () {
+  TokenCheck();
   const settingsContainer = document.getElementById("settingsContainer");
   settingsContainer.classList.add("d-none");
   const loggedUser = await getLoggedUsername();
@@ -34,7 +35,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       });
     }
   }
-  TokenCheck();
   addHeaderFooter();
   await LoadUserInfo(user);
   await loadMedals(user, 5, "medalsContainer");
@@ -108,7 +108,7 @@ async function LoadUserInfo(user) {
   response = await response.json();
   document.getElementById("nameSurname").innerHTML = response.name + " " + response.surname;
   document.getElementById("place").innerHTML = response.section + ", " + response.groupCity + " " + response.groupNumber;
-  if (response.profilePicturePath != "") {
+  if (response.profilePicturePath != "" && response.profilePicturePath != null) {
     var path = response.profilePicturePath.replace("../", "https://inscout.me/");
     document.getElementById("avatar").src = path;
   }
@@ -232,6 +232,7 @@ function deleteProfile() {
   };
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
+  
   logout();
 }
 
