@@ -114,7 +114,6 @@ async function LoadUserInfo(user) {
   }
 }
 
-
 async function loadMedals(user, num, idContainer) {
   let url;
   let medals = [];
