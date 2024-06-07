@@ -38,7 +38,7 @@ Questo progetto è un social network sviluppato nell'ambito del corso di Tecnolo
 - Creare il file `conf.env` nella cartella `connection` con il seguente contenuto:
 - Eseguire il comando per installare JWT `sudo composer require firebase/php-jwt`
 - Eseguire il comando per installare SendGrid `sudo composer require sendgrid/sendgrid`
-- Controllare le autorizzazioni `sudo chmod 775 static` e `sudo chown -R www-data:www-data static`
+- Controllare le autorizzazioni `sudo chmod 775 ./static/*` e `sudo chown -R www-data:www-data ./static/*`
 - sudo cp -rf /home/tom/Documenti/inscout-wp24/* ./
 
 
