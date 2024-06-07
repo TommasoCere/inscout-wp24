@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   captureButton.addEventListener("click", function () {
     takePicture();
-    showModal();
+    showModale();
   });
 
   switchCameraButton.addEventListener("click", function () {
@@ -70,6 +70,8 @@ document.addEventListener("DOMContentLoaded", function () {
       showModale();
     };
     reader.readAsDataURL(fileField.files[0]);
+
+    
   });
 
   // Funzione per catturare la foto
@@ -114,7 +116,6 @@ class TokenCheck {
 }
 
 function uploadImage() {
-  console.log("uploadImage");
   const imageRow = document.getElementById("capturedImage").src;
   const comment = document.getElementById("message-text").value;
 
