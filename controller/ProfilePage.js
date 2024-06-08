@@ -129,15 +129,23 @@ async function loadMedals(user, num, idContainer) {
   medals = await response.json();
   medals = medals.medaglie;
 
+  let tmpMedals;
   if (num == 0) {
-    var tmpMedals = medals;
+    tmpMedals = medals;
   } else {
-    var tmpMedals = medals.slice(0, num);
+    tmpMedals = medals.slice(0, num);
   }
-  var medalsContainer = document.getElementById(idContainer);
+  let medalsContainer = document.getElementById(idContainer);
+
+  let children = medalsContainer.querySelectorAll(".medal");
+  children.forEach(c => {
+    c.remove();
+  })
+  
+
   for (var i = 0; i < tmpMedals.length; i++) {
     const medalDiv = document.createElement("div");
-    medalDiv.classList.add("col-4", "text-center", "mb-2");
+    medalDiv.classList.add("col-4", "text-center", "mb-2", "medal");
 
     const medalImg = document.createElement("img");
     medalImg.classList.add("img-fluid", "col-3");
