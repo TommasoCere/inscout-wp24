@@ -1,11 +1,11 @@
 # INSCOUT
 ## Un Social Network Scoutistico
 
-Benvenuto in ScoutSocial, il social network dedicato agli appassionati di scouting!
+Benvenuto in Inscout, il social network dedicato agli appassionati di scouting!
 
 ## Descrizione del Progetto
 
-Questo progetto è un social network sviluppato nell'ambito del corso di Tecnologie Web. Si tratta di una piattaforma pensata per gli amanti dello scouting, dove gli utenti possono connettersi, condividere esperienze scout, messaggiare e molto altro.
+Questo progetto è un social network sviluppato nell'ambito del corso di Tecnologie Web. Si tratta di una piattaforma pensata per gli amanti dello scouting, dove gli utenti possono connettersi, condividere esperienze scout, e molto altro.
 
 ### Vai al sito: [inscout](https://inscout.me)
 
@@ -18,9 +18,8 @@ Questo progetto è un social network sviluppato nell'ambito del corso di Tecnolo
 ## Caratteristiche Principali
 
 - Profili utente personalizzati
-- Feed per condividere foto e storie
-- Massimo tre storie a settimana
-- Sistema di medaglie per la fedelizzazione
+- Feed per condividere foto
+- Medaglie per personalizzare il profilo
 
 ## Tecnologie Utilizzate
 
