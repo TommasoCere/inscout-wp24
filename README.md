@@ -39,8 +39,8 @@ Questo progetto è un social network sviluppato nell'ambito del corso di Tecnolo
 - Eseguire il comando per installare SendGrid `sudo composer require sendgrid/sendgrid`
 
 ## Comandi utili per il deploy su Raspberry Pi 4
-- Controllare le autorizzazioni `sudo chmod 775 ./static/*` e `sudo chown -R www-data:www-data ./static/*`
 - Copiare il contenuto `sudo cp -rf /home/tom/Documenti/inscout-wp24/* ./`
+- Controllare le autorizzazioni `sudo chmod 775 ./static/*` e `sudo chown -R www-data:www-data ./static/*`
 - Riavviare Apache `sudo service apache2 restart`
 
 
@@ -52,4 +52,5 @@ DB_PASSWORD=[db password]
 DB_NAME=[db name]
 JWT_SECRET_TOKEN=[jwt secret]
 SHA_SECRET_TOKEN=[sha secret]
+SENDGRID_API_KEY=[sendgrid api key]
 ```

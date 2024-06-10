@@ -1,14 +1,16 @@
 <?php
+
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-function getDataToken() {
+function getDataToken()
+{
     require_once(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php');
     loadEnvSecretKey();
 
     if (isset($_COOKIE['token'])) {
         $token = $_COOKIE['token'];
-        try{
+        try {
             $secretKey = getenv('JWT_SECRET_TOKEN');
             $decoded = JWT::decode($token, new Key($secretKey, 'HS256'));
             if ($decoded->exp > time()) {
@@ -25,4 +27,3 @@ function getDataToken() {
         return json_encode(array("success" => false, "message" => "Token non trovato"));
     }
 }
-?>

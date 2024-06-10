@@ -21,12 +21,12 @@ if ($num_row >= 1) {
     // controllo se l'email esiste già
     $sql = "SELECT * FROM UTENTI WHERE email = '$email'";
     $result = $driver->executeQuery($sql);
-    
+
     $num_row = mysqli_num_rows($result);
     // controllo se l'username esiste già
     $sql = "SELECT * FROM UTENTI WHERE username = '$username'";
     $result = $driver->executeQuery($sql);
-    
+
     $num_row += mysqli_num_rows($result);
     if ($num_row >= 1) {
         if ($num_row >= 2) {
@@ -36,7 +36,9 @@ if ($num_row >= 1) {
         }
     } else {
         try {
-            $sql = "INSERT INTO UTENTI (username, password, email, nome, cognome, branca, cittaGruppo, numeroGruppo, fotoProfilo) VALUES ('$username', '$password', '$email', '$nome', '$cognome', '$branca', '$cittaGruppo', '$numeroGruppo', '$fotoProfilo')";
+            $shaToken = getShaToken();
+            $hashedPassword = hash_hmac('sha256', $password, $shaToken);
+            $sql = "INSERT INTO UTENTI (username, password, email, nome, cognome, branca, cittaGruppo, numeroGruppo, fotoProfilo) VALUES ('$username', '$hashedPassword', '$email', '$nome', '$cognome', '$branca', '$cittaGruppo', '$numeroGruppo', '$fotoProfilo')";
             $result = $driver->executeQuery($sql);
             echo json_encode(array('success' => true, 'message' => 'Registrazione avvenuta con successo'));
         } catch (\Exception $e) {
@@ -44,4 +46,3 @@ if ($num_row >= 1) {
         }
     }
 }
-?>

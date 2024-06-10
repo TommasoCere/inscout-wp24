@@ -2,6 +2,7 @@
 require_once(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'utils.php');
 require_once(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php');
 loadEnvSecretKey();
+
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
@@ -9,7 +10,7 @@ use Firebase\JWT\Key;
 
 if (isset($_COOKIE['token'])) {
     $token = $_COOKIE['token'];
-    try{
+    try {
         $secretKey = getenv('JWT_SECRET_TOKEN');
         $decoded = JWT::decode($token, new Key($secretKey, 'HS256'));
         if ($decoded->exp > time()) {
@@ -23,5 +24,3 @@ if (isset($_COOKIE['token'])) {
 } else {
     echo json_encode(array("success" => false, "message" => "Token non presente"));
 }
-
-?>

@@ -20,8 +20,8 @@ $fileHtml = str_replace('{{textButton}}', $textButton, $fileHtml);
 $fileHtml = str_replace('{{linkButton}}', $linkButton, $fileHtml);
 $fileHtml = str_replace('{{callColor}}', $color, $fileHtml);
 
-$email = new \SendGrid\Mail\Mail(); 
-$email->setFrom("info@inscout.me", "Inscout"); 
+$email = new \SendGrid\Mail\Mail();
+$email->setFrom("info@inscout.me", "Inscout");
 $email->setSubject($subject);
 $email->addTo($userEmail, $username);
 $email->addContent("text/html", $fileHtml);
@@ -32,4 +32,3 @@ try {
 } catch (Exception $e) {
     echo json_encode(array('success' => false, 'message' => 'Errore durante l\'invio dell\'email'));
 }
-
